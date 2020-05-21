@@ -18,9 +18,9 @@ import com.javainuse.service.JwtUserDetailsService;
 
 
 import com.javainuse.config.JwtTokenUtil;
-import com.javainuse.model.JwtRequest;
-import com.javainuse.model.JwtResponse;
-import com.javainuse.model.UserDTO;
+import com.oop.models.JwtRequest;
+import com.oop.models.JwtResponse;
+import com.oop.models.UserDTO;
 
 @RestController
 @CrossOrigin

@@ -11,8 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.javainuse.dao.UserDao;
-import com.javainuse.model.DAOUser;
-import com.javainuse.model.UserDTO;
+import com.oop.models.DAOUser;
+import com.oop.models.UserDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

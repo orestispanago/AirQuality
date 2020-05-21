@@ -1,4 +1,4 @@
-package com.javainuse.model;
+package com.oop.models;
 
 public class UserDTO {
 	private String username;
