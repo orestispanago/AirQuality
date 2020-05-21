@@ -1,11 +1,15 @@
 package com.oop.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collection;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "email"), 
+    @UniqueConstraint(columnNames = "username")})
+
 public class AppUser {
 
     @Id
@@ -24,6 +28,15 @@ public class AppUser {
     private String password;
     @Column
     private String address;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "roles_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public String getUsername() {
         return username;
