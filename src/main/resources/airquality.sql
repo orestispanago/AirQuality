@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `airquality` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `airquality`;
--- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: ra1.anystream.eu    Database: airquality
 -- ------------------------------------------------------
@@ -9,7 +9,7 @@ USE `airquality`;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,16 +23,16 @@ USE `airquality`;
 
 DROP TABLE IF EXISTS `cart_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart_items` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int NOT NULL,
-  `cart_id` int NOT NULL,
+  `carts_id` int NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_cart_items_cart_id__carts_id_idx` (`cart_id`),
+  KEY `fk_cart_items_cart_id__carts_id_idx` (`carts_id`),
   KEY `fk_cart_items_product_id__products_id_idx` (`product_id`),
-  CONSTRAINT `fk_cart_items_cart_id__carts_id` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
+  CONSTRAINT `fk_cart_items_cart_id__carts_id` FOREIGN KEY (`carts_id`) REFERENCES `carts` (`id`),
   CONSTRAINT `fk_cart_items_product_id__products_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,11 +52,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `carts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `carts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `cart_item_id` int DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carts_user_id__users_id_idx` (`user_id`),
@@ -79,15 +78,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `co_measurements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `co_measurements` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `sensor_id` bigint NOT NULL,
+  `sensors_locations_id` bigint NOT NULL,
   `co` float NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_co_measurements_sensors_id__sensors_id_idx` (`sensor_id`),
-  CONSTRAINT `fk_co_measurements_sensors_id__locations_id` FOREIGN KEY (`sensor_id`) REFERENCES `sensors_locations` (`id`)
+  KEY `fk_co_measurements_sensors_id__sensors_id_idx` (`sensors_locations_id`),
+  CONSTRAINT `fk_co_measurements_sensors_id__locations_id` FOREIGN KEY (`sensors_locations_id`) REFERENCES `sensors_locations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,7 +105,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `plans`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `plans` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
@@ -135,7 +134,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pm_measurements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pm_measurements` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `sensors_locations_id` bigint NOT NULL,
@@ -164,7 +163,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `product_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(30) NOT NULL,
@@ -187,7 +186,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `products` (
   `id` int NOT NULL AUTO_INCREMENT,
   `product_type_id` int NOT NULL,
@@ -216,7 +215,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
   `id` int NOT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -239,7 +238,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sensors_locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sensors_locations` (
   `id` bigint NOT NULL,
   `sold_sensors_id` int NOT NULL,
@@ -266,7 +265,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sold_sensors_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sold_sensors_users` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
@@ -295,7 +294,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `subscriptions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subscriptions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `users_id` int DEFAULT NULL,
@@ -325,7 +324,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` varchar(50) DEFAULT NULL,
@@ -352,7 +351,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users_roles` (
   `user_id` int NOT NULL,
   `role_id` int NOT NULL,
@@ -381,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-19 23:21:35
+-- Dump completed on 2020-05-21 22:57:50
