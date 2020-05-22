@@ -4,20 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "email"), 
-    @UniqueConstraint(columnNames = "username")})
-
+@Table(name = "users")
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
+    @Column(length=25, unique=true, nullable=false)
     private String username;
-    @Column
+    @Column(length=50, unique=true)
     private String email;
     @Column
     private String firstName;
