@@ -2,7 +2,7 @@
 Many To Many ---> (many)User (many)Plan via Subscription
 Many To Many ---> (many)Role via (many)UserRole(Δεν χρειαστηκε να δημιουργηθει η UserRole κλαση)
  */
-package com.oop.models;
+package com.oop.entities;
 
 import java.util.ArrayList;
 import java.util.List;

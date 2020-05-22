@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oop.models;
+package com.oop.entities;
 
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,19 +16,19 @@ import javax.persistence.Table;
  * @author Administrator
  */
 @Entity
-@Table(name = "product_types")
-public class ProductType {
+@Table(name = "sold_sensors_users")
+public class SoldSensor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    private String type;
+    private short registered;
 
-    public ProductType() {};
+    public SoldSensor() {};
     
-    public ProductType(String type) {
-        this.type = type;
+    public SoldSensor(short registered) {
+        this.registered = registered;
     }
 
     public long getId() {
@@ -40,19 +39,19 @@ public class ProductType {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public short getRegistered() {
+        return registered;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRegistered(short registered) {
+        this.registered = registered;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 37 * hash + Objects.hashCode(this.type);
+        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 31 * hash + this.registered;
         return hash;
     }
 
@@ -67,11 +66,11 @@ public class ProductType {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ProductType other = (ProductType) obj;
+        final SoldSensor other = (SoldSensor) obj;
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.type, other.type)) {
+        if (this.registered != other.registered) {
             return false;
         }
         return true;
@@ -79,8 +78,7 @@ public class ProductType {
 
     @Override
     public String toString() {
-        return "ProductType{" + "id=" + id + ", type=" + type + '}';
+        return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
     }
-    
     
 }

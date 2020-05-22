@@ -2,7 +2,7 @@
 Many to One ---> ProductType
 Connection to CartItem needed <--
  */
-package com.oop.models;
+package com.oop.entities;
 
 import java.util.Arrays;
 import java.util.Objects;

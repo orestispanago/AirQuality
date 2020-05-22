@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oop.models;
+package com.oop.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,19 +16,19 @@ import javax.persistence.Table;
  * @author Administrator
  */
 @Entity
-@Table(name = "sold_sensors_users")
-public class SoldSensor {
+@Table(name = "cart_items")
+public class CartItem {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    private short registered;
-
-    public SoldSensor() {};
+    private int quantity;
     
-    public SoldSensor(short registered) {
-        this.registered = registered;
+    public CartItem() {};
+
+    public CartItem(int quantity) {
+        this.quantity = quantity;
     }
 
     public long getId() {
@@ -39,19 +39,19 @@ public class SoldSensor {
         this.id = id;
     }
 
-    public short getRegistered() {
-        return registered;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setRegistered(short registered) {
-        this.registered = registered;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 31 * hash + this.registered;
+        hash = 73 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 73 * hash + this.quantity;
         return hash;
     }
 
@@ -66,11 +66,11 @@ public class SoldSensor {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SoldSensor other = (SoldSensor) obj;
+        final CartItem other = (CartItem) obj;
         if (this.id != other.id) {
             return false;
         }
-        if (this.registered != other.registered) {
+        if (this.quantity != other.quantity) {
             return false;
         }
         return true;
@@ -78,7 +78,7 @@ public class SoldSensor {
 
     @Override
     public String toString() {
-        return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
+        return "CartItem{" + "id=" + id + ", quantity=" + quantity + '}';
     }
     
 }

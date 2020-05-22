@@ -1,4 +1,4 @@
-package com.oop.models;
+package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;

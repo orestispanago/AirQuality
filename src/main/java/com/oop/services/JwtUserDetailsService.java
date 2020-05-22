@@ -1,4 +1,4 @@
-package com.javainuse.service;
+package com.oop.services;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.oop.dao.UserDao;
-import com.oop.models.AppUser;
-import com.oop.models.UserDTO;
+import com.oop.entities.AppUser;
+import com.oop.entities.UserDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

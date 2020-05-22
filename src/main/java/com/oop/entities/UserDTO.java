@@ -1,4 +1,4 @@
-package com.oop.models;
+package com.oop.entities;
 
 public class UserDTO {
 	private String username;
