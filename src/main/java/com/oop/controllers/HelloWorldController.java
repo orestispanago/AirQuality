@@ -1,9 +1,11 @@
 package com.oop.controllers;
 
 import Test.Greeting;
+import com.oop.dao.CoMeasurementDao;
 import com.oop.dao.PmMeasurementDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
+import com.oop.entities.CoMeasurement;
 import com.oop.entities.PmMeasurement;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -59,9 +61,16 @@ public class HelloWorldController {
 
     @RequestMapping(value="/pm", method=RequestMethod.POST, produces = "application/json")
     public String pmMeasurement(@RequestBody PmMeasurement pm) {
-//        PmMeasurement pm = new PmMeasurement
-//        PmMeasurement pm = new PmMeasurement(3.45f,234.4f);
         pmService.saveAndFlush(pm);
-        return "measurement saved!";
+        return "pm measurement saved!";
+    }
+    
+    @Autowired
+    CoMeasurementDao coService;
+
+    @RequestMapping(value="/co", method=RequestMethod.POST, produces = "application/json")
+    public String coMeasurement(@RequestBody CoMeasurement co) {
+        coService.saveAndFlush(co);
+        return "co measurement saved!";
     }
 }

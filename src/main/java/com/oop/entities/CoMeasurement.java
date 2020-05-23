@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "pm_measurements")
-public class PmMeasurement {
+@Table(name = "co_measurements")
+public class CoMeasurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,25 +20,20 @@ public class PmMeasurement {
 //
 //    @Column(name = "sensors_locations_id")
 //    private int sensorsLocationsId;
-    @JsonProperty("pm1")
-    @Column(name = "pm1")
-    private float pm1;
-
-    @JsonProperty("pm25")
-    @Column(name = "pm25")
-    private float pm25;
+    @JsonProperty("co")
+    @Column(name = "co")
+    private float co;
 
     @CreationTimestamp
     @Column(name = "timestamp", updatable = false, nullable = false)
 //    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    public PmMeasurement() {
+    public CoMeasurement() {
     }
 
-    public PmMeasurement(float pm1, float pm25) {
-        this.pm1 = pm1;
-        this.pm25 = pm25;
+    public CoMeasurement(float pm1, float pm25) {
+        this.co = co;
     }
 
     public long getId() {
@@ -57,19 +52,7 @@ public class PmMeasurement {
 //        this.sensorsLocationsId = sensorsLocationsId;
 //    }
     public float getPm1() {
-        return pm1;
-    }
-
-    public void setPm1(float pm1) {
-        this.pm1 = pm1;
-    }
-
-    public float getPm25() {
-        return pm25;
-    }
-
-    public void setPm25(float pm25) {
-        this.pm25 = pm25;
+        return co;
     }
 
     public Date getTimestamp() {
