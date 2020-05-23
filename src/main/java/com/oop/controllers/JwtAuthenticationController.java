@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oop.services.JwtUserDetailsService;
 
 import com.oop.config.JwtTokenUtil;
+import com.oop.dao.UserDao;
 import com.oop.models.JwtRequest;
 import com.oop.models.JwtResponse;
 import com.oop.entities.UserDTO;
+import com.oop.exceptions.UsernameAlreadyExistsException;
 
 @RestController
 @CrossOrigin
