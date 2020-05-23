@@ -26,14 +26,14 @@ DROP TABLE IF EXISTS `cart_items`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart_items` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
+  `products_id` int NOT NULL,
   `carts_id` int NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cart_items_cart_id__carts_id_idx` (`carts_id`),
-  KEY `fk_cart_items_product_id__products_id_idx` (`product_id`),
+  KEY `fk_cart_items_products_id__products_id_idx` (`products_id`),
   CONSTRAINT `fk_cart_items_cart_id__carts_id` FOREIGN KEY (`carts_id`) REFERENCES `carts` (`id`),
-  CONSTRAINT `fk_cart_items_product_id__products_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  CONSTRAINT `fk_cart_items_products_id__products_id` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
