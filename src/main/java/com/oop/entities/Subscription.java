@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -23,15 +24,16 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "subscriptions")
 public class Subscription {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
-    @Column(name = "date_of_purchase")
+
+    @CreationTimestamp
+    @Column(name = "date_of_purchase",updatable = false, nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateOfPurchase;
-    
+
     @Column(name = "expiration_date")
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
@@ -102,6 +104,5 @@ public class Subscription {
     public String toString() {
         return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + '}';
     }
-    
-    
+
 }

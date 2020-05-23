@@ -1,8 +1,7 @@
 package com.oop.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.util.Date;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -32,10 +31,9 @@ public class Cart implements Serializable {
     @Column(name="user_id")
     private int userId;
     
-//  @DateTimeFormat(pattern="dd/MM/yyyy") 
-    @Column(name = "created")
-    private OffsetDateTime created;
-    
+    @CreationTimestamp
+    @Column(name = "timestamp", updatable = false, nullable = false)
+    private Date created;   
     
     @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
@@ -59,12 +57,8 @@ public class Cart implements Serializable {
         this.userId = userId;
     }
 
-    public OffsetDateTime getCreated() {
+    public Date getCreated() {
         return created;
-    }
-
-    public void setCreated(OffsetDateTime created) {
-        this.created = created;
     }
 
     public List<CartItem> getCartItems() {
