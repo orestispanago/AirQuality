@@ -22,7 +22,7 @@ public class AppUser {
     private String firstName;
     @Column(length = 35)
     private String lastName;
-    @Column(length = 30)
+    @Column(length = 255)
     @JsonIgnore
     private String password;
 //    @Column(length=30)
