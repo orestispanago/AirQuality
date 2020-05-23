@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.security.core.userdetails.User;
 
 /**
  *
@@ -24,6 +27,14 @@ public class SoldSensor {
     private long id;
     
     private short registered;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "products_id", referencedColumnName = "id")
+    private Product product;
 
     public SoldSensor() {};
     
