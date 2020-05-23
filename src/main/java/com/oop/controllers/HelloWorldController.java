@@ -1,8 +1,10 @@
 package com.oop.controllers;
 
 import Test.Greeting;
+import com.oop.dao.PmMeasurementDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
+import com.oop.entities.PmMeasurement;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +43,22 @@ public class HelloWorldController {
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
-    
+
     @Autowired
-    UserDao userService; 
+    UserDao userService;
+
     @GetMapping(path = "/user/{id}", produces = "application/json")
     public Optional<AppUser> read(@PathVariable int id) {
         return userService.findById(id);
+    }
+
+    @Autowired
+    PmMeasurementDao pmService;
+
+    @RequestMapping({"/pm"})
+    public String pmMeasurement() { // TODO: modify method to accept POST json file
+        PmMeasurement pm = new PmMeasurement(3.45f,234.4f);
+        pmService.save(pm);
+        return "measurement saved!";
     }
 }
