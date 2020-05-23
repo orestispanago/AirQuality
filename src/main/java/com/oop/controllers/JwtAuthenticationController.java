@@ -18,9 +18,11 @@ import com.oop.services.JwtUserDetailsService;
 
 
 import com.oop.config.JwtTokenUtil;
+import com.oop.dao.UserDao;
 import com.oop.models.JwtRequest;
 import com.oop.models.JwtResponse;
 import com.oop.entities.UserDTO;
+import com.oop.exceptions.UsernameAlreadyExistsException;
 
 @RestController
 @CrossOrigin
@@ -34,6 +36,9 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+        
+        @Autowired
+        UserDao userService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -49,7 +54,11 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception, UsernameAlreadyExistsException {
+                String username = user.getUsername();
+                if (userService.findByUsername(username)!= null){
+                    throw new UsernameAlreadyExistsException(username);
+                }
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
