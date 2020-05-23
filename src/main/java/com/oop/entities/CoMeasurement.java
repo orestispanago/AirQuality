@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,16 +19,21 @@ public class CoMeasurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//
-//    @Column(name = "sensors_locations_id")
-//    private int sensorsLocationsId;
+
+    @ManyToOne()
+    @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private SensorLocation sensorLocation;
+
+    @JsonProperty("sensorsLocationsId")
+    @Column(name = "sensors_locations_id")
+    private long sensorsLocationsId;
+
     @JsonProperty("co")
     @Column(name = "co")
     private float co;
 
     @CreationTimestamp
     @Column(name = "timestamp", updatable = false, nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
     public CoMeasurement() {
@@ -40,23 +47,25 @@ public class CoMeasurement {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public SensorLocation getSensorLocation() {
+        return sensorLocation;
     }
 
-//    public int getSensorsLocationsId() {
-//        return sensorsLocationsId;
-//    }
-//
-//    public void setSensorsLocationsId(int sensorsLocationsId) {
-//        this.sensorsLocationsId = sensorsLocationsId;
-//    }
-    public float getPm1() {
+    public long getSensorsLocationsId() {
+        return sensorsLocationsId;
+    }
+
+    public float getCo() {
         return co;
     }
 
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "CoMeasurement{" + "id=" + id + ", sensorLocation=" + sensorLocation + ", sensorsLocationsId=" + sensorsLocationsId + ", co=" + co + ", timestamp=" + timestamp + '}';
     }
 
 }

@@ -17,7 +17,7 @@ public class MeasurementsController {
 
     @Autowired
     PmMeasurementDao pmService;
-    
+
     @Autowired
     ISensorLocationDao slService;
 
@@ -37,8 +37,13 @@ public class MeasurementsController {
 
     @RequestMapping(value = "/co", method = RequestMethod.POST, produces = "application/json")
     public String coMeasurement(@RequestBody CoMeasurement co) {
-        coService.saveAndFlush(co);
-        return co + " measurement saved!";
+        long id = co.getSensorsLocationsId();
+        if (slService.findById(id) == null) {
+            throw new SensorLocationIdDoesNotExistException(id);
+        } else {
+            coService.saveAndFlush(co);
+            return co + " measurement saved!";
+        }
     }
 
 }

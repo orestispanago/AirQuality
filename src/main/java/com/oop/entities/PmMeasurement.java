@@ -20,12 +20,11 @@ public class PmMeasurement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-//    @JsonProperty
     @ManyToOne()
     @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id", insertable = false, updatable = false)
     private SensorLocation sensorLocation;
-//    @Column(name = "sensors_locations_id")
-    @JsonProperty
+
+    @JsonProperty("sensorsLocationsId")
     @Column(name="sensors_locations_id")
     private long sensorsLocationsId;
 
@@ -39,7 +38,6 @@ public class PmMeasurement {
 
     @CreationTimestamp
     @Column(name = "timestamp", updatable = false, nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
     public PmMeasurement() {
@@ -55,31 +53,16 @@ public class PmMeasurement {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public long getSensorsLocationsId() {
         return sensorsLocationsId;
     }
 
-    public void setSensorsLocationsId(int sensorsLocationsId) {
-        this.sensorsLocationsId = sensorsLocationsId;
-    }
     public float getPm1() {
         return pm1;
     }
 
-    public void setPm1(float pm1) {
-        this.pm1 = pm1;
-    }
-
     public float getPm25() {
         return pm25;
-    }
-
-    public void setPm25(float pm25) {
-        this.pm25 = pm25;
     }
 
     public Date getTimestamp() {
@@ -88,10 +71,6 @@ public class PmMeasurement {
 
     public SensorLocation getSensorLocation() {
         return sensorLocation;
-    }
-
-    public void setSensorLocation(SensorLocation sensorLocation) {
-        this.sensorLocation = sensorLocation;
     }
 
     @Override
