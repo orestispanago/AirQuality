@@ -5,6 +5,7 @@
  */
 package com.oop.entities;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,10 @@ public class CartItem {
     @JoinColumn(name = "carts_id", referencedColumnName = "id")
     private Cart cart;
     
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "products_id", referencedColumnName = "id")
+    private Product product;
+    
     public CartItem() {};
 
     public CartItem(int quantity) {
@@ -53,11 +58,29 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 73 * hash + this.quantity;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + this.quantity;
+        hash = 59 * hash + Objects.hashCode(this.cart);
+        hash = 59 * hash + Objects.hashCode(this.product);
         return hash;
     }
 
@@ -79,12 +102,17 @@ public class CartItem {
         if (this.quantity != other.quantity) {
             return false;
         }
+        if (!Objects.equals(this.cart, other.cart)) {
+            return false;
+        }
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "CartItem{" + "id=" + id + ", quantity=" + quantity + '}';
+        return "CartItem{" + "id=" + id + ", quantity=" + quantity + ", cart=" + cart + ", product=" + product + '}';
     }
-    
 }
