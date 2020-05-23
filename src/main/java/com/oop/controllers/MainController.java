@@ -1,9 +1,11 @@
 package com.oop.controllers;
 
 import Test.Greeting;
+import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISubscriptionDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
+import com.oop.entities.SensorLocation;
 import com.oop.entities.Subscription;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -58,11 +60,18 @@ public class MainController {
     ISubscriptionDao subService;
 
     @RequestMapping(value = "/subscription", method = RequestMethod.POST, produces = "application/json")
-    public String coMeasurement(@RequestBody Subscription sub) {
+    public String subscription(@RequestBody Subscription sub) {
         System.out.println(sub);
         subService.save(sub);
-        System.out.println(sub);
-        return "subscription saved!";
+        return sub+" saved!";
     }
+    @Autowired
+    ISensorLocationDao slService;
 
+    @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
+    public String sensorLocation(@RequestBody SensorLocation sl) {
+        slService.save(sl);
+        return sl+" saved!";
+    }
+    
 }

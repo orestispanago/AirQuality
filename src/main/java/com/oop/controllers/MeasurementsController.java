@@ -21,7 +21,7 @@ public class MeasurementsController {
     @RequestMapping(value="/pm", method=RequestMethod.POST, produces = "application/json")
     public String pmMeasurement(@RequestBody PmMeasurement pm) {
         pmService.saveAndFlush(pm);
-        return "pm measurement saved!";
+        return pm+" measurement saved!";
     }
     
     @Autowired
@@ -30,7 +30,7 @@ public class MeasurementsController {
     @RequestMapping(value="/co", method=RequestMethod.POST, produces = "application/json")
     public String coMeasurement(@RequestBody CoMeasurement co) {
         coService.saveAndFlush(co);
-        return "co measurement saved!";
+        return co+" measurement saved!";
     }
     
 }

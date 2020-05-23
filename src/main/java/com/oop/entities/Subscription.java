@@ -32,7 +32,8 @@ public class Subscription {
     @CreationTimestamp
     @Column(name = "date_of_purchase",updatable = false, nullable = false)
     private Date dateOfPurchase;
-
+    
+    // TODO test if @JsonProperty is better
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
