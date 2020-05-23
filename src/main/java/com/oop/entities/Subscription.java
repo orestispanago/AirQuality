@@ -31,13 +31,18 @@ public class Subscription {
 
     @CreationTimestamp
     @Column(name = "date_of_purchase",updatable = false, nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date dateOfPurchase;
 
     @Column(name = "expiration_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
 
+    public Subscription(Date expirationDate) {
+        this.dateOfPurchase = null;
+        this.expirationDate = expirationDate;
+    }
+
+    
     public Subscription(Date dateOfPurchase, Date expirationDate) {
         this.dateOfPurchase = dateOfPurchase;
         this.expirationDate = expirationDate;

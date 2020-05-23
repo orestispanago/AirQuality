@@ -2,11 +2,13 @@ package com.oop.controllers;
 
 import Test.Greeting;
 import com.oop.dao.CoMeasurementDao;
+import com.oop.dao.ISubscriptionDao;
 import com.oop.dao.PmMeasurementDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.CoMeasurement;
 import com.oop.entities.PmMeasurement;
+import com.oop.entities.Subscription;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,4 +75,18 @@ public class HelloWorldController {
         coService.saveAndFlush(co);
         return "co measurement saved!";
     }
+    
+    
+    @Autowired
+    ISubscriptionDao subService;
+
+    @RequestMapping(value="/subscription", method=RequestMethod.POST, produces = "application/json")
+    public String coMeasurement(@RequestBody Subscription sub) {
+        System.out.println(sub);
+        subService.save(sub);
+        System.out.println(sub);
+        return "subscription saved!";
+    }
+    
+    
 }
