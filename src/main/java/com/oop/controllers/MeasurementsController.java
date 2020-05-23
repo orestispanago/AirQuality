@@ -33,17 +33,4 @@ public class MeasurementsController {
         return "co measurement saved!";
     }
     
-    
-    @Autowired
-    ISubscriptionDao subService;
-
-    @RequestMapping(value="/subscription", method=RequestMethod.POST, produces = "application/json")
-    public String coMeasurement(@RequestBody Subscription sub) {
-        System.out.println(sub);
-        subService.save(sub);
-        System.out.println(sub);
-        return "subscription saved!";
-    }
-    
-    
 }
