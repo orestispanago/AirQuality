@@ -42,10 +42,10 @@ public class HelloWorldController {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
     
-//    @Autowired
-//    UserDao userService; 
-//    @GetMapping("/{id}")
-//    public Optional<AppUser> read(@PathVariable int id) {
-//        return userService.findById(id);
-//    }
+    @Autowired
+    UserDao userService; 
+    @GetMapping(path = "/user/{id}", produces = "application/json")
+    public Optional<AppUser> read(@PathVariable int id) {
+        return userService.findById(id);
+    }
 }
