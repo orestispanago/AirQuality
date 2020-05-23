@@ -1,5 +1,6 @@
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="pm_measurements")
+@Table(name = "pm_measurements")
 public class PmMeasurement {
 
     @Id
@@ -21,16 +20,17 @@ public class PmMeasurement {
 //
 //    @Column(name = "sensors_locations_id")
 //    private int sensorsLocationsId;
-
+    @JsonProperty("pm1")
     @Column(name = "pm1")
     private float pm1;
 
+    @JsonProperty("pm25")
     @Column(name = "pm25")
     private float pm25;
-    
+
     @CreationTimestamp
-    
-    @Column(name = "timestamp", updatable = false, nullable=false)
+
+    @Column(name = "timestamp", updatable = false, nullable = false)
 //    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
@@ -57,7 +57,6 @@ public class PmMeasurement {
 //    public void setSensorsLocationsId(int sensorsLocationsId) {
 //        this.sensorsLocationsId = sensorsLocationsId;
 //    }
-
     public float getPm1() {
         return pm1;
     }
@@ -78,5 +77,4 @@ public class PmMeasurement {
         return timestamp;
     }
 
-    
 }
