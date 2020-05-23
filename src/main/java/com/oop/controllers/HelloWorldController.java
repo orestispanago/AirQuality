@@ -58,7 +58,7 @@ public class HelloWorldController {
     @RequestMapping({"/pm"})
     public String pmMeasurement() { // TODO: modify method to accept POST json file
         PmMeasurement pm = new PmMeasurement(3.45f,234.4f);
-        pmService.save(pm);
+        pmService.saveAndFlush(pm);
         return "measurement saved!";
     }
 }
