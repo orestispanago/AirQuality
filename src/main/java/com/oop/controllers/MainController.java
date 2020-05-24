@@ -2,10 +2,12 @@ package com.oop.controllers;
 
 import Test.Greeting;
 import com.oop.dao.ISensorLocationDao;
+import com.oop.dao.ISoldSensorDao;
 import com.oop.dao.ISubscriptionDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.SensorLocation;
+import com.oop.entities.SoldSensor;
 import com.oop.entities.Subscription;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -67,6 +69,7 @@ public class MainController {
     }
     @Autowired
     ISensorLocationDao slService;
+    
 
     @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
     public String sensorLocation(@RequestBody SensorLocation sl) {
@@ -74,4 +77,13 @@ public class MainController {
         return sl+" saved!";
     }
     
+    @Autowired
+    ISoldSensorDao ssService;
+    
+    @RequestMapping(value = "/soldsensoruser", method = RequestMethod.POST, produces = "application/json")
+    public String soldSensorUser(@RequestBody SoldSensor ss) {
+        ssService.save(ss);
+        return ss+" saved!";
+    }
+        
 }

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +26,11 @@ public class SoldSensor {
     private long id;
     
     private short registered;
-
+    
+    //@OneToOne
+    //@JoinColumn(name = "sensors_locations", referencedColumnName = "id")
+    //private SensorLocation sensorLocation;
+    
     public SoldSensor() {};
     
     public SoldSensor(short registered) {

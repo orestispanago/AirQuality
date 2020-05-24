@@ -1,10 +1,13 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -20,13 +23,22 @@ public class SensorLocation {
     
     @JsonProperty
     private float lon;
-
+    
+    @JsonProperty("soldSensorId")
+    @Column(name = "sold_sensors_id")
+    private long soldSensorId;
+    
+    @OneToOne
+    @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private SoldSensor soldSensor;
+    
     public SensorLocation() {
     }
 
-    public SensorLocation(float lat, float lon) {
+    public SensorLocation(float lat, float lon, long soldSensorId) {
         this.lat = lat;
         this.lon = lon;
+        this.soldSensorId = soldSensorId;
     }
 
     public long getId() {
@@ -55,7 +67,7 @@ public class SensorLocation {
 
     @Override
     public String toString() {
-        return "SensorLocation{" + "id=" + id + ", lat=" + lat + ", lon=" + lon + '}';
+        return "SensorLocation{" + "id=" + id + ", lat=" + lat + ", lon=" + lon + ", soldSensorId=" + soldSensorId + ", soldSensor=" + soldSensor + '}';
     }
 
 }
