@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.oop.dao.ICoMeasurementDao;
 import com.oop.dao.IPmMeasurementDao;
+import com.oop.entities.SensorLocation;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class MeasurementsController {
@@ -21,28 +23,31 @@ public class MeasurementsController {
     @Autowired
     ISensorLocationDao slService;
 
-    @RequestMapping(value = "/pm", method = RequestMethod.POST, produces = "application/json")
-    public String pmMeasurement(@RequestBody PmMeasurement pm) throws Exception, SensorLocationIdDoesNotExistException {
-        long id = pm.getSensorsLocationsId();
-        if (slService.findById(id) == null) {
-            throw new SensorLocationIdDoesNotExistException(id);
+    @RequestMapping(value = "/pm/{sensorid}", method = RequestMethod.POST, produces = "application/json")
+    public PmMeasurement pmMeasurement(@PathVariable long sensorid,@RequestBody PmMeasurement pm) throws Exception, SensorLocationIdDoesNotExistException {
+        SensorLocation sl = slService.findById(sensorid);
+        if (sl == null) {
+            throw new SensorLocationIdDoesNotExistException(sensorid);
         } else {
-            pmService.saveAndFlush(pm);
-            return pm + " measurement saved!";
+            pm.setSensorLocation(sl);
+            pmService.save(pm);
+            System.out.println(pm);
+            return pm;
         }
     }
 
     @Autowired
     ICoMeasurementDao coService;
 
-    @RequestMapping(value = "/co", method = RequestMethod.POST, produces = "application/json")
-    public String coMeasurement(@RequestBody CoMeasurement co) {
-        long id = co.getSensorsLocationsId();
-        if (slService.findById(id) == null) {
-            throw new SensorLocationIdDoesNotExistException(id);
+    @RequestMapping(value = "/co/{sensorid}", method = RequestMethod.POST, produces = "application/json")
+    public CoMeasurement coMeasurement(@PathVariable long sensorid, @RequestBody CoMeasurement co) {
+        SensorLocation sl = slService.findById(sensorid);
+        if (sl == null) {
+            throw new SensorLocationIdDoesNotExistException(sensorid);
         } else {
-            coService.saveAndFlush(co);
-            return co + " measurement saved!";
+            co.setSensorLocation(sl);
+            coService.save(co);
+            return co;
         }
     }
 

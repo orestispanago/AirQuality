@@ -24,10 +24,6 @@ public class CoMeasurement {
     @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id", insertable = false, updatable = false)
     private SensorLocation sensorLocation;
 
-    @JsonProperty("sensorsLocationsId")
-    @Column(name = "sensors_locations_id")
-    private long sensorsLocationsId;
-
     @JsonProperty("co")
     @Column(name = "co")
     private float co;
@@ -51,10 +47,6 @@ public class CoMeasurement {
         return sensorLocation;
     }
 
-    public long getSensorsLocationsId() {
-        return sensorsLocationsId;
-    }
-
     public float getCo() {
         return co;
     }
@@ -63,9 +55,14 @@ public class CoMeasurement {
         return timestamp;
     }
 
+    public void setSensorLocation(SensorLocation sensorLocation) {
+        this.sensorLocation = sensorLocation;
+    }
+
     @Override
     public String toString() {
-        return "CoMeasurement{" + "id=" + id + ", sensorLocation=" + sensorLocation + ", sensorsLocationsId=" + sensorsLocationsId + ", co=" + co + ", timestamp=" + timestamp + '}';
+        return "CoMeasurement{" + "id=" + id + ", sensorLocation=" + sensorLocation + ", co=" + co + ", timestamp=" + timestamp + '}';
     }
+
 
 }
