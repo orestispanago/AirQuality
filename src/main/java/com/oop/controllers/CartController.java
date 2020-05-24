@@ -22,13 +22,13 @@ public class CartController {
     @Autowired
     UserDao userService;
     
-    @RequestMapping(value = "/carts/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Cart readCartByUserId(@PathVariable long userId) {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
         return cartService.getByUserId(userId);
     }
 
-    @RequestMapping(value = "/carts/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/{userId}", method = RequestMethod.POST, produces = "application/json")
     public Cart createCartByUserId(@PathVariable long userId) {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
         Cart cart = new Cart();
@@ -36,7 +36,7 @@ public class CartController {
         return cartService.save(cart);
     }
     
-    @RequestMapping(value = "/carts", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public Cart updateCart(@RequestBody Cart cart) {
         long cartId = cart.getId();
         if (cartService.existsById(cartId) == false) throw new CartNotFoundException();
@@ -44,16 +44,16 @@ public class CartController {
         return updatedCart;
     }
 
-    @RequestMapping(value = "/carts/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public String deleteCartByCartId(@PathVariable long id) {
         cartService.deleteById(id);
-        return "Cart deleted";
+        return "tCart deleted";
     }
     
-    @RequestMapping(value = "/carts", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
     public String deleteCart(@RequestBody Cart cart) {
         cartService.delete(cart);
-        return "Cart deleted";
+        return "tCart deleted";
     }
     
   
