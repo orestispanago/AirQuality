@@ -23,35 +23,50 @@ public class CartService implements ICartService {
     ICartDao cartDao;
     
     @Override
-    public Cart getCartByUserId(long userId) {
-        Optional<Cart> cartEntity = cartDao.findById(userId);
-        if (cartEntity == null) throw new CartNotFoundException(userId);
-        return cartEntity.get();
+    public Cart getByUserId(long userId) {
+        Cart cart = cartDao.findByUserId(userId);
+        if (cart == null) throw new CartNotFoundException(userId);
+        return cart;
     }
 
     @Override
     public List<Cart> getAllCarts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Iterable<Cart> cartEntities = cartDao.findAll();
+        List<Cart> carts = (List<Cart>)cartEntities;
+        return carts;
     }
 
     @Override
     public boolean existsById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Optional<Cart> cartEntity = cartDao.findById(id);
+        if (cartEntity == null) return false;
+        return true;
     }
 
     @Override
     public Cart save(Cart cart) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (cart != null){
+            Cart savedCart = cartDao.save(cart);
+            return savedCart;
+        }
+        return null;
     }
 
     @Override
     public void deleteById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Optional<Cart> cartEntity = cartDao.findById(id);
+       if (cartEntity == null) throw new CartNotFoundException(id);
+       cartDao.deleteById(id);
     }
 
     @Override
-    public Cart updateCartById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cart updateCart(Cart cart) {
+       long cartId = cart.getId();
+       Optional<Cart> cartEntity = cartDao.findById(cartId);
+       if (cartEntity == null){
+          throw new CartNotFoundException(cartId);
+       }
+       return cartDao.save(cart);
     }
     
 }

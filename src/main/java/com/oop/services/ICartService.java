@@ -13,10 +13,10 @@ import java.util.List;
  * @author Walter
  */
 public interface ICartService {
-    Cart getCartByUserId(long id);
+    Cart getByUserId(long id);
     List<Cart> getAllCarts();
     boolean existsById(long id);
     Cart save(Cart cart);
     void deleteById(long id);
-    Cart updateCartById(long id);
+    Cart updateCart(Cart cart);
 }
