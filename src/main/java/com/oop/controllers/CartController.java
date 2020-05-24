@@ -36,8 +36,9 @@ public class CartController {
         return cartService.save(cart);
     }
     
-    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
-    public Cart updateCart(@RequestBody Cart cart) {
+    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT, produces = "application/json")
+    public Cart updateCart(@PathVariable long userId, @RequestBody Cart cart) {
+        if (userService.existsById(userId) == false) throw new UserNotFoundException();
         long cartId = cart.getId();
         if (cartService.existsById(cartId) == false) throw new CartNotFoundException();
         Cart updatedCart = cartService.update(cart);
