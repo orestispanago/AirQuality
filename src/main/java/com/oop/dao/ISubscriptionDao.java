@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Walter
  */
 @Repository
-public interface ISubscriptionDao extends CrudRepository<Subscription, Integer> {
+public interface ISubscriptionDao extends CrudRepository<Subscription, Long> {
 
 }

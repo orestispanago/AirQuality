@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Walter
  */
 @Repository
-public interface IProductTypeDao extends CrudRepository<ProductType, Integer> {
+public interface IProductTypeDao extends CrudRepository<ProductType, Long> {
 
 }

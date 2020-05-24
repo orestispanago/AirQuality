@@ -24,7 +24,7 @@ public class CartItem {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     
     private int quantity;
     
@@ -42,7 +42,7 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -77,10 +77,10 @@ public class CartItem {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + this.quantity;
-        hash = 59 * hash + Objects.hashCode(this.cart);
-        hash = 59 * hash + Objects.hashCode(this.product);
+        hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 71 * hash + this.quantity;
+        hash = 71 * hash + Objects.hashCode(this.cart);
+        hash = 71 * hash + Objects.hashCode(this.product);
         return hash;
     }
 

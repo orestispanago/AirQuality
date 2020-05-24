@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Walter
  */
 @Repository
-public interface ISoldSensorDao extends CrudRepository<SoldSensor, Integer> {
+public interface ISoldSensorDao extends CrudRepository<SoldSensor, Long> {
 
 }

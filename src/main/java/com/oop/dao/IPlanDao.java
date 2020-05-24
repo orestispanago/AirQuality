@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Walter
  */
 @Repository
-public interface IPlanDao extends CrudRepository<Plan, Integer> {
+public interface IPlanDao extends CrudRepository<Plan, Long> {
 
 }

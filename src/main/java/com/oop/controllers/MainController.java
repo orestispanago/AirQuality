@@ -49,7 +49,7 @@ public class MainController {
     UserDao userService;
 
     @GetMapping(path = "/user/{id}", produces = "application/json")
-    public Optional<AppUser> read(@PathVariable int id) {
+    public Optional<AppUser> read(@PathVariable long id) {
         return userService.findById(id);
     }
 

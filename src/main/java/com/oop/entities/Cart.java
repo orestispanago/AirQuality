@@ -26,10 +26,10 @@ public class Cart implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     
     @Column(name="user_id")
-    private int userId;
+    private long userId;
     
     @CreationTimestamp
     @Column(name = "timestamp", updatable = false, nullable = false)
@@ -41,7 +41,7 @@ public class Cart implements Serializable {
     public Cart() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -49,11 +49,11 @@ public class Cart implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -72,10 +72,10 @@ public class Cart implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + this.userId;
-        hash = 89 * hash + Objects.hashCode(this.created);
-        hash = 89 * hash + Objects.hashCode(this.cartItems);
+        hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 79 * hash + (int) (this.userId ^ (this.userId >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.created);
+        hash = 79 * hash + Objects.hashCode(this.cartItems);
         return hash;
     }
 

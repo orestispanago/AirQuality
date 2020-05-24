@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Walter
  */
 @Repository
-public interface ICartItemDao extends CrudRepository<CartItem, Integer> {
+public interface ICartItemDao extends CrudRepository<CartItem, Long> {
 
 }
