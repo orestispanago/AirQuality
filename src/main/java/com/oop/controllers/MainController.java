@@ -28,11 +28,6 @@ public class MainController {
         return "This is the landing page";
     }
 
-    @RequestMapping({"/products"})
-    public String products() {
-        return "Products, shop or whateva";
-    }
-
     @RequestMapping({"/map"})
     public String map() {
         return "Here is a map for everyone";
