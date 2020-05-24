@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
 import com.oop.dao.ICartDao;
@@ -13,10 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Walter
- */
 @Service
 public class CartService implements ICartService {
     @Autowired
@@ -25,7 +16,7 @@ public class CartService implements ICartService {
     @Override
     public Cart getByUserId(long userId) {
         Cart cart = cartDao.findByUserId(userId);
-        if (cart == null) throw new CartNotFoundException(userId);
+        if (cart == null) throw new CartNotFoundException();
         return cart;
     }
 
@@ -53,20 +44,25 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void deleteById(long id) {
-       Optional<Cart> cartEntity = cartDao.findById(id);
-       if (cartEntity == null) throw new CartNotFoundException(id);
-       cartDao.deleteById(id);
-    }
-
-    @Override
-    public Cart updateCart(Cart cart) {
+    public Cart update(Cart cart) {
        long cartId = cart.getId();
        Optional<Cart> cartEntity = cartDao.findById(cartId);
        if (cartEntity == null){
-          throw new CartNotFoundException(cartId);
+          throw new CartNotFoundException();
        }
        return cartDao.save(cart);
+    }
+    
+    @Override
+    public void delete(Cart cart) {
+       if (cartDao.existsById(cart.getId()) == false) throw new CartNotFoundException();
+       cartDao.delete(cart);
+    }
+    
+    @Override
+    public void deleteById(long id) {
+       if (cartDao.existsById(id) == false) throw new CartNotFoundException();
+       cartDao.deleteById(id);
     }
     
 }

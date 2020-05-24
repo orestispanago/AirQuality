@@ -1,5 +1,7 @@
 package com.oop.controllers;
 
+import com.oop.services.ICartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,22 +29,6 @@ public class UserController {
     public String viewCart() {
         return "List of products in user's cart";
     }
-
-    @RequestMapping(value = "/carts", method = RequestMethod.POST, produces = "application/json")
-    public String createCart() {
-        return "Created Cart";
-    }
-
-    @RequestMapping(value = "/carts/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public String emptyCart() {
-        return "Emptied Cart";
-    }
-    
-    @RequestMapping(value = "/carts/{id}", method = RequestMethod.POST, produces = "application/json")
-    public String updateCart() {
-        return "Updated Cart";
-    }
-    
 
     @RequestMapping(value = "/subscriptions", method = RequestMethod.GET, produces = "application/json")
     public String viewSubscriptions() {
