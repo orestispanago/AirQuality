@@ -43,12 +43,12 @@ public class UserController {
         return "List of a user's subscriptions";
     }
 
-    @RequestMapping(value = "/subscriptions", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/subscriptions", method = RequestMethod.POST, produces = "application/json")
     public String updateSubscriptions() {
         return "Updated a user's subscriptions";
     }
 
-    @RequestMapping(value = "/cart", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value = "/subscriptions", method = RequestMethod.DELETE, produces = "application/json")
     public String cancelSubscription() {
         return "Subscription cancelled";
     }
