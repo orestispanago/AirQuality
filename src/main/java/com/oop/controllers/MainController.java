@@ -1,11 +1,15 @@
 package com.oop.controllers;
 
 import Test.Greeting;
+import com.oop.dao.IProductDao;
+import com.oop.dao.IProductTypeDao;
 import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;
 import com.oop.dao.ISubscriptionDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
+import com.oop.entities.Product;
+import com.oop.entities.ProductType;
 import com.oop.entities.SensorLocation;
 import com.oop.entities.SoldSensor;
 import com.oop.entities.Subscription;
@@ -60,25 +64,41 @@ public class MainController {
     public String subscription(@RequestBody Subscription sub) {
         System.out.println(sub);
         subService.save(sub);
-        return sub+" saved!";
+        return sub + " saved!";
     }
     @Autowired
     ISensorLocationDao slService;
-    
 
     @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
     public String sensorLocation(@RequestBody SensorLocation sl) {
         slService.save(sl);
-        return sl+" saved!";
+        return sl + " saved!";
     }
-    
+
     @Autowired
     ISoldSensorDao ssService;
-    
+
     @RequestMapping(value = "/soldsensoruser", method = RequestMethod.POST, produces = "application/json")
     public String soldSensorUser(@RequestBody SoldSensor ss) {
         ssService.save(ss);
-        return ss+" saved!";
+        return ss + " saved!";
     }
-        
+
+    @Autowired
+    IProductDao productService;
+
+    @RequestMapping(value = "/productuser", method = RequestMethod.POST, produces = "application/json")
+    public String productUser(@RequestBody Product product) {
+        productService.save(product);
+        return product + " saved!";
+    }
+    
+    @Autowired
+    IProductTypeDao productTypeService;
+    
+    @RequestMapping(value = "/producttype", method = RequestMethod.POST, produces = "application/json")
+    public String productType(@RequestBody ProductType productType) {
+        productTypeService.save(productType);
+        return productType + " saved!";
+    }
 }
