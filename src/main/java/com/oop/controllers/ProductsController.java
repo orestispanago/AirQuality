@@ -11,25 +11,20 @@ public class ProductsController {
     public String products() {
         return "List of all products";
     }
-    
+
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "application/json")
     public String newProduct() {
         return "Added new product";
     }
-    
+
     @RequestMapping(value = "/products/{id}", method = RequestMethod.POST, produces = "application/json")
     public String updateProduct() {
         return "Updated product";
     }
-    
+
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public String deleteProduct() {
         return "Deleted product";
     }
-    
 
-    
-    // /new
-    // /edit
-    // /delete
 }

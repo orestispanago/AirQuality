@@ -4,17 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author orestis
- */
 @RestController
 @RequestMapping("/user/{id}")
 public class UserController {
 
-    // /user/sensor/data
-    // /user/sensor/register
-    // /user/sensor/delete
     @RequestMapping(value = "/sensors", method = RequestMethod.GET, produces = "application/json")
     public String sensors() {
         return "List of all user's sensors";
@@ -45,4 +38,19 @@ public class UserController {
         return "Emptied Cart";
     }
 
+    @RequestMapping(value = "/subscriptions", method = RequestMethod.GET, produces = "application/json")
+    public String viewSubscriptions() {
+        return "List of a user's subscriptions";
+    }
+
+    @RequestMapping(value = "/subscriptions", method = RequestMethod.GET, produces = "application/json")
+    public String updateSubscriptions() {
+        return "Updated a user's subscriptions";
+    }
+
+    @RequestMapping(value = "/cart", method = RequestMethod.DELETE, produces = "application/json")
+    public String cancelSubscription() {
+        return "Subscription cancelled";
+    }
+    
 }
