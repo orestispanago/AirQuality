@@ -13,5 +13,7 @@ import com.oop.entities.Subscription;
  */
 public interface ISubscriptionService {
     Subscription getById(long subscriptionId);
-    Subscription update(Subscription sub);
+    Subscription update(Subscription subscription);;
+    Subscription save(Subscription subscription);
+    boolean existsById(long id);
 }

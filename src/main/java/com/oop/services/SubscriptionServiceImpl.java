@@ -17,17 +17,17 @@ import org.springframework.stereotype.Service;
  * @author petros_trak
  */
 @Service
-public class SubscriptionServiceImpl implements ISubscriptionService{
+public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Autowired
     ISubscriptionDao subscriptionService;
-    
+
     @Override
     public Subscription getById(long subscriptionId) {
         Optional<Subscription> subEntity = subscriptionService.findById(subscriptionId);
-        if(subEntity == null)
+        if (subEntity == null) {
             throw new SubscriptionNotFoundException();
-        else{
+        } else {
             Subscription sub = subEntity.get();
             return sub;
         }
@@ -36,8 +36,28 @@ public class SubscriptionServiceImpl implements ISubscriptionService{
     @Override
     public Subscription update(Subscription subscription) {
         Subscription dbSub = subscriptionService.findById(subscription.getId()).orElse(null);
-        if(dbSub == null) throw new SubscriptionNotFoundException();
+        if (dbSub == null) {
+            throw new SubscriptionNotFoundException();
+        }
         return subscriptionService.save(subscription);
     }
-    
+
+    @Override
+    public Subscription save(Subscription subscription) {
+        if (subscription != null) {
+            Subscription savedSubscription = subscriptionService.save(subscription);
+            return savedSubscription;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        Optional<Subscription> subscriptionEntity = subscriptionService.findById(id);
+        if (subscriptionEntity == null) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -58,6 +58,8 @@ public class Subscription implements Serializable {
     @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AppUser user;
     
+    public Subscription() {};
+    
     public Subscription(Date expirationDate) {
         this.dateOfPurchase = null;
         this.expirationDate = expirationDate;
@@ -67,14 +69,6 @@ public class Subscription implements Serializable {
     public Subscription(Date dateOfPurchase, Date expirationDate) {
         this.dateOfPurchase = dateOfPurchase;
         this.expirationDate = expirationDate;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Date getDateOfPurchase() {
@@ -93,12 +87,52 @@ public class Subscription implements Serializable {
         this.expirationDate = expirationDate;
     }
 
+    public long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(long planId) {
+        this.planId = planId;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
+
+    public long getId() {
+        return id;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 41 * hash + Objects.hashCode(this.dateOfPurchase);
-        hash = 41 * hash + Objects.hashCode(this.expirationDate);
+        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.dateOfPurchase);
+        hash = 59 * hash + Objects.hashCode(this.expirationDate);
+        hash = 59 * hash + (int) (this.planId ^ (this.planId >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.plan);
+        hash = 59 * hash + (int) (this.userId ^ (this.userId >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.user);
         return hash;
     }
 
@@ -117,10 +151,22 @@ public class Subscription implements Serializable {
         if (this.id != other.id) {
             return false;
         }
+        if (this.planId != other.planId) {
+            return false;
+        }
+        if (this.userId != other.userId) {
+            return false;
+        }
         if (!Objects.equals(this.dateOfPurchase, other.dateOfPurchase)) {
             return false;
         }
         if (!Objects.equals(this.expirationDate, other.expirationDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.plan, other.plan)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         return true;
@@ -128,7 +174,8 @@ public class Subscription implements Serializable {
 
     @Override
     public String toString() {
-        return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + '}';
+        return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + ", planId=" + planId + ", plan=" + plan + ", userId=" + userId + ", user=" + user + '}';
     }
 
+    
 }
