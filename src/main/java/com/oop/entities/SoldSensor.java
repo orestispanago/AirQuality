@@ -5,14 +5,11 @@
  */
 package com.oop.entities;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
-=======
 import javax.persistence.Column;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
->>>>>>> Database
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
