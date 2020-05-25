@@ -5,6 +5,7 @@
  */
 package com.oop.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "plans")
-public class Plan {
+public class Plan implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

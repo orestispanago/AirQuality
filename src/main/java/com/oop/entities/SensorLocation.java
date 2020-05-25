@@ -1,6 +1,7 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,15 +14,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sensors_locations")
-public class SensorLocation {
+public class SensorLocation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @JsonProperty
     private float lat;
     
-    @JsonProperty
     private float lon;
     
     @JsonProperty("soldSensorId")
@@ -29,6 +28,7 @@ public class SensorLocation {
     private long soldSensorId;
     
     @OneToOne
+    @JsonProperty
     @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id", insertable = false, updatable = false)
     private SoldSensor soldSensor;
     

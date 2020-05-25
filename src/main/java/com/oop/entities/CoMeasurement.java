@@ -1,6 +1,7 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "co_measurements")
-public class CoMeasurement {
+public class CoMeasurement implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

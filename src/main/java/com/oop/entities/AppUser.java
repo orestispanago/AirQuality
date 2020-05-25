@@ -1,6 +1,7 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
-public class AppUser {
+public class AppUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
