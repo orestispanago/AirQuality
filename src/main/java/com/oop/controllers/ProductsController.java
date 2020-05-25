@@ -1,5 +1,9 @@
 package com.oop.controllers;
 
+import com.oop.entities.Product;
+import com.oop.services.IProductService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductsController {
 
+    @Autowired
+    IProductService productService;
+    
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = "application/json")
     public String products() {
+        List<Product> products = productService.getAllProducts();
         return "List of all products";
     }
 

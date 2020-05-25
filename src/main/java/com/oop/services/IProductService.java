@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oop.dao;
+package com.oop.services;
 
 import com.oop.entities.Product;
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Walter
+ * @author petros_trak
  */
-@Repository
-public interface IProductDao extends CrudRepository<Product, Long> {
-
+public interface IProductService {
     Product getById(long productId);
     List<Product> getAllProducts();
 }
