@@ -40,6 +40,14 @@ public class SoldSensor {
     @JoinColumn(name = "products_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
     
+    @JsonProperty("userId")
+    @Column(name = "users_id")
+    private long userId;
+    
+    @ManyToOne()
+    @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private AppUser user;
+    
     public SoldSensor() {};
     
     public SoldSensor(short registered) {
