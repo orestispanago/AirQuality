@@ -1,6 +1,7 @@
 package com.oop.controllers;
 
 import Test.Greeting;
+import com.oop.dao.IPlanDao;
 import com.oop.dao.IProductDao;
 import com.oop.dao.IProductTypeDao;
 import com.oop.dao.ISensorLocationDao;
@@ -8,6 +9,7 @@ import com.oop.dao.ISoldSensorDao;
 import com.oop.dao.ISubscriptionDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
+import com.oop.entities.Plan;
 import com.oop.entities.Product;
 import com.oop.entities.ProductType;
 import com.oop.entities.SensorLocation;
@@ -101,4 +103,13 @@ public class MainController {
         productTypeService.save(productType);
         return productType + " saved!";
     }
+    
+    @Autowired
+    IPlanDao planService;
+    
+    @RequestMapping(value = "/userplan", method = RequestMethod.POST, produces = "application/json")
+    public String userPlan(@RequestBody Plan plan) {
+        planService.save(plan);
+        return plan + " saved!";
+    }    
 }
