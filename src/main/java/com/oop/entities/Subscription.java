@@ -50,6 +50,14 @@ public class Subscription implements Serializable {
     @JoinColumn(name = "plans_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Plan plan;
     
+    @JsonProperty("userId")
+    @Column(name = "users_id")
+    private long userId;
+    
+    @ManyToOne()
+    @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private AppUser user;
+    
     public Subscription(Date expirationDate) {
         this.dateOfPurchase = null;
         this.expirationDate = expirationDate;
