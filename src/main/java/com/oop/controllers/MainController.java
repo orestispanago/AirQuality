@@ -68,23 +68,6 @@ public class MainController {
         subService.save(sub);
         return sub + " saved!";
     }
-    @Autowired
-    ISensorLocationDao slService;
-
-    @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
-    public String sensorLocation(@RequestBody SensorLocation sl) {
-        slService.save(sl);
-        return sl + " saved!";
-    }
-
-    @Autowired
-    ISoldSensorDao ssService;
-
-    @RequestMapping(value = "/soldsensoruser", method = RequestMethod.POST, produces = "application/json")
-    public String soldSensorUser(@RequestBody SoldSensor ss) {
-        ssService.save(ss);
-        return ss + " saved!";
-    }
 
     @Autowired
     IProductDao productService;
