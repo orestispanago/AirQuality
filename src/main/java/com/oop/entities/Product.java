@@ -5,6 +5,7 @@ Connection to CartItem needed <--
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

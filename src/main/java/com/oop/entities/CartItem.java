@@ -5,6 +5,7 @@
  */
 package com.oop.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "cart_items")
-public class CartItem {
+public class CartItem implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

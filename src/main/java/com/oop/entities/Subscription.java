@@ -6,6 +6,7 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import org.hibernate.annotations.CreationTimestamp;
  */
 @Entity
 @Table(name = "subscriptions")
-public class Subscription {
+public class Subscription implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -23,17 +23,23 @@ public class MeasurementsController {
     @Autowired
     ISensorLocationDao slService;
 
-    @RequestMapping(value = "/pm/{sensorid}", method = RequestMethod.POST, produces = "application/json")
-    public PmMeasurement pmMeasurement(@PathVariable long sensorid,@RequestBody PmMeasurement pm) throws Exception, SensorLocationIdDoesNotExistException {
-        SensorLocation sl = slService.findById(sensorid);
-        if (sl == null) {
-            throw new SensorLocationIdDoesNotExistException(sensorid);
-        } else {
-            pm.setSensorLocation(sl);
-            pmService.save(pm);
-            System.out.println(pm);
-            return pm;
-        }
+    @RequestMapping(value = "/pm/{sensorLocationId}", method = RequestMethod.POST, produces = "application/json")
+    public PmMeasurement pmMeasurement(@PathVariable long sensorLocationId,@RequestBody PmMeasurement pm) throws Exception, SensorLocationIdDoesNotExistException {
+//        SensorLocation sl = slService.findById(sensorlocationid);
+//        if (sl == null) {
+//            throw new SensorLocationIdDoesNotExistException(sensorlocationid);
+//        } else {
+//            pm.setSensorLocation(sl);
+//            pmService.save(pm);
+//            System.out.println(pm);
+//            return pm;
+//        }
+        SensorLocation sl = slService.findById(sensorLocationId);
+        if (sl == null) throw new SensorLocationIdDoesNotExistException(sensorLocationId);
+        pm.setSensorLocation(sl);
+        pmService.save(pm);
+        System.out.println(pm);
+        return pm;
     }
 
     @Autowired

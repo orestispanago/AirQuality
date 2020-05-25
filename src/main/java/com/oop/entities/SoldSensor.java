@@ -5,8 +5,9 @@
  */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,14 +22,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sold_sensors_users")
-public class SoldSensor {
-    
+public class SoldSensor implements Serializable {
+
     @Id
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
+    @JsonProperty
     private short registered;
-    
+
     //@OneToOne
     //@JoinColumn(name = "sensors_locations", referencedColumnName = "id")
     //private SensorLocation sensorLocation;
@@ -103,5 +106,5 @@ public class SoldSensor {
     public String toString() {
         return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
     }
-    
+
 }

@@ -1,6 +1,7 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +15,14 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "pm_measurements")
-public class PmMeasurement {
+public class PmMeasurement implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne()
+    @JsonProperty
     @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id",updatable = false)
     private SensorLocation sensorLocation;
 //
