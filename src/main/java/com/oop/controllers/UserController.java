@@ -23,7 +23,6 @@ public class UserController {
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public String deleteByUserId(@PathVariable long id) {
-        AppUser user = userService.getById(id);
         String username = userService.deleteById(id);
         return "{\"outcome\": \"The user with username \"" + username + "\" was deleted successfully.\"}";
     }

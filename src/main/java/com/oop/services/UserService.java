@@ -24,22 +24,16 @@ public class UserService implements IUserService {
 
     @Override
     public AppUser getById(long userId) {
-        Optional<AppUser> userEntity = userDao.findById(userId);
-        if (userEntity == null) {
-            throw new UserNotFoundException();
-        } else {
-            AppUser user = userEntity.get();
-            return user;
-        }
+        AppUser user = userDao.findById(userId).orElse(null);
+        if (user == null) throw new UserNotFoundException();
+        else return user;
     }
 
     @Override
     public String deleteById(long userId) {
-        Optional<AppUser> userEntity = userDao.findById(userId);
-        if (userEntity == null) {
-            throw new UserNotFoundException();
-        } else {
-            AppUser user = userEntity.get();
+        AppUser user = userDao.findById(userId).orElse(null);
+        if (user == null) throw new UserNotFoundException();
+        else {
             String username = user.getUsername();
             userDao.delete(user);
             return username;
