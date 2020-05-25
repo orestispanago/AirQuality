@@ -28,7 +28,7 @@ public class SoldSensor implements Serializable {
 
     @Id
     @JsonProperty
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @JsonProperty
