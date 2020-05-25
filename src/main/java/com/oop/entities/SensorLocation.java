@@ -65,4 +65,12 @@ public class SensorLocation implements Serializable {
         this.lon = lon;
     }
 
+    public SoldSensor getSoldSensor() {
+        return soldSensor;
+    }
+
+    public void setSoldSensor(SoldSensor soldSensor) {
+        this.soldSensor = soldSensor;
+    }
+
 }
