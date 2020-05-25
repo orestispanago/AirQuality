@@ -47,12 +47,12 @@ public class MainController {
     @Autowired
     ISubscriptionDao subService;
 
-    @RequestMapping(value = "/subscription", method = RequestMethod.POST, produces = "application/json")
-    public String subscription(@RequestBody Subscription sub) {
-        System.out.println(sub);
-        subService.save(sub);
-        return sub + " saved!";
-    }
+//    @RequestMapping(value = "/subscription", method = RequestMethod.POST, produces = "application/json")
+//    public String subscription(@RequestBody Subscription sub) {
+//        System.out.println(sub);
+//        subService.save(sub);
+//        return sub + " saved!";
+//    }
 
     @Autowired
     IProductDao productService;

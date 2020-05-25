@@ -33,13 +33,13 @@ public class SubscriptionController {
     @Autowired
     UserDao userService;
     
-    @RequestMapping(value = "{/userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "{subscription/readuserId}", method = RequestMethod.POST, produces = "application/json")
     public Subscription readSubscriptionByUserId(@PathVariable long userId){
         if(userService.existsById(userId)) throw new UserNotFoundException();
         return subscriptionService.getById(userId);
     }
     
-    @RequestMapping(value = "{/userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "{subscription/createuserId}", method = RequestMethod.POST, produces = "application/json")
     public Subscription createSubscriptionByUserId(@PathVariable long userId){
         if(userService.existsById(userId) == false) throw new UserNotFoundException();
         Optional<AppUser> userEntity = userService.findById(userId);
@@ -50,7 +50,7 @@ public class SubscriptionController {
         return subscriptionService.save(subscription);
     }
     
-    @RequestMapping(value = "{/userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "{subscription/updateuserId}", method = RequestMethod.POST, produces = "application/json")
     public Subscription updateSubscriptionByUserId(@PathVariable long userId, @RequestBody Subscription subscription){
         if(userService.existsById(userId) == false) throw new UserNotFoundException();
         long subscriptionId = subscription.getId();
