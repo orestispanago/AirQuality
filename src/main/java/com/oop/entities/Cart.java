@@ -32,7 +32,7 @@ public class Cart implements Serializable {
     private long id;
     
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
     

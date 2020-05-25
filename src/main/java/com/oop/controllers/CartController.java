@@ -43,7 +43,7 @@ public class CartController {
     }
     
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT, produces = "application/json")
-    public Cart updateCart(@PathVariable long userId, @RequestBody Cart cart) {
+    public Cart updateCartByUserId(@PathVariable long userId, @RequestBody Cart cart) {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
         long cartId = cart.getId();
         if (cartService.existsById(cartId) == false) throw new CartNotFoundException();
@@ -51,17 +51,15 @@ public class CartController {
         return updatedCart;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public String deleteCartByCartId(@PathVariable long id) {
-        cartService.deleteById(id);
-        return "tCart deleted";
-    }
-    
-    @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
-    public String deleteCart(@RequestBody Cart cart) {
-        cartService.delete(cart);
-        return "tCart deleted";
-    }
-    
-  
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+//    public String deleteCartByCartId(@PathVariable long id) {
+//        cartService.deleteById(id);
+//        return "{\"outcome\": \"cart deleted\"}";
+//    }
+//    
+//    @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
+//    public String deleteCart(@RequestBody Cart cart) {
+//        cartService.delete(cart);
+//        return "tCart deleted";
+//    }
 }

@@ -9,5 +9,4 @@ import com.oop.entities.AppUser;
 public interface UserDao extends CrudRepository<AppUser, Long> {
 	
     AppUser findByUsername(String username);
-	
 }

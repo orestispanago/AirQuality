@@ -29,7 +29,7 @@ public class AppUser implements Serializable {
 //    @Column(length=30)
 //    private String address;
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", optional = true, orphanRemoval = true, cascade = CascadeType.ALL)
     private Cart cart;
     
 

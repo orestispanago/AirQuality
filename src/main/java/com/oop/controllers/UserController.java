@@ -1,14 +1,32 @@
 package com.oop.controllers;
 
+import com.oop.entities.AppUser;
 import com.oop.services.ICartService;
+import com.oop.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/{id}")
+@RequestMapping("/users")
 public class UserController {
+    @Autowired
+    IUserService userService;
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    public AppUser readUserById(@PathVariable long id) {
+        AppUser user = userService.getById(id);
+        return user;
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public String deleteByUserId(@PathVariable long id) {
+        AppUser user = userService.getById(id);
+        String username = userService.deleteById(id);
+        return "{\"outcome\": \"The user with username \"" + username + "\" was deleted successfully.\"}";
+    }
 
     @RequestMapping(value = "/sensors", method = RequestMethod.GET, produces = "application/json")
     public String sensors() {
