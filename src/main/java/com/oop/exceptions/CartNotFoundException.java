@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class CartNotFoundException extends RuntimeException {
     public CartNotFoundException(){
-        super("The cart for the specified user id does not exist.");
+        super("The cart for the specified user id does not exist");
     }
 }

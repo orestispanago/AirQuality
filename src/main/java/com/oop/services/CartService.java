@@ -50,23 +50,20 @@ public class CartService implements ICartService {
 
     @Override
     public Cart update(Cart cart) {
-       long cartId = cart.getId();
-       Optional<Cart> cartEntity = cartDao.findById(cartId);
-       if (cartEntity == null){
-          throw new CartNotFoundException();
-       }
+       Cart dbCart = cartDao.findById(cart.getId()).orElse(null);
+       if (dbCart == null) throw new CartNotFoundException();
        return cartDao.save(cart);
     }
     
     @Override
     public void delete(Cart cart) {
-       if (cartDao.existsById(cart.getId()) == false) throw new CartNotFoundException();
+       if (!cartDao.existsById(cart.getId())) throw new CartNotFoundException();
        cartDao.delete(cart);
     }
     
     @Override
     public void deleteById(long id) {
-       if (cartDao.existsById(id) == false) throw new CartNotFoundException();
+       if (!cartDao.existsById(id)) throw new CartNotFoundException();
        cartDao.deleteById(id);
     }
     
