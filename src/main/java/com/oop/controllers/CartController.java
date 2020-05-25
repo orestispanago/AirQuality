@@ -1,10 +1,12 @@
 package com.oop.controllers;
 
 import com.oop.dao.UserDao;
+import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
 import com.oop.errors.UserNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import com.oop.services.ICartService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +33,10 @@ public class CartController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.POST, produces = "application/json")
     public Cart createCartByUserId(@PathVariable long userId) {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
+        Optional<AppUser> userEntity = userService.findById(userId);
+        AppUser user = userEntity.get();
         Cart cart = new Cart();
-        cart.setUserId(userId);
+        cart.setUser(user);
         return cartService.save(cart);
     }
     

@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,8 +30,9 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @Column(name="user_id")
-    private long userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private AppUser user;
     
     @CreationTimestamp
     @Column(name = "timestamp", updatable = false, nullable = false)
@@ -49,12 +52,12 @@ public class Cart implements Serializable {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public AppUser getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     public Date getCreated() {
@@ -71,9 +74,9 @@ public class Cart implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 79 * hash + (int) (this.userId ^ (this.userId >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.user);
         hash = 79 * hash + Objects.hashCode(this.created);
         hash = 79 * hash + Objects.hashCode(this.cartItems);
         return hash;
@@ -94,7 +97,7 @@ public class Cart implements Serializable {
         if (this.id != other.id) {
             return false;
         }
-        if (this.userId != other.userId) {
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         if (!Objects.equals(this.created, other.created)) {
@@ -108,6 +111,6 @@ public class Cart implements Serializable {
 
     @Override
     public String toString() {
-        return "Cart{" + "id=" + id + ", userId=" + userId + ", created=" + created + ", cartItems=" + cartItems + '}';
+        return "Cart{" + "id=" + id + ", user=" + user + ", created=" + created + ", cartItems=" + cartItems + '}';
     }
 }
