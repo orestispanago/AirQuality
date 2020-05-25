@@ -25,20 +25,10 @@ public class MeasurementsController {
 
     @RequestMapping(value = "/pm/{sensorLocationId}", method = RequestMethod.POST, produces = "application/json")
     public PmMeasurement pmMeasurement(@PathVariable long sensorLocationId,@RequestBody PmMeasurement pm) throws Exception, SensorLocationIdDoesNotExistException {
-//        SensorLocation sl = slService.findById(sensorlocationid);
-//        if (sl == null) {
-//            throw new SensorLocationIdDoesNotExistException(sensorlocationid);
-//        } else {
-//            pm.setSensorLocation(sl);
-//            pmService.save(pm);
-//            System.out.println(pm);
-//            return pm;
-//        }
         SensorLocation sl = slService.findById(sensorLocationId);
         if (sl == null) throw new SensorLocationIdDoesNotExistException(sensorLocationId);
         pm.setSensorLocation(sl);
         pmService.save(pm);
-        System.out.println(pm);
         return pm;
     }
 
