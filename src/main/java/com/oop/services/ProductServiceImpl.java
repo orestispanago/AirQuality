@@ -11,11 +11,13 @@ import com.oop.exceptions.ProductNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author petros_trak
  */
+@Service
 public class ProductServiceImpl implements IProductService{
     
     @Autowired
@@ -34,7 +36,7 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        Iterable<Product> productEntity = productDao.getAllProducts();
+        Iterable<Product> productEntity = productDao.findAll();
         List<Product> products = (List<Product>)productEntity;
         return products;
     }
