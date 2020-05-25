@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author petros_trak
  */
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ProductNotFoundException extends RuntimeException{
-    public ProductNotFoundException(){
-        super("Product has not been found..");
+public class SubscriptionNotFoundException extends RuntimeException{
+    public SubscriptionNotFoundException(){
+        super("Subscription not found..");
     }
 }
