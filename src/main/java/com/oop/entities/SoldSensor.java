@@ -5,12 +5,14 @@
  */
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +32,13 @@ public class SoldSensor {
     //@OneToOne
     //@JoinColumn(name = "sensors_locations", referencedColumnName = "id")
     //private SensorLocation sensorLocation;
+    @JsonProperty("productId")
+    @Column(name = "products_id")
+    private long productId;
+    
+    @ManyToOne()
+    @JoinColumn(name = "products_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Product product;
     
     public SoldSensor() {};
     
