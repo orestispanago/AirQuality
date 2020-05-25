@@ -7,6 +7,7 @@ public interface ICartService {
     Cart getByUserId(long id);
     List<Cart> getAllCarts();
     boolean existsById(long id);
+    boolean existsByUserId(long userId);
     Cart save(Cart cart);
     void deleteById(long id);
     void delete(Cart cart);

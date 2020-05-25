@@ -3,6 +3,7 @@ package com.oop.controllers;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
+import com.oop.errors.CartAlreadyExistsException;
 import com.oop.errors.UserNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import com.oop.services.ICartService;
@@ -35,6 +36,7 @@ public class CartController {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
         Optional<AppUser> userEntity = userService.findById(userId);
         AppUser user = userEntity.get();
+        if (cartService.existsByUserId(userId)) throw new CartAlreadyExistsException();
         Cart cart = new Cart();
         cart.setUser(user);
         return cartService.save(cart);

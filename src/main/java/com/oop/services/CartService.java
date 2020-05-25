@@ -19,6 +19,11 @@ public class CartService implements ICartService {
         if (cart == null) throw new CartNotFoundException();
         return cart;
     }
+    
+    @Override
+    public boolean existsByUserId(long userId){
+        return cartDao.existsByUserId(userId);
+    }
 
     @Override
     public List<Cart> getAllCarts() {
