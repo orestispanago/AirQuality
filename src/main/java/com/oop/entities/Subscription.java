@@ -42,9 +42,6 @@ public class Subscription implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
     
-    @JsonProperty("planId")
-    @Column(name = "plans_id")
-    private long planId;
     
     @ManyToOne()
     @JoinColumn(name = "plans_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -87,14 +84,6 @@ public class Subscription implements Serializable {
         this.expirationDate = expirationDate;
     }
 
-    public long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(long planId) {
-        this.planId = planId;
-    }
-
     public Plan getPlan() {
         return plan;
     }
@@ -122,17 +111,16 @@ public class Subscription implements Serializable {
     public long getId() {
         return id;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.dateOfPurchase);
-        hash = 59 * hash + Objects.hashCode(this.expirationDate);
-        hash = 59 * hash + (int) (this.planId ^ (this.planId >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.plan);
-        hash = 59 * hash + (int) (this.userId ^ (this.userId >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.user);
+        int hash = 3;
+        hash = 41 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 41 * hash + Objects.hashCode(this.dateOfPurchase);
+        hash = 41 * hash + Objects.hashCode(this.expirationDate);
+        hash = 41 * hash + Objects.hashCode(this.plan);
+        hash = 41 * hash + (int) (this.userId ^ (this.userId >>> 32));
+        hash = 41 * hash + Objects.hashCode(this.user);
         return hash;
     }
 
@@ -149,9 +137,6 @@ public class Subscription implements Serializable {
         }
         final Subscription other = (Subscription) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (this.planId != other.planId) {
             return false;
         }
         if (this.userId != other.userId) {
@@ -174,8 +159,10 @@ public class Subscription implements Serializable {
 
     @Override
     public String toString() {
-        return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + ", planId=" + planId + ", plan=" + plan + ", userId=" + userId + ", user=" + user + '}';
+        return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + ", plan=" + plan + ", userId=" + userId + ", user=" + user + '}';
     }
+    
+
 
     
 }

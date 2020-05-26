@@ -24,7 +24,7 @@ import javax.persistence.Table;
 public class Plan implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     private String title;
@@ -54,6 +54,11 @@ public class Plan implements Serializable {
         this.feature3 = feature3;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    
     public String getTitle() {
         return title;
     }
