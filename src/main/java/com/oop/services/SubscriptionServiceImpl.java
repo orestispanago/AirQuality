@@ -69,6 +69,11 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
         return true;
     }
 
+    @Override
+    public boolean existsByUserId(long id) {
+        return subscriptionDao.existsByUserId(id);
+    }
+
     
 
 }
