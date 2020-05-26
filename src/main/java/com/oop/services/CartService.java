@@ -42,8 +42,7 @@ public class CartService implements ICartService {
     @Override
     public Cart save(Cart cart) {
         if (cart != null){
-            Cart savedCart = cartDao.save(cart);
-            return savedCart;
+            return cartDao.save(cart);
         }
         return null;
     }
