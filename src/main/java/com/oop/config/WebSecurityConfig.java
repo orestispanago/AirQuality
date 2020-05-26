@@ -1,5 +1,6 @@
 package com.oop.config;
 
+import com.oop.entities.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,9 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/authenticate", "/register",
                         "/", "/products", "/map", "/greeting", "/user/**",
-                        "/pm/**", "/co/**", "/subscription", "/sensorlocation",
+                        "/pm/**", "/co/**", "/sensorlocation",
                         "/soldsensoruser", "/productuser", "/producttype",
-                        "/carts/**", "/userplan", "/users/**","/plans/**").permitAll().
+                        "/carts/**", "/userplan", "/users/**","/plans/**", "/subscriptions/**").permitAll().
                 // all other requests need to be authenticated
                 anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

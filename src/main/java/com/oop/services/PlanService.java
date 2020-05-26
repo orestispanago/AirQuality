@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class PlanService implements IPlanService {
     @Autowired
     IPlanDao planDao;
-
+    
     @Override
     public Plan getById(long planId) {
         Plan plan = planDao.findById(planId).orElse(null);
@@ -39,6 +39,11 @@ public class PlanService implements IPlanService {
             return planDao.save(plan);
         }
         return null;
+    }
+
+    @Override
+    public boolean existsById(long planId) {
+        return planDao.existsById(planId);
     }
     
 }

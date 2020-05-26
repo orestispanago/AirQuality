@@ -39,4 +39,9 @@ public class UserService implements IUserService {
             return username;
         }
     }
+
+    @Override
+    public boolean existsById(long userId) {
+        return userDao.existsById(userId);
+    }
 }

@@ -16,4 +16,5 @@ public interface IPlanService {
     Plan getById(long planId);
     List<Plan> getAll();
     Plan save(Plan plan);
+    boolean existsById(long planId);
 }
