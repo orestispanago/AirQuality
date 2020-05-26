@@ -41,15 +41,13 @@ public class SubscriptionController {
     
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Subscription readSubscriptionByUserId(@PathVariable long userId){
-        if(userService.existsById(userId) == false) throw new UserNotFoundException();
-        return subscriptionService.getById(userId);
+        AppUser user = userService.getById(userId);
+        return subscriptionService.getById(user.getId());
     }
     
     @RequestMapping(value = "/{userId}", method = RequestMethod.POST, produces = "application/json")
     public Subscription createSubscriptionByUserId(@PathVariable long userId, long planId){
-        if(userService.existsById(userId) == false) throw new UserNotFoundException();
         AppUser user = userService.getById(userId);
-        if(!planService.existsById(planId)) throw new PlanNotFoundException();
         Plan plan = planService.getById(planId);
         if(subscriptionService.existsById(userId)) throw new SubscriptionAlreadyExistsException();
         Subscription subscription = new Subscription();
@@ -60,9 +58,8 @@ public class SubscriptionController {
     
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT, produces = "application/json")
     public Subscription updateSubscriptionByUserId(@PathVariable long userId, @RequestBody Subscription subscription){
-        if(userService.existsById(userId) == false) throw new UserNotFoundException();
-        long subscriptionId = subscription.getId();
-        if(subscriptionService.existsById(subscriptionId) == false) throw new SubscriptionNotFoundException();
+        AppUser user = userService.getById(userId);
+        Subscription sub = subscriptionService.getByUserId(userId);
         return subscriptionService.save(subscription);
     }
 }

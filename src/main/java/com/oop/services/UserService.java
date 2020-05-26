@@ -24,9 +24,7 @@ public class UserService implements IUserService {
 
     @Override
     public AppUser getById(long userId) {
-        AppUser user = userDao.findById(userId).orElse(null);
-        if (user == null) throw new UserNotFoundException();
-        else return user;
+        return userDao.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -38,10 +36,5 @@ public class UserService implements IUserService {
             userDao.delete(user);
             return username;
         }
-    }
-
-    @Override
-    public boolean existsById(long userId) {
-        return userDao.existsById(userId);
     }
 }

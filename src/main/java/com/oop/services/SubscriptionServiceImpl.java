@@ -6,8 +6,10 @@
 package com.oop.services;
 
 import com.oop.dao.ISubscriptionDao;
+import com.oop.entities.AppUser;
 import com.oop.entities.Subscription;
 import com.oop.exceptions.SubscriptionNotFoundException;
+import com.oop.exceptions.UserNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,11 @@ import org.springframework.stereotype.Service;
 public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Autowired
-    ISubscriptionDao subscriptionService;
+    ISubscriptionDao subscriptionDao;
 
     @Override
     public Subscription getById(long subscriptionId) {
-        Optional<Subscription> subEntity = subscriptionService.findById(subscriptionId);
+        Optional<Subscription> subEntity = subscriptionDao.findById(subscriptionId);
         if (subEntity == null) {
             throw new SubscriptionNotFoundException();
         } else {
@@ -32,20 +34,27 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
             return sub;
         }
     }
+    
+    @Override
+    public Subscription getByUserId(long userId) {
+        Subscription sub = subscriptionDao.findByUserId(userId);
+        if (sub == null) throw new SubscriptionNotFoundException();
+        return sub;
+    }
 
     @Override
     public Subscription update(Subscription subscription) {
-        Subscription dbSub = subscriptionService.findById(subscription.getId()).orElse(null);
+        Subscription dbSub = subscriptionDao.findById(subscription.getId()).orElse(null);
         if (dbSub == null) {
             throw new SubscriptionNotFoundException();
         }
-        return subscriptionService.save(subscription);
+        return subscriptionDao.save(subscription);
     }
 
     @Override
     public Subscription save(Subscription subscription) {
         if (subscription != null) {
-            Subscription savedSubscription = subscriptionService.save(subscription);
+            Subscription savedSubscription = subscriptionDao.save(subscription);
             return savedSubscription;
         }
         return null;
@@ -53,11 +62,13 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Override
     public boolean existsById(long id) {
-        Optional<Subscription> subscriptionEntity = subscriptionService.findById(id);
+        Optional<Subscription> subscriptionEntity = subscriptionDao.findById(id);
         if (subscriptionEntity == null) {
             return false;
         }
         return true;
     }
+
+    
 
 }

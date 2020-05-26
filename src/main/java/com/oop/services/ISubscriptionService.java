@@ -15,5 +15,6 @@ public interface ISubscriptionService {
     Subscription getById(long subscriptionId);
     Subscription update(Subscription subscription);;
     Subscription save(Subscription subscription);
+    Subscription getByUserId(long userId);
     boolean existsById(long id);
 }

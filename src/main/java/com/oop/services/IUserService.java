@@ -14,6 +14,4 @@ import com.oop.entities.AppUser;
 public interface IUserService {
     AppUser getById(long userId);
     String deleteById(long userId);
-
-    public boolean existsById(long userId);
 }

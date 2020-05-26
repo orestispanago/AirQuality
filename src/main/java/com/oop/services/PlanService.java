@@ -23,9 +23,7 @@ public class PlanService implements IPlanService {
     
     @Override
     public Plan getById(long planId) {
-        Plan plan = planDao.findById(planId).orElse(null);
-        if (plan == null) throw new PlanNotFoundException();
-        else return plan;
+        return planDao.findById(planId).orElseThrow(PlanNotFoundException::new);
     }
 
     @Override
