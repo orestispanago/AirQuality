@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.lang.NonNull;
 
 /**
  *
@@ -24,9 +25,10 @@ import javax.persistence.Table;
 public class ProductType implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    
+    @NonNull
     private String type;
     
     public ProductType() {};
