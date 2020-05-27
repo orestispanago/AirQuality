@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
-/**
- *
- * @author Administrator
- */
+
 @Entity
 @Table(name = "subscriptions")
 public class Subscription implements Serializable {
@@ -36,13 +26,11 @@ public class Subscription implements Serializable {
     @CreationTimestamp
     @Column(name = "date_of_purchase", updatable = false)
     private Date dateOfPurchase;
-    
-    // TODO test if @JsonProperty is better
+
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
-    
-    
+
     @ManyToOne()
     @JoinColumn(name = "plans_id", referencedColumnName = "id")
     private Plan plan;
@@ -50,27 +38,19 @@ public class Subscription implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     private AppUser user;
-    
-    public Subscription() {};
-    
-//    public Subscription(Date expirationDate) {
-//        this.dateOfPurchase = null;
-//        this.expirationDate = expirationDate;
-//    }
 
-    
-    public Subscription(Date dateOfPurchase, Date expirationDate) {
-        this.dateOfPurchase = dateOfPurchase;
-        this.expirationDate = expirationDate;
+    public Subscription() {
+    }
+
+    public Subscription(Plan plan, AppUser user) {
+        this.dateOfPurchase = new Date();
+        this.expirationDate = new Date(dateOfPurchase.getTime() + 2629746000L);
+        this.plan = plan;
+        this.user = user;
     }
 
     public Date getDateOfPurchase() {
         return dateOfPurchase;
-    }
-
-    public void setDateOfPurchase(Date dateOfPurchase) {
-        System.out.println("Called setter date of purchase?????????????????????????????????????");
-        this.dateOfPurchase = dateOfPurchase;
     }
 
     public Date getExpirationDate() {
@@ -89,7 +69,6 @@ public class Subscription implements Serializable {
         this.plan = plan;
     }
 
-
     public AppUser getUser() {
         return user;
     }
@@ -106,5 +85,5 @@ public class Subscription implements Serializable {
     public String toString() {
         return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + ", plan=" + plan + ", user=" + user + '}';
     }
-    
+
 }

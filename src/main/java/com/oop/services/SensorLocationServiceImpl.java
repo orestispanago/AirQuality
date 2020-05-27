@@ -21,4 +21,12 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
         return sensorLocationDao.findById(sensorLocationId).orElseThrow(SensorLocationNotFoundException::new);
     }
 
+    @Override
+    public SensorLocation save(SensorLocation sensorLocation) {
+        if (sensorLocation != null) {
+            return sensorLocationDao.save(sensorLocation);
+        }
+        return null;
+    }
+
 }

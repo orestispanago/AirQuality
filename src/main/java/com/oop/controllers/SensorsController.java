@@ -4,10 +4,11 @@ import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;
 import com.oop.entities.SensorLocation;
 import com.oop.entities.SoldSensor;
+import com.oop.services.SensorLocationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,21 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class SensorsController {
 
     @Autowired
-    ISensorLocationDao slService;
+    SensorLocationServiceImpl sensorLocationlService;
 
-    @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/sensorlocation", method =POST, produces = "application/json")
     public SensorLocation sensorLocation(@RequestBody SensorLocation sl) {
-        slService.save(sl);
-        return sl;
+        return sensorLocationlService.save(sl);
     }
 
     @Autowired
     ISoldSensorDao ssService;
 
-    @RequestMapping(value = "/soldsensoruser", method = RequestMethod.POST, produces = "application/json")
-    public String soldSensorUser(@RequestBody SoldSensor ss) {
-        ssService.save(ss);
-        return ss + " saved!";
+    @RequestMapping(value = "/soldsensoruser", method = POST, produces = "application/json")
+    public SoldSensor soldSensorUser(@RequestBody SoldSensor ss) {
+        return ssService.save(ss);
     }
 
 }

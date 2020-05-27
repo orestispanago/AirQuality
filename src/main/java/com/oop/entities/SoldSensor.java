@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Column;
 import javax.persistence.Column;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -28,15 +21,12 @@ public class SoldSensor implements Serializable {
 
     @Id
     @JsonProperty
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @JsonProperty
     private short registered;
 
-    //@OneToOne
-    //@JoinColumn(name = "sensors_locations", referencedColumnName = "id")
-    //private SensorLocation sensorLocation;
     @JsonProperty("productId")
     @Column(name = "products_id")
     private long productId;

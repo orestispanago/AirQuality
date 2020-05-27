@@ -8,4 +8,5 @@ import com.oop.entities.SensorLocation;
  */
 public interface ISensorLocationService {
     SensorLocation getById(long sensorLocationId);
+    SensorLocation save(SensorLocation sensorLocation);
 }
