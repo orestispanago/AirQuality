@@ -18,9 +18,9 @@ public class SensorsController {
     ISensorLocationDao slService;
 
     @RequestMapping(value = "/sensorlocation", method = RequestMethod.POST, produces = "application/json")
-    public String sensorLocation(@RequestBody SensorLocation sl) {
+    public SensorLocation sensorLocation(@RequestBody SensorLocation sl) {
         slService.save(sl);
-        return sl + " saved!";
+        return sl;
     }
 
     @Autowired

@@ -1,9 +1,10 @@
 package com.oop.controllers;
 
 import com.oop.entities.Product;
-import com.oop.services.IProductService;
+import com.oop.services.ProductServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductsController {
 
     @Autowired
-    IProductService productService;
+    ProductServiceImpl productService;
     
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = "application/json")
     public String products() {
@@ -21,8 +22,8 @@ public class ProductsController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "application/json")
-    public String newProduct() {
-        return "Added new product";
+    public Product newProduct(@RequestBody Product product) {
+        return productService.save(product);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.POST, produces = "application/json")

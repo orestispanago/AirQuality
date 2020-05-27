@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ISensorLocationDao extends CrudRepository<SensorLocation, Long> {
 
-    SensorLocation findById(long id);
 }

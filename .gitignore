@@ -24,3 +24,5 @@ hs_err_pid*
 /LeisureHotelWebApp/nbproject/private/
 /target/
 .DS_Store
+
+nbactions.xml

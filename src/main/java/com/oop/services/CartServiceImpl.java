@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CartService implements ICartService {
+public class CartServiceImpl implements ICartService {
     @Autowired
     ICartDao cartDao;
     

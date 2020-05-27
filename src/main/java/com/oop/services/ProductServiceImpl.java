@@ -18,17 +18,17 @@ import org.springframework.stereotype.Service;
  * @author petros_trak
  */
 @Service
-public class ProductServiceImpl implements IProductService{
-    
+public class ProductServiceImpl implements IProductService {
+
     @Autowired
     IProductDao productDao;
-    
+
     @Override
     public Product getById(long productId) {
         Optional<Product> productEntity = productDao.findById(productId);
-        if(productEntity == null) 
+        if (productEntity == null) {
             throw new ProductNotFoundException();
-        else{
+        } else {
             Product product = productEntity.get();
             return product;
         }
@@ -37,8 +37,16 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public List<Product> getAllProducts() {
         Iterable<Product> productEntity = productDao.findAll();
-        List<Product> products = (List<Product>)productEntity;
+        List<Product> products = (List<Product>) productEntity;
         return products;
     }
-    
+
+    @Override
+    public Product save(Product product) {
+        if (product == null) {
+            return null;
+        }
+        return productDao.save(product);
+    }
+
 }

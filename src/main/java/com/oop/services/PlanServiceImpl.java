@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author Walter
  */
 @Service
-public class PlanService implements IPlanService {
+public class PlanServiceImpl implements IPlanService {
     @Autowired
     IPlanDao planDao;
     
