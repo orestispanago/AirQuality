@@ -43,7 +43,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
-    @ManyToOne()
+    @ManyToOne(optional = false)
     @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AppUser user;
     
