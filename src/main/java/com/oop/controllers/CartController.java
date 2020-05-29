@@ -3,10 +3,12 @@ package com.oop.controllers;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
+import com.oop.entities.CartItem;
 import com.oop.exceptions.CartAlreadyExistsException;
 import com.oop.exceptions.UserNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import com.oop.services.ICartService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +49,10 @@ public class CartController {
         if (userService.existsById(userId) == false) throw new UserNotFoundException();
         long cartId = cart.getId();
         if (cartService.existsById(cartId) == false) throw new CartNotFoundException();
+        List<CartItem> cartItems = cart.getCartItems();
+        for (CartItem cartItem : cartItems) {
+            cartItem.setCart(cart);
+        }
         Cart updatedCart = cartService.update(cart);
         return updatedCart;
     }

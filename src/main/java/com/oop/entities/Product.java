@@ -42,14 +42,10 @@ public class Product implements Serializable {
     
     @JsonProperty("imageUrl")
     @Column(name = "image")
-    private String imageUrl;
-        
-    @JsonProperty("productTypeId")
-    @Column(name = "product_type_id")
-    private long productTypeId;
+    private String imageUrl;        
     
     @ManyToOne()
-    @JoinColumn(name = "product_type_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
     private ProductType productType;
     
     public Product() {};
@@ -165,7 +161,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", imageUrl=" + imageUrl + ", productType=" + productType + ", productTypeId=" + productTypeId + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", imageUrl=" + imageUrl + ", productType=" + productType + '}';
     }
     
     

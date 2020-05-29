@@ -1,12 +1,13 @@
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +30,7 @@ public class AppUser implements Serializable {
 //    @Column(length=30)
 //    private String address;
     
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @OneToOne(mappedBy = "user", optional = true, orphanRemoval = true, cascade = CascadeType.ALL)
     private Cart cart;
     

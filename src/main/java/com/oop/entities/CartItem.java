@@ -5,10 +5,11 @@
  */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,20 +32,14 @@ public class CartItem implements Serializable {
     
     private int quantity;
     
-    @JsonProperty("cartId")
-    @Column(name = "carts_id")
-    private long cartId;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "carts_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JsonIgnore
+    @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JoinColumn(name = "carts_id", referencedColumnName = "id")
     private Cart cart;
     
-    @JsonProperty("productId")
-    @Column(name = "products_id")
-    private long productId;
-    
     @ManyToOne(optional = false)
-    @JoinColumn(name = "products_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "products_id", referencedColumnName = "id")
     private Product product;
     
     public CartItem() {};

@@ -1,6 +1,7 @@
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,7 +32,8 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
@@ -40,12 +42,15 @@ public class Cart implements Serializable {
     @Column(name = "timestamp", updatable = false, nullable = false)
     private Date created;   
     
-//    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL)
-//    private List<CartItem> cartItems;
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
     public Cart() {
     }
-
+    
+    
+    
     public long getId() {
         return id;
     }
@@ -66,13 +71,13 @@ public class Cart implements Serializable {
         return created;
     }
 
-//    public List<CartItem> getCartItems() {
-//        return cartItems;
-//    }
-//
-//    public void setCartItems(List<CartItem> cartItems) {
-//        this.cartItems = cartItems;
-//    }
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
 
     @Override
     public int hashCode() {
@@ -80,7 +85,7 @@ public class Cart implements Serializable {
         hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 79 * hash + Objects.hashCode(this.user);
         hash = 79 * hash + Objects.hashCode(this.created);
-//        hash = 79 * hash + Objects.hashCode(this.cartItems);
+        hash = 79 * hash + Objects.hashCode(this.cartItems);
         return hash;
     }
 
@@ -105,14 +110,14 @@ public class Cart implements Serializable {
         if (!Objects.equals(this.created, other.created)) {
             return false;
         }
-//        if (!Objects.equals(this.cartItems, other.cartItems)) {
-//            return false;
-//        }
+        if (!Objects.equals(this.cartItems, other.cartItems)) {
+            return false;
+        }
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Cart{" + "id=" + id + ", user=" + user + ", created=" + created + ", cartItems=" + cartItems + '}';
-//    }
+    @Override
+    public String toString() {
+        return "Cart{" + "id=" + id + ", user=" + user + ", created=" + created + ", cartItems=" + cartItems + '}';
+    }
 }

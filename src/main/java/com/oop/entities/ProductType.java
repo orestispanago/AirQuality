@@ -28,7 +28,6 @@ public class ProductType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @NonNull
     private String type;
     
     public ProductType() {};
