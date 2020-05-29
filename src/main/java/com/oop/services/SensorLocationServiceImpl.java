@@ -29,4 +29,10 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
         return null;
     }
 
+    @Override
+    public void delete(SensorLocation sensorLocation) {
+        if(!sensorLocationDao.existsById(sensorLocation.getId())) throw new SensorLocationNotFoundException();
+        sensorLocationDao.delete(sensorLocation);
+    }
+
 }
