@@ -23,4 +23,5 @@ public interface ICartItemService {
     void deleteById(long id);
     //void delete(CartItem cartItem);
     CartItem update(CartItem cartItem);
+    CartItem getById(long id);
 }

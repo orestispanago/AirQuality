@@ -5,7 +5,9 @@
  */
 package com.oop.services;
 
+import com.oop.entities.Cart;
 import com.oop.entities.Order;
+import com.oop.models.OrderRequest;
 import java.util.List;
 
 /**
@@ -13,12 +15,11 @@ import java.util.List;
  * @author petros_trak
  */
 public interface IOrderService {
-    public Order getByUserId(long id);
-    public List<Order> getAllOrders();
-    public boolean existsById(long id);
-    public boolean existsByUserId(long userId);
-    public Order save(Order order);
-    public void deleteById(long id);
-    public void delete(Order order);
-    public Order update(Order order);
+    Order getById(long id);
+    List<Order> getAllByUserId(long userId);
+    boolean existsById(long id);
+    boolean existsByUserId(long userId);
+    Order save(Order order);
+    Order makeOrder(OrderRequest orderRequest);
+    
 }

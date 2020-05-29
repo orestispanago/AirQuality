@@ -17,36 +17,45 @@ import org.springframework.stereotype.Service;
  * @author petros_trak
  */
 @Service
-public class CartItemServiceImpl implements ICartItemService{
-    
+public class CartItemServiceImpl implements ICartItemService {
+
     @Autowired
     ICartItemDao cartItemDao;
-    
+
     @Override
     public List<CartItem> getByCartId(long id) {
         return cartItemDao.findByCartId(id);
-       
-    }
 
+    }
 
     @Override
     public CartItem save(CartItem cartItem) {
-        if(cartItem != null)
+        if (cartItem != null) {
             return cartItemDao.save(cartItem);
+        }
         return null;
     }
 
     @Override
     public void deleteById(long id) {
-        if(!cartItemDao.existsById(id)) throw new CartItemNotFoundException();
+        if (!cartItemDao.existsById(id)) {
+            throw new CartItemNotFoundException();
+        }
         cartItemDao.deleteById(id);
     }
 
     @Override
     public CartItem update(CartItem cartItem) {
         CartItem dbCartItem = cartItemDao.findById(cartItem.getId()).orElse(null);
-        if(dbCartItem == null) throw new CartItemNotFoundException();
+        if (dbCartItem == null) {
+            throw new CartItemNotFoundException();
+        }
         return cartItemDao.save(dbCartItem);
     }
-    
+
+    @Override
+    public CartItem getById(long id) {
+        return cartItemDao.findById(id).orElse(null);
+    }
+
 }

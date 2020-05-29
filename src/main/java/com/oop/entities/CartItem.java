@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +36,7 @@ public class CartItem implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JoinColumn(name = "carts_id", referencedColumnName = "id")
+//    @JoinColumn(name = "carts_id", referencedColumnName = "id")
     private Cart cart;
     
     @ManyToOne(optional = false)

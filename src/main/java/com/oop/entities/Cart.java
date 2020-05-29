@@ -35,15 +35,15 @@ public class Cart implements Serializable {
     //@JsonIgnore
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id",nullable = false)
     private AppUser user;
     
     @CreationTimestamp
-    @Column(name = "timestamp", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private Date created;   
     
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CartItem> cartItems;
 
     public Cart() {

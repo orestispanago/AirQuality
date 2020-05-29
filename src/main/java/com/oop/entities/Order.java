@@ -6,7 +6,9 @@
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +17,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -25,29 +29,29 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "orders")
-public class Order {
-    
+public class Order implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
-    @JsonProperty("totalPrice")
-    @Column(name = "total_price")
+
     private double totalPrice;
-    
-    @JsonProperty("shippingAddress")
-    @Column(name = "shipping_address")
+
     private String shippingAddress;
-    
-    @JsonProperty("created")
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private Date created;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+
+    @ManyToOne
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
     private AppUser user;
-    
-    public Order() {};
+
+    @OneToMany(mappedBy="order")
+    private List<OrderItem> orderItems;
+
+    public Order() {
+    }
 
     public Order(double totalPrice, String shippingAddress, Date created, AppUser user) {
         this.totalPrice = totalPrice;
@@ -90,6 +94,14 @@ public class Order {
 
     public void setUser(AppUser user) {
         this.user = user;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override
@@ -137,5 +149,5 @@ public class Order {
     public String toString() {
         return "Order{" + "id=" + id + ", totalPrice=" + totalPrice + ", shippingAddress=" + shippingAddress + ", created=" + created + ", user=" + user + '}';
     }
-    
+
 }

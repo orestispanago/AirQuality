@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class OrderNotFoundException extends RuntimeException{
     public OrderNotFoundException(){
-        super("The Order does not exists.");
+        super("The Order does not exist.");
     }
 }

@@ -27,7 +27,7 @@ public class OrderItem {
     private Product product;
     
     @ManyToOne(optional = false)
-    @JoinColumn(name = "orders_id", referencedColumnName = "id")
+    @JoinColumn(name = "orders_id")
     private Order order;
     
     private int quantity;
@@ -40,7 +40,7 @@ public class OrderItem {
     }
 
     public OrderItem(Product product, Order order, int quantity, double price, String writeApiKey) {
-        this.product = product;
+//        this.product = product;
         this.order = order;
         this.quantity = quantity;
         this.price = price;
@@ -51,13 +51,13 @@ public class OrderItem {
         return id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 
     public Order getOrder() {
         return order;
@@ -91,54 +91,4 @@ public class OrderItem {
         this.writeApiKey = writeApiKey;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.product);
-        hash = 71 * hash + Objects.hashCode(this.order);
-        hash = 71 * hash + this.quantity;
-        hash = 71 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.writeApiKey);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final OrderItem other = (OrderItem) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.quantity != other.quantity) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
-            return false;
-        }
-        if (!Objects.equals(this.writeApiKey, other.writeApiKey)) {
-            return false;
-        }
-        if (!Objects.equals(this.product, other.product)) {
-            return false;
-        }
-        if (!Objects.equals(this.order, other.order)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderItem{" + "id=" + id + ", product=" + product + ", order=" + order + ", quantity=" + quantity + ", price=" + price + ", writeApiKey=" + writeApiKey + '}';
-    }
-    
 }
