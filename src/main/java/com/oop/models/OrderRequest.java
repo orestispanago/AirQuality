@@ -31,6 +31,11 @@ public class OrderRequest {
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
+    @Override
+    public String toString() {
+        return "OrderRequest{" + "cart=" + cart + ", shippingAddress=" + shippingAddress + '}';
+    }
     
     
 }

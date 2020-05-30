@@ -5,6 +5,7 @@
  */
 package com.oop.services;
 
+import com.oop.dao.ICartDao;
 import com.oop.dao.IOrderDao;
 import com.oop.dao.UserDao;
 import com.oop.entities.Cart;
@@ -34,6 +35,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     UserDao userDao;
+    
+    @Autowired
+    ICartService cartService; 
 
     @Override
     public boolean existsById(long id) {
@@ -68,13 +72,14 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Order makeOrder(OrderRequest orderRequest) throws CartNotFoundException {
-        Cart cart = orderRequest.getCart();
+        long cartId = orderRequest.getCart().getId();
+        Cart cart = cartService.getById(cartId);
         Order order = new Order();
         List<OrderItem> orderItems = new ArrayList();
         for (CartItem cartItem : cart.getCartItems()) {
             orderItems.add(makeOrderItem(cartItem));
         }
-            System.out.println(orderItems);
+        System.out.println(orderItems);
         order.setUser(cart.getUser());
         order.setOrderItems(orderItems);
         order.setTotalPrice(calcTotalPrice(order));
@@ -85,7 +90,7 @@ public class OrderServiceImpl implements IOrderService {
     private OrderItem makeOrderItem(CartItem cartItem) throws CartItemNotFoundException {
         OrderItem orderItem = new OrderItem();
         Product product = cartItem.getProduct();
-//        orderItem.setProduct(product);
+        orderItem.setProduct(product);
         orderItem.setPrice(product.getPrice());
         orderItem.setQuantity(cartItem.getQuantity());
         return orderItem;

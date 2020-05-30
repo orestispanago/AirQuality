@@ -14,9 +14,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -53,7 +53,7 @@ public class OrderController {
     //  Create OrderRequest model that holds Cart  + Shipping Address
     // Cart and shipping address come from front
     
-    @RequestMapping(value = "/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value = "/{userId}", produces = "application/json")
     public Order saveOrderByUserId(@RequestBody OrderRequest orderRequest,@PathVariable long userId) {
         if (userService.existsById(userId) == false) {
             throw new UserNotFoundException();
