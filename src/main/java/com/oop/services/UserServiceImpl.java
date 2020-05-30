@@ -8,7 +8,6 @@ package com.oop.services;
 import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.exceptions.UserNotFoundException;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

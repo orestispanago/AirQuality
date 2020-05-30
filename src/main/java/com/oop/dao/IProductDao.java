@@ -16,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IProductDao extends CrudRepository<Product, Long> {
-    Product getById(long productId);
+//    Product getById(long productId);
 }
