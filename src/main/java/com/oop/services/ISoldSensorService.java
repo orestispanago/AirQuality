@@ -1,11 +1,12 @@
 package com.oop.services;
 
 import com.oop.entities.SoldSensor;
+import java.util.List;
 
-/**
- *
- * @author orestis
- */
+
 public interface ISoldSensorService {
-//    SoldSensor getByUserId(long userId);
+    SoldSensor save(SoldSensor soldSensor);
+    SoldSensor getById(long soldSensorId);
+    List<SoldSensor> getAllByUserId(long userId);
+    void delete(SoldSensor soldSensor);
 }

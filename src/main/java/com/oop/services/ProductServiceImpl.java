@@ -25,13 +25,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product getById(long productId) {
-        Optional<Product> productEntity = productDao.findById(productId);
-        if (productEntity == null) {
-            throw new ProductNotFoundException();
-        } else {
-            Product product = productEntity.get();
-            return product;
-        }
+        return productDao.findById(productId).orElseThrow(ProductNotFoundException::new);
     }
 
     @Override
