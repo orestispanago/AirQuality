@@ -49,4 +49,10 @@ public class ProductServiceImpl implements IProductService {
         return productDao.save(product);
     }
 
+    @Override
+    public void deleteById(long productId) {
+        if(productDao.existsById(productId) == false) throw new ProductNotFoundException();
+        productDao.deleteById(productId);
+    }
+
 }

@@ -4,36 +4,41 @@ import com.oop.entities.Product;
 import com.oop.services.ProductServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/products")
 public class ProductsController {
 
     @Autowired
     ProductServiceImpl productService;
     
-    @RequestMapping(value = "/products", method = RequestMethod.GET, produces = "application/json")
-    public String products() {
-        List<Product> products = productService.getAllProducts();
-        return "List of all products";
+    @GetMapping(produces = "application/json")
+    public List<Product> products() {
+       return productService.getAllProducts();
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(produces = "application/json")
     public Product newProduct(@RequestBody Product product) {
         return productService.save(product);
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.POST, produces = "application/json")
-    public String updateProduct() {
-        return "Updated product";
+    @PutMapping(value = "/{productId}", produces = "application/json")
+    public Product updateProduct(@PathVariable long productId) {
+        Product product = productService.getById(productId);
+        return productService.save(product);
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public String deleteProduct() {
-        return "Deleted product";
+    @DeleteMapping(value = "/{productId}", produces = "application/json")
+    public void deleteProductById(@PathVariable long productId) {
+        productService.deleteById(productId);
     }
 
 }
