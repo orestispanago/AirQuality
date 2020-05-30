@@ -28,23 +28,12 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @JsonProperty("name")
-    @Column(name = "name")
     private String name;
-    
-    @JsonProperty("description")
-    @Column(name = "description")
     private String description;
-    
-    @JsonProperty("price")
-    @Column(name = "price")
     private double price;
-    
-    @JsonProperty("imageUrl")
-    @Column(name = "image")
     private String imageUrl;        
     
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "product_type_id", referencedColumnName = "id")
     private ProductType productType;
     

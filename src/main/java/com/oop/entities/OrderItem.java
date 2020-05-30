@@ -1,5 +1,7 @@
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +28,8 @@ public class OrderItem {
     @JoinColumn(name = "products_id", referencedColumnName = "id")
     private Product product;
     
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "orders_id")
+    @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Order order;
     
     private int quantity;
@@ -89,6 +91,11 @@ public class OrderItem {
 
     public void setWriteApiKey(String writeApiKey) {
         this.writeApiKey = writeApiKey;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" + "id=" + id + ", product=" + product + ", order=" + order + ", quantity=" + quantity + ", price=" + price + ", writeApiKey=" + writeApiKey + '}';
     }
 
 }

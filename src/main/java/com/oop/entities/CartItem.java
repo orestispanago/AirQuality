@@ -36,7 +36,6 @@ public class CartItem implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-//    @JoinColumn(name = "carts_id", referencedColumnName = "id")
     private Cart cart;
     
     @ManyToOne(optional = false)

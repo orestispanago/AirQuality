@@ -5,16 +5,18 @@
  */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.lang.NonNull;
 
 /**
  *
@@ -23,14 +25,21 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(name = "product_types")
 public class ProductType implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     private String type;
-    
-    public ProductType() {};
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> product;
+
+    public ProductType() {
+    }
+
+    ;
     
     public ProductType(String type) {
         this.type = type;
@@ -85,6 +94,5 @@ public class ProductType implements Serializable {
     public String toString() {
         return "ProductType{" + "id=" + id + ", type=" + type + '}';
     }
-    
-    
+
 }

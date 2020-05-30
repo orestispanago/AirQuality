@@ -74,6 +74,8 @@ public class OrderServiceImpl implements IOrderService {
         for (CartItem cartItem : cart.getCartItems()) {
             orderItems.add(makeOrderItem(cartItem));
         }
+            System.out.println(orderItems);
+        order.setUser(cart.getUser());
         order.setOrderItems(orderItems);
         order.setTotalPrice(calcTotalPrice(order));
         order.setShippingAddress(orderRequest.getShippingAddress());
