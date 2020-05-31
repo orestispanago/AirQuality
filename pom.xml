@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.paypal.sdk</groupId>
             <artifactId>rest-api-sdk</artifactId>
-            <version>1.14.0</version>
+            <version>LATEST</version>
         </dependency>
         <!-- Spring Boot -->
         <dependency>
@@ -67,7 +67,6 @@
             <artifactId>usertype.core</artifactId>
             <version>3.0.0.CR1</version>
         </dependency>-->
-                    
     </dependencies>
     <name>AirQuality</name>
 </project>
