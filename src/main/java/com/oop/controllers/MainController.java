@@ -20,11 +20,11 @@ public class MainController {
         return "Here is a map for everyone";
     }
 
-    @GetMapping("/")
-    public String readCookie(@CookieValue(value = "username", defaultValue = "Atta") String username) {
-        CartItem cartItem = new CartItem(1);
-        return "Hey! My username is " + username;
-
-    }
+//    @GetMapping("/")
+//    public String readCookie(@CookieValue(value = "username", defaultValue = "Atta") String username) {
+//        CartItem cartItem = new CartItem(1);
+//        return "Hey! My username is " + username;
+//
+//    }
 
 }

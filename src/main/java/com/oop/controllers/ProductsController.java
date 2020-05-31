@@ -4,6 +4,7 @@ import com.oop.entities.Product;
 import com.oop.services.ProductServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,11 +15,10 @@ public class ProductsController {
 
     @Autowired
     ProductServiceImpl productService;
-    
-    @RequestMapping(value = "/products", method = RequestMethod.GET, produces = "application/json")
-    public String products() {
-        List<Product> products = productService.getAllProducts();
-        return "List of all products";
+
+    @GetMapping(value = "/products",produces = "application/json")
+    public List<Product> products() {
+        return productService.getAllProducts();
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "application/json")
