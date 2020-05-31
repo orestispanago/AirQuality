@@ -16,4 +16,6 @@ public interface IProductService {
     Product getById(long productId);
     List<Product> getAllProducts();
     Product save(Product product);
+    Product update(Product product);
+    void delete(Product product);
 }

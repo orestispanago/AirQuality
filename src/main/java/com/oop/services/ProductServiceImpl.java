@@ -9,7 +9,6 @@ import com.oop.dao.IProductDao;
 import com.oop.entities.Product;
 import com.oop.exceptions.ProductNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +41,18 @@ public class ProductServiceImpl implements IProductService {
         }
         return productDao.save(product);
     }
+
+    @Override
+    public Product update(Product product) {
+        if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
+        return productDao.save(product);
+    }
+
+    @Override
+    public void delete(Product product) {
+        if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
+        productDao.deleteById(product.getId());
+    }
+
 
 }
