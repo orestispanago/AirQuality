@@ -27,6 +27,7 @@ public class Product implements Serializable {
     
     private String name;
     private String description;
+    private String technicalDetails;
     private double price;
     private String imageUrl;        
     
@@ -92,10 +93,19 @@ public class Product implements Serializable {
         this.productType = productType;
     }
 
+    public String getTechnicalDetails() {
+        return technicalDetails;
+    }
+
+    public void setTechnicalDetails(String technicalDetails) {
+        this.technicalDetails = technicalDetails;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", imageUrl=" + imageUrl + ", productType=" + productType + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", technicalDetails=" + technicalDetails + ", price=" + price + ", imageUrl=" + imageUrl + ", productType=" + productType + '}';
     }
-    
+
+
     
 }
