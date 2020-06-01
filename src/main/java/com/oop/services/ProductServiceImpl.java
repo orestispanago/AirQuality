@@ -7,6 +7,7 @@ package com.oop.services;
 
 import com.oop.dao.IProductDao;
 import com.oop.entities.Product;
+import com.oop.entities.ProductType;
 import com.oop.exceptions.ProductNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductDao productDao;
 
+    @Autowired
+    IProductTypeService productTypeService;
+    
     @Override
     public Product getById(long productId) {
         return productDao.findById(productId).orElseThrow(ProductNotFoundException::new);
@@ -39,6 +43,8 @@ public class ProductServiceImpl implements IProductService {
         if (product == null) {
             return null;
         }
+        ProductType productType = productTypeService.getById(product.getProductType().getId());
+        product.setProductType(productType);
         return productDao.save(product);
     }
 

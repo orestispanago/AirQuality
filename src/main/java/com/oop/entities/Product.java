@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -26,7 +27,10 @@ public class Product implements Serializable {
     private long id;
     
     private String name;
+    
+    @Length(max=2000)
     private String description;
+    @Length(max=2000)
     private String technicalDetails;
     private double price;
     private String imageUrl;        
