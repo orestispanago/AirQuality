@@ -4,14 +4,17 @@ import com.oop.entities.Product;
 import com.oop.services.ProductServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
@@ -22,6 +25,11 @@ public class ProductsController {
     @GetMapping(produces = "application/json")
     public List<Product> products() {
         return productService.getAllProducts();
+    }
+    
+    @GetMapping(value = "/{productId}", produces = "application/json")
+    public Product getProduct(@PathVariable long productId) {
+        return productService.getById(productId);
     }
 
     @PostMapping(produces = "application/json")
