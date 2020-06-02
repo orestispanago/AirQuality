@@ -19,16 +19,11 @@ public class SensorLocation implements Serializable {
     private long id;
     
     private float lat;
-    
     private float lon;
-    
-//    @JsonProperty("soldSensorId")
-//    @Column(name = "sold_sensors_id")
-//    private long soldSensorId;
     
     @OneToOne(orphanRemoval = true)
     @JsonProperty
-    @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id")
     private SoldSensor soldSensor;
     
     public SensorLocation() {
@@ -37,7 +32,6 @@ public class SensorLocation implements Serializable {
     public SensorLocation(float lat, float lon) {
         this.lat = lat;
         this.lon = lon;
-//        this.soldSensorId = soldSensorId;
     }
 
     public long getId() {
@@ -62,6 +56,19 @@ public class SensorLocation implements Serializable {
 
     public void setLon(float lon) {
         this.lon = lon;
+    }
+
+    public SoldSensor getSoldSensor() {
+        return soldSensor;
+    }
+
+    public void setSoldSensor(SoldSensor soldSensor) {
+        this.soldSensor = soldSensor;
+    }
+
+    @Override
+    public String toString() {
+        return "SensorLocation{" + "id=" + id + ", lat=" + lat + ", lon=" + lon + ", soldSensor=" + soldSensor + '}';
     }
 
 }

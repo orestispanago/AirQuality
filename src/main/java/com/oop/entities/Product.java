@@ -33,7 +33,8 @@ public class Product implements Serializable {
     @Length(max=2000)
     private String technicalDetails;
     private double price;
-    private String imageUrl;        
+    private String imageUrl;
+    private String manualUrl;
     
     @ManyToOne
     @JoinColumn(name = "product_type_id", referencedColumnName = "id")
@@ -105,10 +106,20 @@ public class Product implements Serializable {
         this.technicalDetails = technicalDetails;
     }
 
+    public String getManualUrl() {
+        return manualUrl;
+    }
+
+    public void setManualUrl(String manualUrl) {
+        this.manualUrl = manualUrl;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", technicalDetails=" + technicalDetails + ", price=" + price + ", imageUrl=" + imageUrl + ", productType=" + productType + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", technicalDetails=" + technicalDetails + ", price=" + price + ", imageUrl=" + imageUrl + ", manualUrl=" + manualUrl + ", productType=" + productType + '}';
     }
+
+ 
 
 
     

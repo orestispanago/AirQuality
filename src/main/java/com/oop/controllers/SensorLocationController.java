@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/sensor")
-public class SensorsController {
+public class SensorLocationController {
 
     @Autowired
     SensorLocationServiceImpl sensorLocationlService;

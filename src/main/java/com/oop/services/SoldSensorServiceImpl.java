@@ -1,10 +1,12 @@
 package com.oop.services;
 
 import com.oop.dao.ISoldSensorDao;
+import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Product;
 import com.oop.entities.SoldSensor;
 import com.oop.exceptions.SoldSensorNotFoundException;
+import com.oop.exceptions.UserNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     @Autowired
     IProductService productService;
 
+    @Autowired
+    UserDao userDao;
+
     @Override
     public SoldSensor getById(long soldSensorId) {
         return soldSensorDao.findById(soldSensorId).orElseThrow(SoldSensorNotFoundException::new);
@@ -43,7 +48,8 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
 
     private AppUser getUserFromSoldSensor(SoldSensor soldSensor) {
         long userId = soldSensor.getUser().getId();
-        return userService.getById(userId);
+        AppUser user = userDao.findById(userId).orElseThrow(UserNotFoundException::new);
+        return user;
     }
 
     @Override

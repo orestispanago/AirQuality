@@ -69,6 +69,10 @@ public class PmMeasurement implements Serializable {
         this.sensorLocation = sensorLocation;
     }
 
+    public SensorLocation getSensorLocation() {
+        return sensorLocation;
+    }
+
     @Override
     public String toString() {
         return "PmMeasurement{" + "id=" + id + ", sensorLocation=" + sensorLocation + ", pm1=" + pm1 + ", pm25=" + pm25 + ", timestamp=" + timestamp + '}';

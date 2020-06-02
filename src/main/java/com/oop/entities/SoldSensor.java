@@ -73,7 +73,9 @@ public class SoldSensor implements Serializable {
 
     @Override
     public String toString() {
-        return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
+        return "SoldSensor{" + "id=" + id + ", registered=" + registered + ", product=" + product + ", user=" + user + '}';
     }
+
+
 
 }
