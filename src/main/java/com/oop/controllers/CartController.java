@@ -6,17 +6,17 @@ import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
 import com.oop.exceptions.CartAlreadyExistsException;
 import com.oop.exceptions.UserNotFoundException;
-import com.oop.exceptions.CartNotFoundException;
 import com.oop.services.ICartService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/carts")
 public class CartController {
