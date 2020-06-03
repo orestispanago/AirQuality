@@ -2,6 +2,7 @@ package com.oop.services;
 
 import com.oop.dao.ICartDao;
 import com.oop.entities.Cart;
+import com.oop.entities.CartItem;
 import com.oop.exceptions.CartIdNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import java.util.List;
@@ -55,10 +56,12 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public Cart update(Cart cart) {
-        Cart dbCart = cartDao.findById(cart.getId()).orElse(null);
+        Cart dbCart = cartDao.findByUserId(cart.getUser().getId());
+        long cartId = dbCart.getId();
         if (dbCart == null) {
             throw new CartNotFoundException();
         }
+        cart.setId(cartId);
         return cartDao.save(cart);
     }
 
