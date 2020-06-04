@@ -31,7 +31,7 @@ public class PayPalController {
     }
 
     @PostMapping(value = "/complete/payment")
-    public Map<String, Object> completePayment(HttpServletRequest request) {
-        return payPalService.completePayment(request);
+    public Map<String, Object> completePayment(HttpServletRequest req) {
+        return payPalService.completePayment(req);
     }
 }
