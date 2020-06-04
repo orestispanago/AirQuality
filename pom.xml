@@ -17,6 +17,12 @@
     </properties>
 
     <dependencies>
+        <!-- Paypal -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>LATEST</version>
+        </dependency>
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,7 +67,6 @@
             <artifactId>usertype.core</artifactId>
             <version>3.0.0.CR1</version>
         </dependency>-->
-		
     </dependencies>
     <name>AirQuality</name>
 </project>
