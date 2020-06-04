@@ -1,9 +1,5 @@
 package com.oop.models;
 
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /**
  *
  * @author orestis
