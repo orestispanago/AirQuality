@@ -1,0 +1,6 @@
+docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
+
+# set the following in /etc/grafana/grafana.ini
+allow_embeding=true
+#enable anonymous access
+enabled=true
