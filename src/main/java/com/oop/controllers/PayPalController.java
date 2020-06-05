@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author petros_trak
  */
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="http://localhost:3001")
 @RestController
 @RequestMapping(value = "/paypal")
 public class PayPalController {
