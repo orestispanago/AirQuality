@@ -8,37 +8,43 @@ add the ports so that MySQL-server is accesible by MySQLWorkbench at localhost:3
 If no other image runs in docker, the IP given to MySQL will be 172.17.0.2
 
 ```bash
-sudo docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
 ```
 
 ### Grafana
 ---
 ```bash
-sudo docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
+docker run -d -p 3000:3000 --name grafana grafana/grafana:6.5.0
 ```
 
-edit the file /etc/grafana/grafana.ini using:
+In the file /etc/grafana/grafana.ini set the following:
 
-```bash
-sudo docker exec -u root -it grafana vi /etc/grafana/grafana.ini
-```
-
-set the following:
-
-```bash
+```*.ini
 allow_embedding=true
 #enable anonymous access
 enabled=true
 ```
 
+```bash
+# Replace whole line
+docker exec -u root -it grafana sed -i 's/;allow_embedding = false/allow_embedding = true/' /etc/grafana/grafana.ini
+# Replace line after occurence
+docker exec -u root -it grafana sed -i '/enable anonymous access/{n;s/.*/enabled = true/}' /etc/grafana/grafana.ini
+```
+
 1. Configure datasource to 172.17.0.2:3306 or whatever IP was given to MySQL by docker (localhost will not work)
 1. Import dashboard JSON
 1. If necessary reconfigure the datasource from the panels edit menu
-1. Install any plugins, ex:
+1. Install any plugins ex:
 
 ```bash
-sudo docker exec -it grafana grafana-cli plugins install grafana-piechart-panel
+docker exec -u root -it grafana grafana-cli plugins install grafana-piechart-panel
+docker restart grafana
 ```
+If you installed any plugins restart grafana docker
+
+If multiple plugins are necessary, they can be passed as a list in GF_INSTALL_PLUGINS variable as seen here:
+https://stackoverflow.com/questions/45580792/how-to-use-grafana-cli-on-docker-installed-grafana
 
 ### SpringBoot app
 ---
