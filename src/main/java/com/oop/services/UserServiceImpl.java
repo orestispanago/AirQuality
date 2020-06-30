@@ -30,10 +30,8 @@ public class UserServiceImpl implements IUserService {
     public String deleteById(long userId) {
         AppUser user = userDao.findById(userId).orElse(null);
         if (user == null) throw new UserNotFoundException();
-        else {
-            String username = user.getUsername();
-            userDao.delete(user);
-            return username;
-        }
+        String username = user.getUsername();
+        userDao.delete(user);
+        return username;
     }
 }
