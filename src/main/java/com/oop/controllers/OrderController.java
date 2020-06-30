@@ -5,7 +5,6 @@
  */
 package com.oop.controllers;
 
-import com.oop.dao.UserDao;
 import com.oop.entities.Order;
 import com.oop.exceptions.UserNotFoundException;
 import com.oop.models.OrderRequest;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.oop.dao.IUserDao;
 
 /**
  *
@@ -31,7 +31,7 @@ public class OrderController {
     IOrderService orderservice;
 
     @Autowired
-    UserDao userService;
+    IUserDao userService;
 
     @GetMapping(value = "/{userId}/{orderId}", produces = "application/json")
     public Order readOrderByUserIdAndOrderId(@PathVariable long userId,@PathVariable long orderId) {

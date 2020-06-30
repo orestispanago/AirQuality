@@ -18,13 +18,13 @@ import com.oop.services.JwtUserDetailsService;
 import org.springframework.security.core.Authentication;
 
 import com.oop.config.JwtTokenUtil;
-import com.oop.dao.UserDao;
 import com.oop.models.JwtRequest;
 import com.oop.models.JwtResponse;
 import com.oop.entities.UserDTO;
 import com.oop.exceptions.UsernameAlreadyExistsException;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.oop.dao.IUserDao;
 
 @RestController
 @CrossOrigin
@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @Autowired
-    UserDao userService;
+    IUserDao userService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {

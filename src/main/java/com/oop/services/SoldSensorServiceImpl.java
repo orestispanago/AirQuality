@@ -1,7 +1,6 @@
 package com.oop.services;
 
 import com.oop.dao.ISoldSensorDao;
-import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Product;
 import com.oop.entities.SoldSensor;
@@ -10,6 +9,7 @@ import com.oop.exceptions.UserNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.oop.dao.IUserDao;
 
 /**
  *
@@ -28,7 +28,7 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     IProductService productService;
 
     @Autowired
-    UserDao userDao;
+    IUserDao userDao;
 
     @Override
     public SoldSensor getById(long soldSensorId) {

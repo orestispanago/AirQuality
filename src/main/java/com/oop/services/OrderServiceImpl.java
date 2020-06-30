@@ -7,7 +7,6 @@ package com.oop.services;
 
 import com.oop.dao.ICartDao;
 import com.oop.dao.IOrderDao;
-import com.oop.dao.UserDao;
 import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
 import com.oop.entities.Order;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.oop.dao.IUserDao;
 
 /**
  *
@@ -34,7 +34,7 @@ public class OrderServiceImpl implements IOrderService {
     IOrderDao orderDao;
 
     @Autowired
-    UserDao userDao;
+    IUserDao userDao;
     
     @Autowired
     ICartService cartService; 

@@ -1,6 +1,5 @@
 package com.oop.controllers;
 
-import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.oop.dao.IUserDao;
 
 @CrossOrigin
 @RestController
@@ -25,7 +25,7 @@ public class CartController {
     ICartService cartService;
 
     @Autowired
-    UserDao userService;
+    IUserDao userService;
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
     public Cart readCartByUserId(@PathVariable String username) {

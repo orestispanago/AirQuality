@@ -14,4 +14,5 @@ import com.oop.entities.AppUser;
 public interface IUserService {
     AppUser getById(long userId);
     String deleteById(long userId);
+    AppUser getByUsername(String username);
 }

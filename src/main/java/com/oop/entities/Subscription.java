@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,19 +25,19 @@ public class Subscription implements Serializable {
     private long id;
 
     @CreationTimestamp
-    @Column(name = "date_of_purchase", updatable = false)
+    @Column(name = "date_of_purchase")
     private Date dateOfPurchase;
 
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "plans_id", referencedColumnName = "id")
+    @ManyToOne
+//    @JoinColumn(name = "plans_id")
     private Plan plan;
 
-    @ManyToOne()
-    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    @OneToOne
+//    @JoinColumn(name = "users_id")
     private AppUser user;
 
     public Subscription() {

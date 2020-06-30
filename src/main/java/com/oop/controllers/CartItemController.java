@@ -1,6 +1,5 @@
 package com.oop.controllers;
 
-import com.oop.dao.UserDao;
 import com.oop.entities.CartItem;
 import com.oop.exceptions.CartItemNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.oop.dao.IUserDao;
 
 /**
  *
@@ -30,7 +30,7 @@ public class CartItemController {
     ICartService cartService;
     
     @Autowired
-    UserDao userService;
+    IUserDao userService;
     
     @RequestMapping(value = "/{cardId}", method = RequestMethod.GET, produces = "application/json")
     public List<CartItem> readByCartId(@PathVariable long cardId){

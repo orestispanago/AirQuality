@@ -5,6 +5,7 @@
  */
 package com.oop.services;
 
+import com.oop.dtos.SubscriptionDTO;
 import com.oop.entities.Subscription;
 
 /**
@@ -13,9 +14,10 @@ import com.oop.entities.Subscription;
  */
 public interface ISubscriptionService {
     Subscription getById(long subscriptionId);
-    Subscription update(Subscription subscription);;
-    Subscription save(Subscription subscription);
+    Subscription update(SubscriptionDTO subscriptionDTO);
+    Subscription save(SubscriptionDTO subscriptionDTO);
     Subscription getByUserId(long userId);
     boolean existsByUserId(long id);
     boolean existsById(long id);
+    Subscription getByUsername(String username);
 }

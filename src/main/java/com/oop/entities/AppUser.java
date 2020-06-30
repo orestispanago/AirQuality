@@ -115,6 +115,14 @@ public class AppUser implements Serializable {
         this.cart = cart;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

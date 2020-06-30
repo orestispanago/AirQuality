@@ -2,7 +2,6 @@ package com.oop.services;
 
 import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;
-import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.SensorLocation;
 import com.oop.entities.SoldSensor;
@@ -11,6 +10,7 @@ import com.oop.exceptions.SoldSensorNotFoundException;
 import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.oop.dao.IUserDao;
 
 /**
  *
@@ -26,7 +26,7 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
     ISoldSensorDao soldSensorDao;
 
     @Autowired
-    UserDao userDao;
+    IUserDao userDao;
 
     @Override
     public SensorLocation getById(long sensorLocationId) {

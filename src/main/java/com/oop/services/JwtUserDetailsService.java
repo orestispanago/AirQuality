@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Role;
 import com.oop.entities.UserDTO;
@@ -19,12 +18,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.oop.dao.IUserDao;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private IUserDao userDao;
 
     @Autowired
     private IRoleDao roleDao;
