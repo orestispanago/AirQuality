@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author petros_trak
  */
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class OrderNotFoundException extends RuntimeException{
     public OrderNotFoundException(){
         super("The Order does not exist.");
