@@ -31,8 +31,8 @@ public class SubscriptionController {
         return subscriptionService.save(subDTO);
     }
 
-    @PutMapping
-    public Subscription updateSubscriptionByUserId(@RequestBody SubscriptionDTO subDTO) {
-        return subscriptionService.update(subDTO);
+    @PutMapping(value = "/{subscriptionId}")
+    public Subscription updateSubscriptionByUserId(@PathVariable long subscriptionId, @RequestBody SubscriptionDTO subDTO) {
+        return subscriptionService.update(subscriptionId, subDTO);
     }
 }

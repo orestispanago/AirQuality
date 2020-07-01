@@ -55,9 +55,9 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     }
 
     @Override
-    public Subscription update(SubscriptionDTO subDTO) {
+    public Subscription update(long subscriptionId, SubscriptionDTO subDTO) {
         Plan plan = planService.getById(subDTO.getPlanId());
-        Subscription dbSub = getByUsername(subDTO.getUsername());
+        Subscription dbSub = getById(subscriptionId);
         dbSub.setPlan(plan);
         dbSub = extendSubscriptionByNumOfMonths(dbSub, subDTO.getMonthsToExtend());
         return subscriptionDao.save(dbSub);
@@ -91,11 +91,8 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     }
 
     private Subscription extendSubscriptionByNumOfMonths(Subscription subscription, int numOfMonths) {
-        Date oldExpDate = subscription.getExpirationDate();
-        Timestamp oldDate = DateToTimestamp(oldExpDate);
-        Timestamp newDate = Timestamp.valueOf(oldDate.toLocalDateTime().plusMonths(numOfMonths));
-        Date newExpDate = TimestampToDate(newDate);
-        subscription.setExpirationDate(newExpDate);
+        long monthMiliSeconds = 2629746000L;
+        subscription.setExpirationDate(new Date(subscription.getExpirationDate().getTime() + (numOfMonths * monthMiliSeconds)));
         return subscription;
     }
     
