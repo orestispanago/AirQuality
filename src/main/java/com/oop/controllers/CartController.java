@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.oop.dao.IUserDao;
+import com.oop.exceptions.CartNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @CrossOrigin
 @RestController
@@ -36,8 +40,8 @@ public class CartController {
         return cartService.getByUserId(user.getId());
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.POST, produces = "application/json")
-    public Cart updateCartByUserId(@PathVariable String username, @RequestBody(required = false) Cart cart) {
+    @PostMapping(value = "/{username}")
+    public Cart updateCartByUsername(@PathVariable String username, @RequestBody(required = false) Cart cart) {
         // Get user id from username
         AppUser user = userService.findByUsername(username);
         long userId = user.getId();
@@ -69,9 +73,6 @@ public class CartController {
         } // Else create a cart for the user and then update it
         else {
             // create
-            if (cartService.existsByUserId(userId)) {
-                throw new CartAlreadyExistsException();
-            }
             Cart newCart = new Cart();
             newCart.setUser(user);
             Cart savedCart = cartService.save(newCart);
@@ -85,31 +86,23 @@ public class CartController {
         }
     }
 
-//    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT, produces = "application/json")
-//    public Cart updateCartByUserId(@PathVariable long userId, @RequestBody Cart cart) {
-//        if (userService.existsById(userId) == false) {
-//            throw new UserNotFoundException();
-//        }
-//        long cartId = cart.getId();
-//        if (cartService.existsById(cartId) == false) {
-//            throw new CartNotFoundException();
-//        }
+    @PutMapping(value = "/{username}")
+    public Cart updateCartByUserId(@PathVariable String username, @RequestBody Cart cart) {
+        return cartService.update(cart);
+//        if (!userService.existsByUsername(username)) throw new UserNotFoundException();
+//        
+//        if (!cartService.existsById(cart.getId())) throw new CartNotFoundException();
+//        
 //        List<CartItem> cartItems = cart.getCartItems();
 //        for (CartItem cartItem : cartItems) {
 //            cartItem.setCart(cart);
 //        }
 //        Cart updatedCart = cartService.update(cart);
 //        return updatedCart;
-//    }
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
-//    public String deleteCartByCartId(@PathVariable long id) {
-//        cartService.deleteById(id);
-//        return "{\"outcome\": \"cart deleted\"}";
-//    }
-//    
-//    @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
-//    public String deleteCart(@RequestBody Cart cart) {
-//        cartService.delete(cart);
-//        return "tCart deleted";
-//    }
+    }
+    
+    @DeleteMapping(value = "/{cartId}")
+    public void deleteCartByCartId(@PathVariable long cartId) {
+        cartService.deleteById(cartId);
+    }
 }
