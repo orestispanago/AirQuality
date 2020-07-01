@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
 import com.oop.dao.IProductDao;
@@ -13,10 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author petros_trak
- */
 @Service
 public class ProductServiceImpl implements IProductService {
 
@@ -59,6 +50,9 @@ public class ProductServiceImpl implements IProductService {
         if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
         productDao.deleteById(product.getId());
     }
-
-
+    
+    public void deleteById(long productId){
+        if(!productDao.existsById(productId)) throw new ProductNotFoundException();
+        productDao.deleteById(productId);
+    }
 }

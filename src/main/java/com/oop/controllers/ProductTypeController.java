@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
-/**
- *
- * @author orestis
- */
 @RestController
 @RequestMapping("/producttype")
 public class ProductTypeController {
@@ -27,25 +23,25 @@ public class ProductTypeController {
     @Autowired
     IProductTypeService productTypeService;
 
-    @RequestMapping(method = GET, produces = "application/json")
+    @GetMapping
     public List<ProductType> all() {
         return productTypeService.getAll();
     }
 
-    @RequestMapping(method = POST, produces = "application/json")
+    @PostMapping
     @ResponseStatus(CREATED)
     public ProductType newProductType(@RequestBody ProductType productType) {
         productTypeService.save(productType);
         return productType;
     }
 
-    @RequestMapping(method = PUT, produces = "application/json")
+    @PutMapping
     public ProductType updateProductType(@RequestBody ProductType productType) {
         productTypeService.save(productType);
         return productType;
     }
 
-    @RequestMapping(value = "/{productTypeId}", method = DELETE, produces = "application/json")
+    @DeleteMapping(value = "/{productTypeId}")
     @ResponseStatus(NO_CONTENT)
     public void deleteProductType(@PathVariable long productTypeId) {
         productTypeService.deleteById(productTypeId);

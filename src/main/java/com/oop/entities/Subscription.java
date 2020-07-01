@@ -7,14 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
-
 
 @Entity
 @Table(name = "subscriptions")
@@ -33,11 +31,9 @@ public class Subscription implements Serializable {
     private Date expirationDate;
 
     @ManyToOne
-//    @JoinColumn(name = "plans_id")
     private Plan plan;
 
     @OneToOne
-//    @JoinColumn(name = "users_id")
     private AppUser user;
 
     public Subscription() {
@@ -86,5 +82,4 @@ public class Subscription implements Serializable {
     public String toString() {
         return "Subscription{" + "id=" + id + ", dateOfPurchase=" + dateOfPurchase + ", expirationDate=" + expirationDate + ", plan=" + plan + ", user=" + user + '}';
     }
-
 }

@@ -7,10 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author orestis
- */
 @Service
 public class ProductTypeServiceImpl implements IProductTypeService {
 
@@ -39,5 +35,4 @@ public class ProductTypeServiceImpl implements IProductTypeService {
         if(!productTypeDao.existsById(productTypeId)) throw new ProductTypeNotFoundException();
         productTypeDao.deleteById(productTypeId);
     }
-
 }

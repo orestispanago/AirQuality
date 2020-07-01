@@ -5,6 +5,8 @@ import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.oop.dao.IUserDao;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -18,6 +20,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @ResponseStatus(NO_CONTENT)
     public String deleteById(long userId) {
         AppUser user = userDao.findById(userId).orElseThrow(()-> new UserNotFoundException());        
         userDao.delete(user);

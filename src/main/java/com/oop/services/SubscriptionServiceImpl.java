@@ -7,11 +7,7 @@ import com.oop.entities.Plan;
 import com.oop.entities.Subscription;
 import com.oop.exceptions.SubscriptionAlreadyExistsException;
 import com.oop.exceptions.SubscriptionNotFoundException;
-import com.oop.exceptions.UserNotFoundException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +56,6 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Override
     public Subscription update(SubscriptionDTO subDTO) {
-//        String username = subDTO.getUsername();
-//        AppUser user = userService.getByUsername(username);
         Plan plan = planService.getById(subDTO.getPlanId());
         Subscription dbSub = getByUsername(subDTO.getUsername());
         dbSub.setPlan(plan);
@@ -104,13 +98,11 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
         subscription.setExpirationDate(newExpDate);
         return subscription;
     }
-
-    //Convert Date to Calendar
+    
     public Timestamp DateToTimestamp(Date dateToConvert) {
         return new Timestamp(dateToConvert.getTime());
     }
-
-    //Convert Calendar to Date
+    
     public Date TimestampToDate(Timestamp tsToConvert) {
         return new Date(tsToConvert.getTime());
     }
