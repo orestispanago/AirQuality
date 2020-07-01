@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     @ResponseStatus(NO_CONTENT)
     public String deleteById(long userId) {
-        AppUser user = userDao.findById(userId).orElseThrow(()-> new UserNotFoundException());        
+        AppUser user = getById(userId);        
         userDao.delete(user);
         return user.getUsername();
     }

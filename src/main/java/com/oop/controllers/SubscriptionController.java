@@ -32,7 +32,7 @@ public class SubscriptionController {
     }
 
     @PutMapping(value = "/{subscriptionId}")
-    public Subscription updateSubscriptionByUserId(@PathVariable long subscriptionId, @RequestBody SubscriptionDTO subDTO) {
+    public Subscription updateSubscriptionById(@PathVariable long subscriptionId, @RequestBody SubscriptionDTO subDTO) {
         return subscriptionService.update(subscriptionId, subDTO);
     }
 }

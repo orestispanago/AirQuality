@@ -27,27 +27,20 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Override
     public Subscription getById(long subscriptionId) {
-        Optional<Subscription> subEntity = subscriptionDao.findById(subscriptionId);
-        if (subEntity == null) {
-            throw new SubscriptionNotFoundException();
-        } else {
-            Subscription sub = subEntity.get();
-            return sub;
-        }
+        Subscription sub = subscriptionDao.findById(subscriptionId).orElseThrow(()-> new SubscriptionNotFoundException());
+        return sub;
     }
 
     @Override
     public Subscription getByUserId(long userId) {
         Subscription sub = subscriptionDao.findByUserId(userId);
-        if (sub == null) {
-            throw new SubscriptionNotFoundException();
-        }
+        if (sub == null) throw new SubscriptionNotFoundException();
         return sub;
     }
 
     public Subscription getByUsername(String username) {
         AppUser user = userService.getByUsername(username);
-        Subscription sub = subscriptionDao.findByUserId(user.getId());
+        Subscription sub = getByUserId(user.getId());
         if (sub == null) {
             throw new SubscriptionNotFoundException();
         }
@@ -67,21 +60,16 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     public Subscription save(SubscriptionDTO subDTO) {
         String username = subDTO.getUsername();
         AppUser user = userService.getByUsername(username);
-        if (existsByUserId(user.getId())) {
-            throw new SubscriptionAlreadyExistsException();
-        }
+        if (existsByUserId(user.getId())) throw new SubscriptionAlreadyExistsException();
         Plan plan = planService.getById(subDTO.getPlanId());
         Subscription sub = new Subscription(plan, user);
-        Subscription savedSubscription = subscriptionDao.save(sub);
-        return savedSubscription;
+        return subscriptionDao.save(sub);
     }
 
     @Override
     public boolean existsById(long id) {
         Subscription subscriptionEntity = subscriptionDao.findById(id).orElseGet(null);
-        if (subscriptionEntity == null) {
-            return false;
-        }
+        if (subscriptionEntity == null) return false;
         return true;
     }
 

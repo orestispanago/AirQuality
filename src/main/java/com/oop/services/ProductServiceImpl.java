@@ -31,9 +31,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product save(Product product) {
-        if (product == null) {
-            return null;
-        }
         ProductType productType = productTypeService.getById(product.getProductType().getId());
         product.setProductType(productType);
         return productDao.save(product);

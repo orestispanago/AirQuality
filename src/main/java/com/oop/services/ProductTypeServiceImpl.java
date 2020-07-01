@@ -15,7 +15,7 @@ public class ProductTypeServiceImpl implements IProductTypeService {
 
     @Override
     public ProductType getById(long productTypeId) {
-        return productTypeDao.findById(productTypeId).orElseThrow(ProductTypeNotFoundException::new);
+        return productTypeDao.findById(productTypeId).orElseThrow(()-> new ProductTypeNotFoundException());
     }
 
     @Override
@@ -25,10 +25,9 @@ public class ProductTypeServiceImpl implements IProductTypeService {
 
     @Override
     public ProductType save(ProductType productType) {
-        if (productType != null){
-            return productTypeDao.save(productType);
-        }
-        return null;    }
+        if (productType != null) return productTypeDao.save(productType);
+        return null;    
+    }
 
     @Override
     public void deleteById(long productTypeId) {
