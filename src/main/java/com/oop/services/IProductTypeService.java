@@ -13,4 +13,5 @@ public interface IProductTypeService {
     List<ProductType> getAll();
     ProductType save(ProductType productType);
     void deleteById(long productTypeId);
+    ProductType update(long productTypeId, ProductType productType);
 }

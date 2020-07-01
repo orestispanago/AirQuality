@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/producttype")
+@RequestMapping("/producttype") // should be changed to product-types
 public class ProductTypeController {
 
     @Autowired
@@ -27,18 +27,21 @@ public class ProductTypeController {
     public List<ProductType> all() {
         return productTypeService.getAll();
     }
+    
+    @GetMapping(value = "/{productTypeId}")
+    public ProductType getProductTypeById(@PathVariable long productTypeId){
+        return productTypeService.getById(productTypeId);
+    }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public ProductType newProductType(@RequestBody ProductType productType) {
-        productTypeService.save(productType);
-        return productType;
+    public ProductType createProductType(@RequestBody ProductType productType) {
+        return productTypeService.save(productType);
     }
 
-    @PutMapping
-    public ProductType updateProductType(@RequestBody ProductType productType) {
-        productTypeService.save(productType);
-        return productType;
+    @PutMapping(value = "/{productTypeId}")
+    public ProductType updateProductType(@PathVariable long productTypeId, @RequestBody ProductType productType) {
+        return productTypeService.update(productTypeId, productType);
     }
 
     @DeleteMapping(value = "/{productTypeId}")

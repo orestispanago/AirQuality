@@ -35,4 +35,11 @@ public class ProductTypeServiceImpl implements IProductTypeService {
         if(!productTypeDao.existsById(productTypeId)) throw new ProductTypeNotFoundException();
         productTypeDao.deleteById(productTypeId);
     }
+    
+    @Override
+    public ProductType update(long productTypeId, ProductType productType){
+        ProductType dbProdType = getById(productTypeId);
+        dbProdType.setType(productType.getType());
+        return productTypeDao.save(dbProdType);
+    }
 }

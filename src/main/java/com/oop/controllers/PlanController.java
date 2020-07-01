@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.controllers;
 
 import com.oop.entities.Plan;
@@ -17,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author Walter
- */
 @CrossOrigin
 @RestController
 @RequestMapping("/plans")
@@ -28,17 +19,17 @@ public class PlanController {
     @Autowired
     IPlanService planService;
      
-    @GetMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{id}")
     public Plan readPlanById(@PathVariable long id) {
        return planService.getById(id);
     }
     
-    @GetMapping(produces = "application/json")
+    @GetMapping
     public List<Plan> readAllPlans() {
        return planService.getAll();
     }
     
-    @PostMapping(produces = "application/json")
+    @PostMapping
     public Plan save(@RequestBody Plan plan) {
        return planService.save(plan);
     }
