@@ -43,7 +43,7 @@ public class ProductsController {
 
     @PutMapping(value = "/{productId}")
     public Product updateProduct(@PathVariable long productId, @RequestBody Product product) {
-        return productService.update(product);
+        return productService.update(productId, product);
     }
 
     @DeleteMapping(value = "/{productId}")

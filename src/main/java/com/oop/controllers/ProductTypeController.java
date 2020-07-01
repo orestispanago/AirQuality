@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/producttype") // should be changed to product-types
+@RequestMapping("/product-types")
 public class ProductTypeController {
 
     @Autowired

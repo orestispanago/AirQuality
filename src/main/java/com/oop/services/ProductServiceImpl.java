@@ -40,8 +40,9 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
+    public Product update(long productId, Product product) {
+        if(!productDao.existsById(productId))throw new ProductNotFoundException();
+        product.setId(productId);
         return productDao.save(product);
     }
 

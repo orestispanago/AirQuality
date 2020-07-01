@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ProductNotFoundException extends RuntimeException{
     public ProductNotFoundException(){
-        super("Product has not been found..");
+        super("The requested product was not found");
     }
 }
