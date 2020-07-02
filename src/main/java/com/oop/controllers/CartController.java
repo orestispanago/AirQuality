@@ -26,9 +26,6 @@ public class CartController {
     @Autowired
     ICartService cartService;
 
-    @Autowired
-    IUserDao userService;
-
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
     public Cart readCartByUsername(@PathVariable String username) {
         return cartService.getByUsername(username);

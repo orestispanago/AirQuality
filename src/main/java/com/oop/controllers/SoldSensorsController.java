@@ -21,7 +21,12 @@ public class SoldSensorsController {
 
     @Autowired
     ISoldSensorService soldSensorService;
-
+    
+    @GetMapping(value = "/{userId}", produces = "application/json")
+    public List<SoldSensor> getAllSoldSensorUser(@PathVariable long userId) {
+        return soldSensorService.getAllByUserId(userId);
+    }
+    
     @PostMapping(produces = "application/json")
     @ResponseStatus(CREATED)
     public SoldSensor saveSoldSensorUser(@RequestBody SoldSensor ss) {
@@ -32,10 +37,5 @@ public class SoldSensorsController {
     @ResponseStatus(NO_CONTENT)
     public void deleteSoldSensorUser(@RequestBody SoldSensor ss) {
         soldSensorService.delete(ss);
-    }
-    
-    @GetMapping(value = "/{userId}", produces = "application/json")
-    public List<SoldSensor> getAllSoldSensorUser(@PathVariable long userId) {
-        return soldSensorService.getAllByUserId(userId);
     }
 }

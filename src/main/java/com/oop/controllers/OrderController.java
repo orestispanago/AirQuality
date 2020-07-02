@@ -1,7 +1,6 @@
 package com.oop.controllers;
 
 import com.oop.entities.Order;
-import com.oop.exceptions.UserNotFoundException;
 import com.oop.dtos.OrderDTO;
 import com.oop.services.IOrderService;
 import java.util.List;
@@ -12,11 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.oop.dao.IUserDao;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController

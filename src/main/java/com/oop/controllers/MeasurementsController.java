@@ -23,10 +23,8 @@ public class MeasurementsController {
         return pmService.save(pm);
     }
 
-
     @PostMapping(value = "/co", produces = "application/json")
     public CoMeasurement coMeasurement(@RequestBody CoMeasurement co) {
         return coService.save(co);
     }
-
 }
