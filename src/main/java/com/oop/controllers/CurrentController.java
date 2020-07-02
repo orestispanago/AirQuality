@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author orestis
- */
 @RestController
-@CrossOrigin(origins="http://localhost:3001")
+@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping("/current")
 public class CurrentController {
 //    @Autowired
@@ -22,8 +18,5 @@ public class CurrentController {
     @GetMapping(produces = "application/json")
     public List<CurrentPm> getCurrentPm() {
        return CurrentPmService.getCurrentPmforAllSensors();
-
- }
-    
-    
+    }
 }
