@@ -13,6 +13,7 @@ import com.oop.dtos.CartDTO;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,7 +26,7 @@ public class CartController {
     @Autowired
     ICartService cartService;
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/{username}")
     public Cart readCartByUsername(@PathVariable String username) {
         return cartService.getByUsername(username);
     }

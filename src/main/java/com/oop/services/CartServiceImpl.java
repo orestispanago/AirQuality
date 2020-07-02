@@ -98,7 +98,7 @@ public class CartServiceImpl implements ICartService {
     @Override
     public void deleteById(long cartId) {
         Cart dbCart = getById(cartId);
-        cartDao.deleteById(dbCart.getId());
+        cartDao.delete(dbCart);
     }
 
     @Override
