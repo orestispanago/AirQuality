@@ -1,8 +1,11 @@
 package com.oop.services;
 
 import com.oop.dao.ICartDao;
+import com.oop.dtos.CartDTO;
+import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
+import com.oop.exceptions.CartAlreadyExistsException;
 import com.oop.exceptions.CartIdNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import java.util.List;
@@ -16,12 +19,22 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     ICartDao cartDao;
 
+    @Autowired
+    IUserService userService;
+
     @Override
     public Cart getByUserId(long userId) {
         Cart cart = cartDao.findByUserId(userId);
         if (cart == null) {
             throw new CartNotFoundException();
         }
+        return cart;
+    }
+    
+    @Override
+    public Cart getByUsername(String username) {
+        AppUser user = userService.getByUsername(username);
+        Cart cart = cartDao.findByUserId(user.getId());
         return cart;
     }
 
@@ -47,43 +60,49 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public Cart save(Cart cart) {
-        if (cart != null) {
-            return cartDao.save(cart);
+    public Cart save(CartDTO cartDTO) {
+        AppUser user = userService.getByUsername(cartDTO.getUsername());
+        if (cartDao.existsByUserId(user.getId())) throw new CartAlreadyExistsException();
+        Cart newCart = new Cart();
+        newCart.setUser(user);
+        List<CartItem> cartItems = cartDTO.getCart().getCartItems();
+        for (CartItem cartItem : cartItems) {
+            cartItem.setCart(newCart);
         }
-        return null;
+        newCart.setCartItems(cartItems);
+        return cartDao.save(newCart);
     }
 
     @Override
-    public Cart update(Cart cart) {
-        Cart dbCart = cartDao.findByUserId(cart.getUser().getId());
-        long cartId = dbCart.getId();
-        if (dbCart == null) {
-            throw new CartNotFoundException();
+    public Cart update(long cartId, CartDTO cartDTO) {
+        Cart cart = cartDTO.getCart();
+        Cart dbCart = getById(cartId);
+        AppUser user = dbCart.getUser();
+        
+        cart.setUser(user);
+        List<CartItem> cartItems = cart.getCartItems();
+        for (CartItem cartItem : cartItems) {
+            cartItem.setCart(cart);
         }
-        cart.setId(cartId);
+        cart.setCartItems(cartItems);
+        cart.setId(dbCart.getId());
         return cartDao.save(cart);
     }
 
     @Override
     public void delete(Cart cart) {
-        if (!cartDao.existsById(cart.getId())) {
-            throw new CartNotFoundException();
-        }
-        cartDao.delete(cart);
+        Cart dbCart = getById(cart.getId());
+        cartDao.delete(dbCart);
     }
 
     @Override
-    public void deleteById(long id) {
-        if (!cartDao.existsById(id)) {
-            throw new CartNotFoundException();
-        }
-        cartDao.deleteById(id);
+    public void deleteById(long cartId) {
+        Cart dbCart = getById(cartId);
+        cartDao.deleteById(dbCart.getId());
     }
 
     @Override
     public Cart getById(long cartId) {
-        return cartDao.findById(cartId).orElseThrow(CartIdNotFoundException::new);
+        return cartDao.findById(cartId).orElseThrow(()-> new CartNotFoundException());
     }
-
 }

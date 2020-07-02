@@ -1,9 +1,6 @@
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,20 +11,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_items")
-
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "products_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "products_id")
     private Product product;
     
     @ManyToOne
     @JsonIgnore
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Order order;
     
     private int quantity;

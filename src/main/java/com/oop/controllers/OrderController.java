@@ -31,7 +31,7 @@ public class OrderController {
         return orderService.getById(orderId);
     }
 
-    @GetMapping(value = "/{username}")
+    @GetMapping(value = "/users/{username}")
     public List<Order> readAllOrdersByUsername(@PathVariable String username) {
         return orderService.getAllByUsername(username);
     }
