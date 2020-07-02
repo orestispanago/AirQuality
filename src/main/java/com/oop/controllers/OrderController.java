@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.oop.dao.IUserDao;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,6 +48,7 @@ public class OrderController {
 //    }
     
     @DeleteMapping(value = "/{orderId}")
+    @ResponseStatus(NO_CONTENT)
     public void deleteOrder(@PathVariable long orderId){
         orderService.deleteById(orderId);
     }
