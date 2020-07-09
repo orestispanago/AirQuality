@@ -1,6 +1,7 @@
 package com.oop.services;
 
 import com.oop.dao.IOrderDao;
+import com.oop.dtos.CartDTO;
 import com.oop.entities.CartItem;
 import com.oop.entities.Order;
 import com.oop.entities.OrderItem;
@@ -8,6 +9,7 @@ import com.oop.entities.Product;
 import com.oop.exceptions.OrderNotFoundException;
 import com.oop.dtos.OrderDTO;
 import com.oop.entities.AppUser;
+import com.oop.entities.Cart;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,14 @@ public class OrderServiceImpl implements IOrderService {
         order.setUser(userService.getByUsername(orderDTO.getUsername()));
         order.setTotalPrice(calcTotalPrice(order));
         order.setShippingAddress(orderDTO.getShippingAddress());
-        return orderDao.save(order);
+        Order newOrder = orderDao.save(order);
+        // Empty cart upon successful order
+        if (newOrder != null){
+            Cart dbCart = cartService.getByUsername(orderDTO.getUsername());
+            dbCart.getCartItems().clear();
+            cartService.update(dbCart.getId(), new CartDTO(orderDTO.getUsername(), dbCart));
+        }
+        return newOrder;
     }
 
     @Override

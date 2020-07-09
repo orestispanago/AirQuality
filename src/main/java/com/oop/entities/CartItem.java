@@ -23,7 +23,7 @@ public class CartItem {
     
     private int quantity;
     
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JsonIgnore
     private Cart cart;
     

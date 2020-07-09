@@ -6,7 +6,6 @@ import com.oop.entities.AppUser;
 import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
 import com.oop.exceptions.CartAlreadyExistsException;
-import com.oop.exceptions.CartIdNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -108,4 +107,18 @@ public class CartServiceImpl implements ICartService {
     public Cart getById(long cartId) {
         return cartDao.findById(cartId).orElseThrow(()-> new CartNotFoundException());
     }
+
+//    @Override
+//    public Cart save(Cart cart) {
+//        AppUser user = userService.getByUsername(cart.getUser().getUsername());
+//        if (cartDao.existsByUserId(user.getId())) throw new CartAlreadyExistsException();
+//        Cart newCart = new Cart();
+//        newCart.setUser(user);
+//        List<CartItem> cartItems = cart.getCartItems();
+//        for (CartItem cartItem : cartItems) {
+//            cartItem.setCart(newCart);
+//        }
+//        newCart.setCartItems(cartItems);
+//        return cartDao.save(newCart);
+//    }
 }
