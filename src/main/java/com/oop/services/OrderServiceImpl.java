@@ -1,14 +1,11 @@
 package com.oop.services;
 
 import com.oop.dao.IOrderDao;
-import com.oop.entities.Cart;
 import com.oop.entities.CartItem;
 import com.oop.entities.Order;
 import com.oop.entities.OrderItem;
 import com.oop.entities.Product;
-import com.oop.exceptions.CartNotFoundException;
 import com.oop.exceptions.OrderNotFoundException;
-import com.oop.exceptions.UserNotFoundException;
 import com.oop.dtos.OrderDTO;
 import com.oop.entities.AppUser;
 import java.util.ArrayList;
@@ -61,6 +58,12 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public Order getById(long orderId) {
         return orderDao.findById(orderId).orElseThrow(()-> new OrderNotFoundException());
+    }
+    
+    public List<Order> getAllOrders(){
+        Iterable<Order> ordersEntity = orderDao.findAll();
+        List<Order> orders = (List<Order>) ordersEntity;
+        return orders;
     }
     
 //    @Override

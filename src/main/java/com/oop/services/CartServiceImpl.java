@@ -98,6 +98,9 @@ public class CartServiceImpl implements ICartService {
     @Override
     public void deleteById(long cartId) {
         Cart dbCart = getById(cartId);
+        dbCart.getCartItems().clear();
+        dbCart.getUser().setCart(null);
+        dbCart.setUser(null);
         cartDao.delete(dbCart);
     }
 

@@ -2,6 +2,7 @@ package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "cart_items")
@@ -20,11 +23,14 @@ public class CartItem {
     
     private int quantity;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Cart cart;
     
     @ManyToOne
+    // For unidirectional relationships mapped by child, 
+    // OnDelete cascades the remove operation from the parent to the children
+    @OnDelete(action = OnDeleteAction.CASCADE) 
     @JoinColumn(name = "products_id")
     private Product product;
     

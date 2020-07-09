@@ -33,8 +33,7 @@ public class Order implements Serializable {
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private Date created;
-
-    @JsonIgnore
+    
     @ManyToOne
     private AppUser user;
     

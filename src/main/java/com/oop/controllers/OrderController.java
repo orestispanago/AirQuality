@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -23,6 +25,11 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
+    @GetMapping
+    public List<Order> readAllOrders() {
+        return orderService.getAllOrders();
+    }
+    
     @GetMapping(value = "/{orderId}")
     public Order readOrderByOrderId(@PathVariable long orderId) {
         return orderService.getById(orderId);

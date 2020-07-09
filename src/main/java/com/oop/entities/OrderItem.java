@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "order_items")
@@ -18,6 +20,9 @@ public class OrderItem {
     private long id;
 
     @ManyToOne
+    // For unidirectional relationships mapped by child, 
+    // OnDelete cascades the remove operation from the parent to the children
+    @OnDelete(action = OnDeleteAction.CASCADE) 
     @JoinColumn(name = "products_id")
     private Product product;
     
