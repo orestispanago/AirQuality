@@ -1,13 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Column;
-import javax.persistence.Column;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -27,30 +19,18 @@ import javax.persistence.Table;
 public class SoldSensor implements Serializable {
 
     @Id
-    @JsonProperty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonProperty
     private short registered;
 
-    //@OneToOne
-    //@JoinColumn(name = "sensors_locations", referencedColumnName = "id")
-    //private SensorLocation sensorLocation;
-    @JsonProperty("productId")
-    @Column(name = "products_id")
-    private long productId;
-    
     @ManyToOne()
-    @JoinColumn(name = "products_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "products_id", referencedColumnName = "id")
     private Product product;
-    
-    @JsonProperty("userId")
-    @Column(name = "users_id")
-    private long userId;
+   
     
     @ManyToOne()
-    @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
     private AppUser user;
     
     public SoldSensor() {};
@@ -75,38 +55,27 @@ public class SoldSensor implements Serializable {
         this.registered = registered;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 31 * hash + this.registered;
-        return hash;
+    public Product getProduct() {
+        return product;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SoldSensor other = (SoldSensor) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.registered != other.registered) {
-            return false;
-        }
-        return true;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
-        return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
+        return "SoldSensor{" + "id=" + id + ", registered=" + registered + ", product=" + product + ", user=" + user + '}';
     }
+
+
 
 }

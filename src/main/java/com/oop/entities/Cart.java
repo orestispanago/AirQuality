@@ -9,19 +9,15 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
-
-/**
- *
- * @author Walter
- */
 
 @Entity
 @Table(name = "carts")
@@ -33,24 +29,24 @@ public class Cart implements Serializable {
     
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
     
     @CreationTimestamp
-    @Column(name = "timestamp", updatable = false, nullable = false)
-    private Date created;   
+    @Column(updatable = false, nullable = false)
+    private Date created;  
     
-    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
     private List<CartItem> cartItems;
 
     public Cart() {
     }
-
+    
     public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -64,6 +60,10 @@ public class Cart implements Serializable {
 
     public Date getCreated() {
         return created;
+    }
+    
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public List<CartItem> getCartItems() {
@@ -82,6 +82,11 @@ public class Cart implements Serializable {
         hash = 79 * hash + Objects.hashCode(this.created);
         hash = 79 * hash + Objects.hashCode(this.cartItems);
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" + "id=" + id + ", user=" + user + ", created=" + created + ", cartItems=" + cartItems + '}';
     }
 
     @Override
@@ -109,10 +114,5 @@ public class Cart implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" + "id=" + id + ", user=" + user + ", created=" + created + ", cartItems=" + cartItems + '}';
     }
 }

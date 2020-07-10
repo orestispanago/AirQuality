@@ -1,12 +1,16 @@
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
@@ -28,25 +32,27 @@ public class AppUser implements Serializable {
     private String password;
 //    @Column(length=30)
 //    private String address;
-    
-    @OneToOne(mappedBy = "user", optional = true, orphanRemoval = true, cascade = CascadeType.ALL)
+
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private Cart cart;
-    
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "users_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "roles_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Order> orders;
 
-    public Collection<Role> getRoles() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -110,6 +116,14 @@ public class AppUser implements Serializable {
         this.cart = cart;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -166,6 +180,5 @@ public class AppUser implements Serializable {
     public String toString() {
         return "AppUser{" + "id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", cart=" + cart + ", roles=" + roles + '}';
     }
-    
-    
+
 }

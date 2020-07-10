@@ -37,7 +37,7 @@ public class PmMeasurement implements Serializable {
     @Column(name = "pm25")
     private float pm25;
 
-    @CreationTimestamp
+    @CreationTimestamp // comment out and set updateble=true to insert older values
     @Column(name = "timestamp", updatable = false, nullable = false)
     private Date timestamp;
 
@@ -67,6 +67,10 @@ public class PmMeasurement implements Serializable {
     
     public void setSensorLocation(SensorLocation sensorLocation) {
         this.sensorLocation = sensorLocation;
+    }
+
+    public SensorLocation getSensorLocation() {
+        return sensorLocation;
     }
 
     @Override

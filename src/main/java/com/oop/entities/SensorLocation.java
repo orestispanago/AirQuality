@@ -2,7 +2,6 @@ package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +19,11 @@ public class SensorLocation implements Serializable {
     private long id;
     
     private float lat;
-    
     private float lon;
     
-//    @JsonProperty("soldSensorId")
-//    @Column(name = "sold_sensors_id")
-//    private long soldSensorId;
-    
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JsonProperty
-    @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id")
     private SoldSensor soldSensor;
     
     public SensorLocation() {
@@ -38,7 +32,6 @@ public class SensorLocation implements Serializable {
     public SensorLocation(float lat, float lon) {
         this.lat = lat;
         this.lon = lon;
-//        this.soldSensorId = soldSensorId;
     }
 
     public long getId() {
@@ -71,6 +64,11 @@ public class SensorLocation implements Serializable {
 
     public void setSoldSensor(SoldSensor soldSensor) {
         this.soldSensor = soldSensor;
+    }
+
+    @Override
+    public String toString() {
+        return "SensorLocation{" + "id=" + id + ", lat=" + lat + ", lon=" + lon + ", soldSensor=" + soldSensor + '}';
     }
 
 }

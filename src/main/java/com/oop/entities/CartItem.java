@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,14 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-/**
- *
- * @author Administrator
- */
 @Entity
 @Table(name = "cart_items")
-public class CartItem implements Serializable {
+public class CartItem {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,20 +23,15 @@ public class CartItem implements Serializable {
     
     private int quantity;
     
-    @JsonProperty("cartId")
-    @Column(name = "carts_id")
-    private long cartId;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "carts_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
+    @JsonIgnore
     private Cart cart;
     
-    @JsonProperty("productId")
-    @Column(name = "products_id")
-    private long productId;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "products_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
+    // For unidirectional relationships mapped by child, 
+    // OnDelete cascades the remove operation from the parent to the children
+    @OnDelete(action = OnDeleteAction.CASCADE) 
+    @JoinColumn(name = "products_id")
     private Product product;
     
     public CartItem() {};
@@ -95,32 +82,32 @@ public class CartItem implements Serializable {
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CartItem other = (CartItem) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.quantity != other.quantity) {
-            return false;
-        }
-        if (!Objects.equals(this.cart, other.cart)) {
-            return false;
-        }
-        if (!Objects.equals(this.product, other.product)) {
-            return false;
-        }
-        return true;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final CartItem other = (CartItem) obj;
+//        if (this.id != other.id) {
+//            return false;
+//        }
+//        if (this.quantity != other.quantity) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.cart, other.cart)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.product, other.product)) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     @Override
     public String toString() {
