@@ -11,6 +11,8 @@ import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.oop.dao.IUserDao;
+import com.oop.models.UserSensorLocation;
+import java.util.List;
 
 /**
  *
@@ -43,6 +45,7 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
         SoldSensor soldSensor = sensorLocation.getSoldSensor();
         soldSensor = soldSensorDao.findById(soldSensor.getId()).orElseThrow(SoldSensorNotFoundException::new);
         soldSensor.setUser(getUserFromSoldSensor(soldSensor));
+        soldSensor.setRegistered(true);
         sensorLocation.setSoldSensor(soldSensor);
         return sensorLocationDao.save(sensorLocation);
     }
@@ -54,5 +57,12 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
         }
         sensorLocationDao.delete(sensorLocation);
     }
+
+    @Override
+    public List<UserSensorLocation> getUserSensorLocations() {
+        return UserSensorLocationsService.getUserSensorLocations();
+    }
+
+
 
 }

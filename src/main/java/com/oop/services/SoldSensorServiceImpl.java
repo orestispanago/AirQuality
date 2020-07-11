@@ -36,11 +36,18 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     }
 
     @Override
-    public List<SoldSensor> getAllByUserId(long userId) throws SoldSensorNotFoundException {
+    public List<SoldSensor> getAllByUserId(long userId){
         AppUser user = userService.getById(userId);
         return soldSensorDao.findAllByUserId(user.getId());
     }
+    
 
+    @Override
+    public List<SoldSensor> getAllNonRegisteredByUserId(long userId) {
+        AppUser user = userService.getById(userId);
+        return soldSensorDao.findAllByUserIdAndRegisteredFalse(user.getId());
+    }
+    
     private Product getProductFromSoldSensor(SoldSensor soldSensor) {
         long productId = soldSensor.getProduct().getId();
         return productService.getById(productId);

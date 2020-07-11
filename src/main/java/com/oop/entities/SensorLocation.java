@@ -21,6 +21,8 @@ public class SensorLocation implements Serializable {
     private float lat;
     private float lon;
     
+    private String label;
+    
     @OneToOne(orphanRemoval = true)
     @JsonProperty
     @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id")
@@ -29,9 +31,10 @@ public class SensorLocation implements Serializable {
     public SensorLocation() {
     }
 
-    public SensorLocation(float lat, float lon) {
+    public SensorLocation(float lat, float lon, String label) {
         this.lat = lat;
         this.lon = lon;
+        this.label=label;
     }
 
     public long getId() {
@@ -64,6 +67,14 @@ public class SensorLocation implements Serializable {
 
     public void setSoldSensor(SoldSensor soldSensor) {
         this.soldSensor = soldSensor;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @Override

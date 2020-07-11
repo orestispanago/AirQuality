@@ -24,7 +24,6 @@ soldsensoruser = {
     "product": {
         "id": "1"
     },
-    "register": "0",
     "user": {
         "id": 1
     }
@@ -38,7 +37,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.985965",
-	"lon":"23.734634"
+	"lon":"23.734634",
+    "label":"label1"
 }
 ,
 {
@@ -49,7 +49,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.980071",
-	"lon":"23.733279"
+	"lon":"23.733279",
+    "label":"label2"
 }
 ,
 {
@@ -60,7 +61,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.980207",
-	"lon":"23.740622"
+	"lon":"23.740622",
+    "label":"label3"
 }
 ,
 {
@@ -71,7 +73,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.974828",
-	"lon":"23.735554"
+	"lon":"23.735554",
+    "label":"label4"
 }
 ,
 {
@@ -82,7 +85,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.975263",
-	"lon":"23.732132"
+	"lon":"23.732132",
+    "label":"label5"
 }
 ,
 {
@@ -93,7 +97,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.972637",
-	"lon":"23.730599"
+	"lon":"23.730599",
+    "label":"label6"
 }
 ,
 {
@@ -104,7 +109,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.971030",
-	"lon":"23.748937"
+	"lon":"23.748937",
+    "label":"label7"
 }
 ,
 {
@@ -115,7 +121,8 @@ sensorlocations = [
             }
     },
 	"lat":"38.013003",
-	"lon":"23.785947"
+	"lon":"23.785947",
+    "label":"label8"
 }
 ,
 {
@@ -126,7 +133,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.932419",
-	"lon":"23.936025"
+	"lon":"23.936025",
+    "label":"label9"
 }
 ,
 {
@@ -137,7 +145,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.925920",
-	"lon":"23.935990"
+	"lon":"23.935990",
+    "label":"label10"
 }
 ,
 {
@@ -148,7 +157,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.963858",
-	"lon":"23.719669"
+	"lon":"23.719669",
+    "label":"label11"
 }
 ,
 {
@@ -159,7 +169,8 @@ sensorlocations = [
             }
     },
 	"lat":"37.959738",
-	"lon":"23.710387"
+	"lon":"23.710387",
+    "label":"label12"
 }
 ]
 pm_measurement = {
