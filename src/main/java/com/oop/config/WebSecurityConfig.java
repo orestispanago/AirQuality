@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/products/**").hasAuthority("ROLE_ADMIN") // Testing
                 .antMatchers("/authenticate", "/register",
                         "/", "/map", "/greeting", "/user/**",
-                        "/pm/**", "/co/**", "/sensorlocation","/orders/**",
+                        "/pm/**", "/co/**", "/sensorlocation/**","/orders/**",
                         "/productuser", "/product-types/**","/soldsensoruser/**",
                         "/current",
                         "/carts/**", "/userplan", "/users/**","/plans/**", "/subscriptions/**", 

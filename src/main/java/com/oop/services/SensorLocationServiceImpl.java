@@ -59,8 +59,8 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
     }
 
     @Override
-    public List<UserSensorLocation> getUserSensorLocations() {
-        return UserSensorLocationsService.getUserSensorLocations();
+    public List<UserSensorLocation> getUserSensorLocations(long userId) {
+        return UserSensorLocationsService.getUserSensorLocations(userId);
     }
 
 
