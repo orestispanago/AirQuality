@@ -1,7 +1,7 @@
 package com.oop.controllers;
 
 import com.oop.entities.Cart;
-import com.oop.services.ICartService;
+import com.oop.services.interfaces.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;

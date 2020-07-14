@@ -1,7 +1,7 @@
 package com.oop.controllers;
 
 import com.oop.entities.AppUser;
-import com.oop.services.IUserService;
+import com.oop.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import org.springframework.web.bind.annotation.DeleteMapping;

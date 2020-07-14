@@ -1,18 +1,19 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.ICurrentPmService;
 import com.oop.dao.CurrentPmDaoImpl;
 import com.oop.dao.ICurrentPmDao;
-import com.oop.models.CurrentPm;
+import com.oop.dtos.CurrentPmDTO;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CurrentPmService implements ICurrentPmService {
+public class CurrentPmServiceImpl implements ICurrentPmService {
     
     ICurrentPmDao currentPmDao = new CurrentPmDaoImpl();
 
     @Override
-    public List<CurrentPm> getCurrentPmForAllSensors() {
+    public List<CurrentPmDTO> getCurrentPmForAllSensors() {
         return currentPmDao.getCurrentPmforAllSensors();
     }
 

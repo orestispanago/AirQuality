@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IUserService;
 import com.oop.entities.AppUser;
 import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

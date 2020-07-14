@@ -1,7 +1,7 @@
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import com.oop.entities.SensorLocation;
-import com.oop.models.UserSensorLocation;
+import com.oop.dtos.UserSensorLocationDTO;
 import java.util.List;
 
 /**
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ISensorLocationService{
     SensorLocation getById(long sensorLocationId);
-    List<UserSensorLocation>getUserSensorLocations(long userId);
+    List<UserSensorLocationDTO>getUserSensorLocations(long userId);
     SensorLocation save(SensorLocation sensorLocation);
     void delete(SensorLocation sensorLocation);//make sure sensor measurements are deleted
 }

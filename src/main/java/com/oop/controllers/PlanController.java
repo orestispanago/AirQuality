@@ -1,7 +1,7 @@
 package com.oop.controllers;
 
 import com.oop.entities.Plan;
-import com.oop.services.IPlanService;
+import com.oop.services.interfaces.IPlanService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;

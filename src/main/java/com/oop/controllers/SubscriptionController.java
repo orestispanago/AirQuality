@@ -2,7 +2,7 @@ package com.oop.controllers;
 
 import com.oop.dtos.SubscriptionDTO;
 import com.oop.entities.Subscription;
-import com.oop.services.ISubscriptionService;
+import com.oop.services.interfaces.ISubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
 import org.springframework.web.bind.annotation.GetMapping;

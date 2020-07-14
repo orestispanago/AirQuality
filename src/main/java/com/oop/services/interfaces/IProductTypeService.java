@@ -1,4 +1,4 @@
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import com.oop.entities.ProductType;
 import java.util.List;

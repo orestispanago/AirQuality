@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IProductTypeService;
 import com.oop.dao.IProductTypeDao;
 import com.oop.entities.ProductType;
 import com.oop.exceptions.ProductTypeNotFoundException;

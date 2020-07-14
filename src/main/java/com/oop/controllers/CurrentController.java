@@ -1,7 +1,7 @@
 package com.oop.controllers;
 
-import com.oop.models.CurrentPm;
-import com.oop.services.ICurrentPmService;
+import com.oop.dtos.CurrentPmDTO;
+import com.oop.services.interfaces.ICurrentPmService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +18,7 @@ public class CurrentController {
     ICurrentPmService currentPmService;
   
     @GetMapping(produces = "application/json")
-    public List<CurrentPm> getCurrentPm() {
+    public List<CurrentPmDTO> getCurrentPm() {
        return currentPmService.getCurrentPmForAllSensors();
     }
 }

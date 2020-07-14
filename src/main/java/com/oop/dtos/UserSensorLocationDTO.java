@@ -1,10 +1,7 @@
-package com.oop.models;
+package com.oop.dtos;
 
-/**
- *
- * @author orestis
- */
-public class UserSensorLocation {
+
+public class UserSensorLocationDTO {
 
 
     private String userId;
@@ -14,7 +11,7 @@ public class UserSensorLocation {
     private String lon;
 
 
-    public UserSensorLocation() {
+    public UserSensorLocationDTO() {
     }
 
     public String getUserId() {

@@ -2,7 +2,7 @@ package com.oop.controllers;
 
 import java.util.List;
 import com.oop.entities.ProductType;
-import com.oop.services.IProductTypeService;
+import com.oop.services.interfaces.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

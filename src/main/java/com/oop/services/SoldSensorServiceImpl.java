@@ -1,5 +1,8 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IProductService;
+import com.oop.services.interfaces.ISoldSensorService;
+import com.oop.services.interfaces.IUserService;
 import com.oop.dao.ISoldSensorDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Product;

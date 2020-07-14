@@ -1,5 +1,7 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IUserService;
+import com.oop.services.interfaces.ICartService;
 import com.oop.dao.ICartDao;
 import com.oop.dtos.CartDTO;
 import com.oop.entities.AppUser;

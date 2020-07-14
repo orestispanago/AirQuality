@@ -1,11 +1,11 @@
 package com.oop.dao;
 
-import com.oop.models.CurrentPm;
+import com.oop.dtos.CurrentPmDTO;
 import java.util.List;
 
 
 
 public interface ICurrentPmDao {
 
-    List<CurrentPm> getCurrentPmforAllSensors();
+    List<CurrentPmDTO> getCurrentPmforAllSensors();
 }

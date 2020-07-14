@@ -1,4 +1,4 @@
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import com.oop.entities.Order;
 import com.oop.dtos.OrderDTO;

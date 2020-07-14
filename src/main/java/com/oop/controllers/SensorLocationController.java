@@ -1,7 +1,7 @@
 package com.oop.controllers;
 
 import com.oop.entities.SensorLocation;
-import com.oop.models.UserSensorLocation;
+import com.oop.dtos.UserSensorLocationDTO;
 import com.oop.services.SensorLocationServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class SensorLocationController {
     SensorLocationServiceImpl sensorLocationService;
 
     @GetMapping("/{userId}")
-    public List<UserSensorLocation> getRegisteredSensorLocationsByUserId(@PathVariable long userId){ //TODO add userId argument
+    public List<UserSensorLocationDTO> getRegisteredSensorLocationsByUserId(@PathVariable long userId){ //TODO add userId argument
         return sensorLocationService.getUserSensorLocations(userId);
     }
     

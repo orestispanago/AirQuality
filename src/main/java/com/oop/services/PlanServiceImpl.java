@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IPlanService;
 import com.oop.dao.IPlanDao;
 import com.oop.entities.Plan;
 import com.oop.exceptions.PlanNotFoundException;

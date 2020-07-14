@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IPmMeasurementService;
 import com.oop.dao.IPmMeasurementDao;
 import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;

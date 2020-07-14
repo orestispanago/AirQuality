@@ -1,6 +1,6 @@
 package com.oop.controllers;
 
-import com.oop.services.IPayPalService;
+import com.oop.services.interfaces.IPayPalService;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

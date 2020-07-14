@@ -1,5 +1,7 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IProductService;
+import com.oop.services.interfaces.IProductTypeService;
 import com.oop.dao.IProductDao;
 import com.oop.entities.Product;
 import com.oop.entities.ProductType;

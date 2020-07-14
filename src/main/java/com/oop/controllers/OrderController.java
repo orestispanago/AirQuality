@@ -2,7 +2,7 @@ package com.oop.controllers;
 
 import com.oop.entities.Order;
 import com.oop.dtos.OrderDTO;
-import com.oop.services.IOrderService;
+import com.oop.services.interfaces.IOrderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

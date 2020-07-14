@@ -1,4 +1,4 @@
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

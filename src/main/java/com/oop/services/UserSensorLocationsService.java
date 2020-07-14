@@ -1,7 +1,7 @@
 package com.oop.services;
 
 import com.oop.models.Database;
-import com.oop.models.UserSensorLocation;
+import com.oop.dtos.UserSensorLocationDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class UserSensorLocationsService {
 
     public static Database db = new Database();
 
-    public static List<UserSensorLocation> getUserSensorLocations(long userId) {
+    public static List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
         String query = String.format("SELECT \n"
                 + "    registered, users_id,label, lat, lon\n"
                 + "FROM\n"
@@ -26,11 +26,11 @@ public class UserSensorLocationsService {
                 + "WHERE\n"
                 + "    sensors_locations.sold_sensors_id = sold_sensors_users.id\n"
                 + "        AND sold_sensors_users.users_id = %d;", userId);
-        List<UserSensorLocation> userSensorLocations = new ArrayList();
+        List<UserSensorLocationDTO> userSensorLocations = new ArrayList();
         try {
             ResultSet rs = Database.getResults(query);
             while (rs.next()) {
-                UserSensorLocation userSensorLocation = new UserSensorLocation();
+                UserSensorLocationDTO userSensorLocation = new UserSensorLocationDTO();
                 userSensorLocation.setRegistered(rs.getString(1));
                 userSensorLocation.setUserId(rs.getString(2));
                 userSensorLocation.setLabel(rs.getString(3));

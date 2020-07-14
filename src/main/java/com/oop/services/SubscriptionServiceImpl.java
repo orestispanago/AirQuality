@@ -1,5 +1,8 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IPlanService;
+import com.oop.services.interfaces.ISubscriptionService;
+import com.oop.services.interfaces.IUserService;
 import com.oop.dao.ISubscriptionDao;
 import com.oop.dtos.SubscriptionDTO;
 import com.oop.entities.AppUser;

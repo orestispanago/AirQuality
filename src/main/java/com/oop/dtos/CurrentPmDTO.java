@@ -1,6 +1,6 @@
-package com.oop.models;
+package com.oop.dtos;
 
-public class CurrentPm{
+public class CurrentPmDTO{
 
     private long id;
     private String timestamp;
@@ -10,10 +10,10 @@ public class CurrentPm{
     private String lon;
     private String sensorId;
 
-    public CurrentPm() {
+    public CurrentPmDTO() {
     }
 
-    public CurrentPm(String timestamp, String pm1, String pm25, String lat, String lon, String sensorId) {
+    public CurrentPmDTO(String timestamp, String pm1, String pm25, String lat, String lon, String sensorId) {
         this.timestamp = timestamp;
         this.pm1 = pm1;
         this.pm25 = pm25;
