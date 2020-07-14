@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ISensorLocationService{
     SensorLocation getById(long sensorLocationId);
-    List<UserSensorLocationDTO>getUserSensorLocations(long userId);
+    List<UserSensorLocationDTO>getUserSensorLocations(String username);
     SensorLocation save(SensorLocation sensorLocation);
     void delete(SensorLocation sensorLocation);//make sure sensor measurements are deleted
 }

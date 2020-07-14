@@ -15,12 +15,16 @@ import org.springframework.stereotype.Service;
 import com.oop.dao.IUserDao;
 import com.oop.dao.IUserSensorLocationDao;
 import com.oop.dtos.UserSensorLocationDTO;
+import com.oop.services.interfaces.IUserService;
 import java.util.List;
 
 
 @Service
 public class SensorLocationServiceImpl implements ISensorLocationService {
-
+    
+    @Autowired
+    IUserService userService;
+    
     @Autowired
     ISensorLocationDao sensorLocationDao;
 
@@ -61,7 +65,8 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
     }
 
     @Override
-    public List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
+    public List<UserSensorLocationDTO> getUserSensorLocations(String username) {
+        long userId = userService.getByUsername(username).getId();
         return userSensorLocationDao.getUserSensorLocations(userId);
     }
 

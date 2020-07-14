@@ -46,9 +46,9 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     
 
     @Override
-    public List<SoldSensor> getAllNonRegisteredByUserId(long userId) {
-        AppUser user = userService.getById(userId);
-        return soldSensorDao.findAllByUserIdAndRegisteredFalse(user.getId());
+    public List<SoldSensor> getAllNonRegistered(String username) {
+        long userId = userService.getByUsername(username).getId();
+        return soldSensorDao.findAllByUserIdAndRegisteredFalse(userId);
     }
     
     private Product getProductFromSoldSensor(SoldSensor soldSensor) {

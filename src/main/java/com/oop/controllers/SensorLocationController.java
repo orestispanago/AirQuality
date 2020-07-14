@@ -23,9 +23,9 @@ public class SensorLocationController {
     @Autowired
     SensorLocationServiceImpl sensorLocationService;
 
-    @GetMapping("/{userId}")
-    public List<UserSensorLocationDTO> getRegisteredSensorLocationsByUserId(@PathVariable long userId){ //TODO add userId argument
-        return sensorLocationService.getUserSensorLocations(userId);
+    @GetMapping("/{username}")
+    public List<UserSensorLocationDTO> getRegisteredSensorLocationsByUsername(@PathVariable String username){ //TODO add userId argument
+        return sensorLocationService.getUserSensorLocations(username);
     }
     
     @PostMapping

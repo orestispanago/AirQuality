@@ -26,9 +26,9 @@ public class SoldSensorsController {
 //    public List<SoldSensor> getAllSoldSensorUser(@PathVariable long userId) {
 //        return soldSensorService.getAllByUserId(userId);
 //    }
-    @GetMapping(value = "/{userId}")
-    public List<SoldSensor> getAllNonRegisteredSoldSensorsUser(@PathVariable long userId) {
-        return soldSensorService.getAllNonRegisteredByUserId(userId);
+    @GetMapping(value = "/{username}")
+    public List<SoldSensor> getAllNonRegisteredSoldSensorsUser(@PathVariable String username) {
+        return soldSensorService.getAllNonRegistered(username);
     }
     
     @PostMapping
