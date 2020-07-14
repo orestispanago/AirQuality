@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.dao.UserSensorLocationsDaoImpl;
 import com.oop.services.interfaces.ISensorLocationService;
 import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;
@@ -12,13 +13,11 @@ import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.oop.dao.IUserDao;
+import com.oop.dao.IUserSensorLocationDao;
 import com.oop.dtos.UserSensorLocationDTO;
 import java.util.List;
 
-/**
- *
- * @author orestis
- */
+
 @Service
 public class SensorLocationServiceImpl implements ISensorLocationService {
 
@@ -30,6 +29,8 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
 
     @Autowired
     IUserDao userDao;
+    
+    IUserSensorLocationDao userSensorLocationDao = new UserSensorLocationsDaoImpl();
 
     @Override
     public SensorLocation getById(long sensorLocationId) {
@@ -61,7 +62,7 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
 
     @Override
     public List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
-        return UserSensorLocationsService.getUserSensorLocations(userId);
+        return userSensorLocationDao.getUserSensorLocations(userId);
     }
 
 

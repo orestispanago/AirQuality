@@ -1,4 +1,4 @@
-package com.oop.services;
+package com.oop.dao;
 
 import com.oop.models.Database;
 import com.oop.dtos.UserSensorLocationDTO;
@@ -9,15 +9,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author orestis
- */
-public class UserSensorLocationsService {
 
-    public static Database db = new Database();
+public class UserSensorLocationsDaoImpl implements IUserSensorLocationDao{
 
-    public static List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
+    public Database db = new Database();
+
+    public List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
         String query = String.format("SELECT \n"
                 + "    registered, users_id,label, lat, lon\n"
                 + "FROM\n"
@@ -40,7 +37,7 @@ public class UserSensorLocationsService {
                 System.out.println(userSensorLocation);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserSensorLocationsService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserSensorLocationsDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return userSensorLocations;
     }
