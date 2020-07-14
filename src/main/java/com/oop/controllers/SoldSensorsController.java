@@ -1,5 +1,6 @@
 package com.oop.controllers;
 
+import com.oop.dtos.UserSensorNonRegisteredDTO;
 import com.oop.entities.SoldSensor;
 import com.oop.services.interfaces.ISoldSensorService;
 import java.util.List;
@@ -22,12 +23,8 @@ public class SoldSensorsController {
     @Autowired
     ISoldSensorService soldSensorService;
     
-//    @GetMapping(value = "/{userId}")
-//    public List<SoldSensor> getAllSoldSensorUser(@PathVariable long userId) {
-//        return soldSensorService.getAllByUserId(userId);
-//    }
     @GetMapping(value = "/{username}")
-    public List<SoldSensor> getAllNonRegisteredSoldSensorsUser(@PathVariable String username) {
+    public List<UserSensorNonRegisteredDTO> getAllNonRegisteredSoldSensorsUser(@PathVariable String username) {
         return soldSensorService.getAllNonRegistered(username);
     }
     

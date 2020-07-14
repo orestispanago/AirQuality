@@ -13,11 +13,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.oop.dao.IUserDao;
+import com.oop.dtos.UserSensorNonRegisteredDTO;
+import java.util.ArrayList;
 
-/**
- *
- * @author orestis
- */
 @Service
 public class SoldSensorServiceImpl implements ISoldSensorService {
 
@@ -39,18 +37,21 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     }
 
     @Override
-    public List<SoldSensor> getAllByUserId(long userId){
-        AppUser user = userService.getById(userId);
-        return soldSensorDao.findAllByUserId(user.getId());
-    }
-    
-
-    @Override
-    public List<SoldSensor> getAllNonRegistered(String username) {
+    public List<UserSensorNonRegisteredDTO> getAllNonRegistered(String username) {
         long userId = userService.getByUsername(username).getId();
-        return soldSensorDao.findAllByUserIdAndRegisteredFalse(userId);
+        List<SoldSensor> soldSensors = soldSensorDao.findAllByUserIdAndRegisteredFalse(userId);
+        List<UserSensorNonRegisteredDTO> nonRegisteredDTOS = new ArrayList();
+        for (SoldSensor soldSensor : soldSensors) {
+            UserSensorNonRegisteredDTO nonRegisteredDTO = new UserSensorNonRegisteredDTO();
+            nonRegisteredDTO.setUsername(username);
+            nonRegisteredDTO.setSoldSensorId(soldSensor.getId());
+            nonRegisteredDTO.setProductType(soldSensor.getProduct().getProductType().getType());
+            nonRegisteredDTOS.add(nonRegisteredDTO);
+        }
+        return nonRegisteredDTOS;
+
     }
-    
+
     private Product getProductFromSoldSensor(SoldSensor soldSensor) {
         long productId = soldSensor.getProduct().getId();
         return productService.getById(productId);
@@ -58,8 +59,7 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
 
     private AppUser getUserFromSoldSensor(SoldSensor soldSensor) {
         long userId = soldSensor.getUser().getId();
-        AppUser user = userDao.findById(userId).orElseThrow(UserNotFoundException::new);
-        return user;
+        return userDao.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
