@@ -1,32 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Administrator
- */
 @Entity
 @Table(name = "product_types")
-public class ProductType {
-    
+public class ProductType implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     private String type;
 
-    public ProductType() {};
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> product;
+
+    public ProductType() {
+    }
     
     public ProductType(String type) {
         this.type = type;
@@ -81,6 +83,5 @@ public class ProductType {
     public String toString() {
         return "ProductType{" + "id=" + id + ", type=" + type + '}';
     }
-    
-    
+
 }

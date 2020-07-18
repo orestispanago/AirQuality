@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,19 +16,25 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sold_sensors_users")
-public class SoldSensor {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    
-    private short registered;
+public class SoldSensor implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private boolean registered = false;
+
+    @ManyToOne()
+    @JoinColumn(name = "products_id", referencedColumnName = "id")
+    private Product product;
+   
+    
+    @ManyToOne()
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    private AppUser user;
+    
     public SoldSensor() {};
     
-    public SoldSensor(short registered) {
-        this.registered = registered;
-    }
 
     public long getId() {
         return id;
@@ -39,46 +44,35 @@ public class SoldSensor {
         this.id = id;
     }
 
-    public short getRegistered() {
-        return registered;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setRegistered(short registered) {
-        this.registered = registered;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 31 * hash + this.registered;
-        return hash;
+    public AppUser getUser() {
+        return user;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SoldSensor other = (SoldSensor) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.registered != other.registered) {
-            return false;
-        }
-        return true;
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
-        return "SoldSensor{" + "id=" + id + ", registered=" + registered + '}';
+        return "SoldSensor{" + "id=" + id + ", registered=" + registered + ", product=" + product + ", user=" + user + '}';
     }
-    
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
+
+
 }

@@ -1,57 +1,61 @@
-/*
-Many to One ---> ProductType
-Connection to CartItem needed <--
- */
 package com.oop.entities;
 
-import java.util.Arrays;
-import java.util.Objects;
-import javax.persistence.Column;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
 
-/**
- *
- * @author Administrator
- */
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     private String name;
     
+    @Length(max=2000)
     private String description;
+    
+    @Length(max=2000)
+    private String technicalDetails;
     
     private double price;
     
-    @Lob
-    @Column(name = "image", columnDefinition = "BLOB")
-    private byte[] image;
+    private String imageUrl;
     
-    @ManyToOne(optional = false)
+    private String manualUrl;
+    
+    @ManyToOne
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
     
     public Product() {};
 
-    public Product(String name, String description, double price, byte[] image, ProductType productType) {
+    public Product(String name, String description, String technicalDetails, double price, String imageUrl, String manualUrl, ProductType productType) {        
         this.name = name;
         this.description = description;
+        this.technicalDetails = technicalDetails;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
+        this.manualUrl = manualUrl;
         this.productType = productType;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
     public long getId() {
         return id;
     }
@@ -84,14 +88,6 @@ public class Product {
         this.price = price;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public ProductType getProductType() {
         return productType;
     }
@@ -100,54 +96,29 @@ public class Product {
         this.productType = productType;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 53 * hash + Objects.hashCode(this.name);
-        hash = 53 * hash + Objects.hashCode(this.description);
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 53 * hash + Arrays.hashCode(this.image);
-        hash = 53 * hash + Objects.hashCode(this.productType);
-        return hash;
+    public String getTechnicalDetails() {
+        return technicalDetails;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Product other = (Product) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Arrays.equals(this.image, other.image)) {
-            return false;
-        }
-        if (!Objects.equals(this.productType, other.productType)) {
-            return false;
-        }
-        return true;
+    public void setTechnicalDetails(String technicalDetails) {
+        this.technicalDetails = technicalDetails;
+    }
+
+    public String getManualUrl() {
+        return manualUrl;
+    }
+
+    public void setManualUrl(String manualUrl) {
+        this.manualUrl = manualUrl;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", image=" + image + ", productType=" + productType + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", technicalDetails=" + technicalDetails + ", price=" + price + ", imageUrl=" + imageUrl + ", manualUrl=" + manualUrl + ", productType=" + productType + '}';
     }
+
+ 
+
+
     
 }

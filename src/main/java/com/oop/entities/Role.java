@@ -1,6 +1,11 @@
 package com.oop.entities;
 
+import com.oop.models.ERole;
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,17 +13,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole name;
 
     public Role() {
     }
 
-    public Role(String name) {
+    public Role(ERole name) {
         this.name = name;
     }
 
@@ -30,19 +38,18 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public ERole getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(ERole name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Role{" + "id=" + id + ", name=" + name + '}';
     }
+    
+    
 }
