@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private static final String FULL_DB_URL = "jdbc:mysql://172.17.0.2:3306/bootdb?createDatabaseIfNotExist=true&autoReconnect=true&serverTimezone=UTC&useSSL=false";
+    private static final String FULL_DB_URL = "jdbc:mysql://173.249.63.213:3306/bootdb?createDatabaseIfNotExist=true&autoReconnect=true&serverTimezone=UTC&useSSL=false";
     private static final String DB_USER = "root";
     private static final String DB_PASSWD = "root";
     private static Connection connection = null;
