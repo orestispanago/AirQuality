@@ -1,7 +1,9 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.IProductService;
+import com.oop.services.interfaces.ISoldSensorService;
+import com.oop.services.interfaces.IUserService;
 import com.oop.dao.ISoldSensorDao;
-import com.oop.dao.UserDao;
 import com.oop.entities.AppUser;
 import com.oop.entities.Product;
 import com.oop.entities.SoldSensor;
@@ -10,11 +12,10 @@ import com.oop.exceptions.UserNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.oop.dao.IUserDao;
+import com.oop.dtos.UserSensorNonRegisteredDTO;
+import java.util.ArrayList;
 
-/**
- *
- * @author orestis
- */
 @Service
 public class SoldSensorServiceImpl implements ISoldSensorService {
 
@@ -28,7 +29,7 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     IProductService productService;
 
     @Autowired
-    UserDao userDao;
+    IUserDao userDao;
 
     @Override
     public SoldSensor getById(long soldSensorId) {
@@ -36,9 +37,19 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
     }
 
     @Override
-    public List<SoldSensor> getAllByUserId(long userId) throws SoldSensorNotFoundException {
-        AppUser user = userService.getById(userId);
-        return soldSensorDao.findAllByUserId(user.getId());
+    public List<UserSensorNonRegisteredDTO> getAllNonRegistered(String username) {
+        long userId = userService.getByUsername(username).getId();
+        List<SoldSensor> soldSensors = soldSensorDao.findAllByUserIdAndRegisteredFalse(userId);
+        List<UserSensorNonRegisteredDTO> nonRegisteredDTOS = new ArrayList();
+        for (SoldSensor soldSensor : soldSensors) {
+            UserSensorNonRegisteredDTO nonRegisteredDTO = new UserSensorNonRegisteredDTO();
+            nonRegisteredDTO.setUsername(username);
+            nonRegisteredDTO.setSoldSensorId(soldSensor.getId());
+            nonRegisteredDTO.setProductType(soldSensor.getProduct().getProductType().getType());
+            nonRegisteredDTOS.add(nonRegisteredDTO);
+        }
+        return nonRegisteredDTOS;
+
     }
 
     private Product getProductFromSoldSensor(SoldSensor soldSensor) {
@@ -48,8 +59,7 @@ public class SoldSensorServiceImpl implements ISoldSensorService {
 
     private AppUser getUserFromSoldSensor(SoldSensor soldSensor) {
         long userId = soldSensor.getUser().getId();
-        AppUser user = userDao.findById(userId).orElseThrow(UserNotFoundException::new);
-        return user;
+        return userDao.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     @Override

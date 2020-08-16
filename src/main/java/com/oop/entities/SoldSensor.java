@@ -22,7 +22,7 @@ public class SoldSensor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private short registered;
+    private boolean registered = false;
 
     @ManyToOne()
     @JoinColumn(name = "products_id", referencedColumnName = "id")
@@ -35,9 +35,6 @@ public class SoldSensor implements Serializable {
     
     public SoldSensor() {};
     
-    public SoldSensor(short registered) {
-        this.registered = registered;
-    }
 
     public long getId() {
         return id;
@@ -45,14 +42,6 @@ public class SoldSensor implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public short getRegistered() {
-        return registered;
-    }
-
-    public void setRegistered(short registered) {
-        this.registered = registered;
     }
 
     public Product getProduct() {
@@ -74,6 +63,14 @@ public class SoldSensor implements Serializable {
     @Override
     public String toString() {
         return "SoldSensor{" + "id=" + id + ", registered=" + registered + ", product=" + product + ", user=" + user + '}';
+    }
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
     }
 
 

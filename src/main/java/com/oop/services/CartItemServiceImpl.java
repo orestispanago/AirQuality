@@ -5,6 +5,7 @@
  */
 package com.oop.services;
 
+import com.oop.services.interfaces.ICartItemService;
 import com.oop.dao.ICartItemDao;
 import com.oop.entities.CartItem;
 import com.oop.exceptions.CartItemNotFoundException;

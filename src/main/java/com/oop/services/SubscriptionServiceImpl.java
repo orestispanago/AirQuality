@@ -1,40 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
+import com.oop.services.interfaces.IPlanService;
+import com.oop.services.interfaces.ISubscriptionService;
+import com.oop.services.interfaces.IUserService;
 import com.oop.dao.ISubscriptionDao;
+import com.oop.dtos.SubscriptionDTO;
 import com.oop.entities.AppUser;
+import com.oop.entities.Plan;
 import com.oop.entities.Subscription;
+import com.oop.exceptions.SubscriptionAlreadyExistsException;
 import com.oop.exceptions.SubscriptionNotFoundException;
-import com.oop.exceptions.UserNotFoundException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author petros_trak
- */
 @Service
 public class SubscriptionServiceImpl implements ISubscriptionService {
 
     @Autowired
     ISubscriptionDao subscriptionDao;
 
+    @Autowired
+    IUserService userService;
+
+    @Autowired
+    IPlanService planService;
+
     @Override
     public Subscription getById(long subscriptionId) {
-        Optional<Subscription> subEntity = subscriptionDao.findById(subscriptionId);
-        if (subEntity == null) {
-            throw new SubscriptionNotFoundException();
-        } else {
-            Subscription sub = subEntity.get();
-            return sub;
-        }
+        Subscription sub = subscriptionDao.findById(subscriptionId).orElseThrow(()-> new SubscriptionNotFoundException());
+        return sub;
     }
-    
+
     @Override
     public Subscription getByUserId(long userId) {
         Subscription sub = subscriptionDao.findByUserId(userId);
@@ -42,30 +41,38 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
         return sub;
     }
 
-    @Override
-    public Subscription update(Subscription subscription) {
-        Subscription dbSub = subscriptionDao.findById(subscription.getId()).orElse(null);
-        if (dbSub == null) {
+    public Subscription getByUsername(String username) {
+        AppUser user = userService.getByUsername(username);
+        Subscription sub = getByUserId(user.getId());
+        if (sub == null) {
             throw new SubscriptionNotFoundException();
         }
-        return subscriptionDao.save(subscription);
+        return sub;
     }
 
     @Override
-    public Subscription save(Subscription subscription) {
-        if (subscription != null) {
-            Subscription savedSubscription = subscriptionDao.save(subscription);
-            return savedSubscription;
-        }
-        return null;
+    public Subscription update(long subscriptionId, SubscriptionDTO subDTO) {
+        Plan plan = planService.getById(subDTO.getPlanId());
+        Subscription dbSub = getById(subscriptionId);
+        dbSub.setPlan(plan);
+        dbSub = extendSubscriptionByNumOfMonths(dbSub, subDTO.getMonthsToExtend());
+        return subscriptionDao.save(dbSub);
+    }
+
+    @Override
+    public Subscription save(SubscriptionDTO subDTO) {
+        String username = subDTO.getUsername();
+        AppUser user = userService.getByUsername(username);
+        if (existsByUserId(user.getId())) throw new SubscriptionAlreadyExistsException();
+        Plan plan = planService.getById(subDTO.getPlanId());
+        Subscription sub = new Subscription(plan, user);
+        return subscriptionDao.save(sub);
     }
 
     @Override
     public boolean existsById(long id) {
-        Optional<Subscription> subscriptionEntity = subscriptionDao.findById(id);
-        if (subscriptionEntity == null) {
-            return false;
-        }
+        Subscription subscriptionEntity = subscriptionDao.findById(id).orElseGet(null);
+        if (subscriptionEntity == null) return false;
         return true;
     }
 
@@ -74,6 +81,18 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
         return subscriptionDao.existsByUserId(id);
     }
 
+    private Subscription extendSubscriptionByNumOfMonths(Subscription subscription, int numOfMonths) {
+        long monthMiliSeconds = 2629746000L;
+        subscription.setExpirationDate(new Date(subscription.getExpirationDate().getTime() + (numOfMonths * monthMiliSeconds)));
+        return subscription;
+    }
     
+    public Timestamp DateToTimestamp(Date dateToConvert) {
+        return new Timestamp(dateToConvert.getTime());
+    }
+    
+    public Date TimestampToDate(Timestamp tsToConvert) {
+        return new Date(tsToConvert.getTime());
+    }
 
 }

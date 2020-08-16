@@ -1,32 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
-import com.oop.dao.ICartDao;
+import com.oop.services.interfaces.IProductService;
+import com.oop.services.interfaces.IOrderService;
+import com.oop.services.interfaces.ICartService;
+import com.oop.services.interfaces.IUserService;
 import com.oop.dao.IOrderDao;
-import com.oop.dao.UserDao;
-import com.oop.entities.Cart;
+import com.oop.dtos.CartDTO;
 import com.oop.entities.CartItem;
 import com.oop.entities.Order;
 import com.oop.entities.OrderItem;
 import com.oop.entities.Product;
-import com.oop.exceptions.CartItemNotFoundException;
-import com.oop.exceptions.CartNotFoundException;
 import com.oop.exceptions.OrderNotFoundException;
-import com.oop.exceptions.UserNotFoundException;
-import com.oop.models.OrderRequest;
+import com.oop.dtos.OrderDTO;
+import com.oop.entities.AppUser;
+import com.oop.entities.Cart;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author petros_trak
- */
 @Service
 public class OrderServiceImpl implements IOrderService {
 
@@ -34,10 +26,13 @@ public class OrderServiceImpl implements IOrderService {
     IOrderDao orderDao;
 
     @Autowired
-    UserDao userDao;
+    IUserService userService;
     
     @Autowired
     ICartService cartService; 
+    
+    @Autowired
+    IProductService productService;
 
     @Override
     public boolean existsById(long id) {
@@ -50,50 +45,87 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public Order save(Order order) {
-        if (order != null) {
-            return orderDao.save(order);
+    public Order save(OrderDTO orderDTO) {
+        Order order = new Order();
+        List<OrderItem> orderItems = getOrderItemsFromCartItems(orderDTO, order);
+        order.setOrderItems(orderItems);
+        order.setUser(userService.getByUsername(orderDTO.getUsername()));
+        order.setTotalPrice(calcTotalPrice(order));
+        order.setShippingAddress(orderDTO.getShippingAddress());
+        Order newOrder = orderDao.save(order);
+        // Empty cart upon successful order
+        if (newOrder != null){
+            Cart dbCart = cartService.getByUsername(orderDTO.getUsername());
+            dbCart.getCartItems().clear();
+            cartService.update(dbCart.getId(), new CartDTO(orderDTO.getUsername(), dbCart));
         }
-        return null;
+        return newOrder;
     }
 
     @Override
-    public List<Order> getAllByUserId(long userId) {
-        if (!userDao.existsById(userId)) {
-            throw new UserNotFoundException();
-        }
-        return orderDao.findAllByUserId(userId);
+    public List<Order> getAllByUsername(String username) {
+        AppUser user = userService.getByUsername(username);
+        return orderDao.findAllByUserId(user.getId());
     }
 
     @Override
     public Order getById(long orderId) {
-        return orderDao.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        return orderDao.findById(orderId).orElseThrow(()-> new OrderNotFoundException());
     }
-
+    
+    public List<Order> getAllOrders(){
+        Iterable<Order> ordersEntity = orderDao.findAll();
+        List<Order> orders = (List<Order>) ordersEntity;
+        return orders;
+    }
+    
+//    @Override
+//    public Order update(long orderId, OrderDTO orderDTO){
+//        Order dbOrder = getById(orderId);
+//        List<OrderItem> dbOrderItems = dbOrder.getOrderItems();
+//        List<OrderItem> orderItems = getOrderItemsFromCartItems(orderDTO, dbOrder);
+//       
+//        for (OrderItem dbOrderItem : dbOrderItems){
+//            for (int i = 0; i < orderItems.size(); i++){
+//                OrderItem orderItem = orderItems.get(i);
+//                if (orderItem.getProduct().getId() == dbOrderItem.getProduct().getId()){
+//                    dbOrderItem.setPrice(orderItem.getPrice());
+//                    dbOrderItem.setQuantity(orderItem.getQuantity());
+//                }
+//                else {
+//                    dbOrderItems.add(orderItem);
+//                }
+//            }
+//        }
+//        
+//        dbOrder.setShippingAddress(orderDTO.getShippingAddress());
+//        dbOrder.setTotalPrice(calcTotalPrice(dbOrder));
+//        return orderDao.save(dbOrder);
+//    }
+    
     @Override
-    public Order makeOrder(OrderRequest orderRequest) throws CartNotFoundException {
-        long cartId = orderRequest.getCart().getId();
-        Cart cart = cartService.getById(cartId);
-        Order order = new Order();
-        List<OrderItem> orderItems = new ArrayList();
-        for (CartItem cartItem : cart.getCartItems()) {
-            orderItems.add(makeOrderItem(cartItem));
-        }
-        System.out.println(orderItems);
-        order.setUser(cart.getUser());
-        order.setOrderItems(orderItems);
-        order.setTotalPrice(calcTotalPrice(order));
-        order.setShippingAddress(orderRequest.getShippingAddress());
-        return order;
+    public void deleteById(long orderId){
+        Order order = getById(orderId);
+        orderDao.delete(order);
     }
 
-    private OrderItem makeOrderItem(CartItem cartItem) throws CartItemNotFoundException {
+    private OrderItem getOrderItemFromCartItem(CartItem cartItem, Order order) {
         OrderItem orderItem = new OrderItem();
-        Product product = cartItem.getProduct();
+        Product product = productService.getById(cartItem.getProduct().getId());
         orderItem.setProduct(product);
         orderItem.setPrice(product.getPrice());
         orderItem.setQuantity(cartItem.getQuantity());
+        orderItem.setOrder(order);
         return orderItem;
+    }
+    
+    private List<OrderItem> getOrderItemsFromCartItems(OrderDTO orderDTO, Order order){
+        List<CartItem> cartItems = orderDTO.getCart().getCartItems();
+        List<OrderItem> orderItems = new ArrayList();
+        for (CartItem cartItem : cartItems) {
+            orderItems.add(getOrderItemFromCartItem(cartItem, order));
+        }
+        return orderItems;
     }
 
     private double calcTotalPrice(Order order) {
@@ -103,5 +135,4 @@ public class OrderServiceImpl implements IOrderService {
         }
         return totalPrice;
     }
-
 }

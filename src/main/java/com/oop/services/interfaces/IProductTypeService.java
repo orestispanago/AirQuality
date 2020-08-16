@@ -1,4 +1,4 @@
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import com.oop.entities.ProductType;
 import java.util.List;
@@ -13,4 +13,5 @@ public interface IProductTypeService {
     List<ProductType> getAll();
     ProductType save(ProductType productType);
     void deleteById(long productTypeId);
+    ProductType update(long productTypeId, ProductType productType);
 }

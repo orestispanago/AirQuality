@@ -1,4 +1,4 @@
-package com.oop.mail;
+package com.oop.config;
 
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;

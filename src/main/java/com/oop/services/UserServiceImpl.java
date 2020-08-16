@@ -1,39 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
-import com.oop.dao.UserDao;
+import com.oop.services.interfaces.IUserService;
 import com.oop.entities.AppUser;
 import com.oop.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.oop.dao.IUserDao;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- *
- * @author Walter
- */
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    UserDao userDao;
+    IUserDao userDao;
 
     @Override
     public AppUser getById(long userId) {
-        return userDao.findById(userId).orElseThrow(UserNotFoundException::new);
+        return userDao.findById(userId).orElseThrow(()-> new UserNotFoundException());
     }
 
     @Override
+    @ResponseStatus(NO_CONTENT)
     public String deleteById(long userId) {
-        AppUser user = userDao.findById(userId).orElse(null);
+        AppUser user = getById(userId);        
+        userDao.delete(user);
+        return user.getUsername();
+    }
+    
+    public AppUser getByUsername(String username){
+        AppUser user = userDao.findByUsername(username);
         if (user == null) throw new UserNotFoundException();
-        else {
-            String username = user.getUsername();
-            userDao.delete(user);
-            return username;
-        }
+        return user;
     }
 }

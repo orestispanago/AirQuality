@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
+import com.oop.services.interfaces.IPayPalService;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
@@ -21,15 +17,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author petros_trak
- */
 @Service
 public class PayPalServiceImpl implements IPayPalService{
-
-    String clientId = "AURrFV76de2qNHa7GtV1nfmHfMnBlCZzXlbQONUcbk9fFn4oOatAkQJP1wme6vNUnIfQ3Z64r5k-Pfuh";
-    String clientSecret = "EFTeeueL6i65N4MUBP-L1jv37tx3p55Y6sxy5ga1xYh2SLpYAfuTRrWilQ7FSNyJxmFadUgBuCQSaS38";    
+    final String CLIENT_ID = "AURrFV76de2qNHa7GtV1nfmHfMnBlCZzXlbQONUcbk9fFn4oOatAkQJP1wme6vNUnIfQ3Z64r5k-Pfuh";
+    final String CLIENT_SECRET = "EFTeeueL6i65N4MUBP-L1jv37tx3p55Y6sxy5ga1xYh2SLpYAfuTRrWilQ7FSNyJxmFadUgBuCQSaS38";    
     
     @Override
     public Map<String, Object> createPayment(String sum) {
@@ -57,7 +48,7 @@ public class PayPalServiceImpl implements IPayPalService{
         Payment createdPayment;
         try {
             String redirectUrl = "";
-            APIContext context = new APIContext(clientId, clientSecret, "sandbox");
+            APIContext context = new APIContext(CLIENT_ID, CLIENT_SECRET, "sandbox");
             createdPayment = payment.create(context);
             if (createdPayment != null) {
                 List<Links> links = createdPayment.getLinks();
@@ -85,7 +76,7 @@ public class PayPalServiceImpl implements IPayPalService{
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(req.getParameter("PayerID"));
         try {
-            APIContext context = new APIContext(clientId, clientSecret, "sandbox");
+            APIContext context = new APIContext(CLIENT_ID, CLIENT_SECRET, "sandbox");
             Payment createdPayment = payment.execute(context, paymentExecution);
             if (createdPayment != null) {
                 response.put("status", "success");
@@ -96,5 +87,4 @@ public class PayPalServiceImpl implements IPayPalService{
         }
         return response;        
     }
-    
 }

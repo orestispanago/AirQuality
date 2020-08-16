@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
+import com.oop.services.interfaces.IPlanService;
 import com.oop.dao.IPlanDao;
 import com.oop.entities.Plan;
 import com.oop.exceptions.PlanNotFoundException;
@@ -12,10 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Walter
- */
 @Service
 public class PlanServiceImpl implements IPlanService {
     @Autowired
@@ -23,7 +15,7 @@ public class PlanServiceImpl implements IPlanService {
     
     @Override
     public Plan getById(long planId) {
-        return planDao.findById(planId).orElseThrow(PlanNotFoundException::new);
+        return planDao.findById(planId).orElseThrow(()-> new PlanNotFoundException());
     }
 
     @Override
@@ -43,5 +35,23 @@ public class PlanServiceImpl implements IPlanService {
     public boolean existsById(long planId) {
         return planDao.existsById(planId);
     }
-    
+
+    @Override
+    public Plan update(long planId, Plan plan) {
+        Plan dbPlan = getById(planId);
+        dbPlan.setDescription(plan.getDescription());
+        dbPlan.setFeature1(plan.getFeature1());
+        dbPlan.setFeature2(plan.getFeature2());
+        dbPlan.setFeature3(plan.getFeature3());
+        dbPlan.setLabel(plan.getLabel());
+        dbPlan.setPricePerMonth(plan.getPricePerMonth());
+        dbPlan.setTitle(plan.getTitle());
+        return planDao.save(dbPlan);
+    }
+
+    @Override
+    public void deleteById(long planId) {
+        Plan plan = getById(planId);
+        planDao.delete(plan);
+    }
 }

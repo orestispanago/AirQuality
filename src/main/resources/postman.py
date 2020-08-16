@@ -16,12 +16,12 @@ class Request:
 
 def post_chain():
     Request("/register",user).post()
-    Request("/producttype",productType).post()
+    Request("/product-types",productType).post()
     Request("/products",product).post()
     for i in range(1, (len(sensorlocations)+1)):
         Request("/soldsensoruser",soldsensoruser).post()
     for j in sensorlocations:
-        Request("/sensor/sensorlocation",j).post()
+        Request("/sensorlocation",j).post()
 
 def random_measurement(sensorLocationId):
     pm = {

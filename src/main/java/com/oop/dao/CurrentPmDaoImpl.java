@@ -1,7 +1,8 @@
-package com.oop.services;
+package com.oop.dao;
 
-import com.oop.models.CurrentPm;
+import com.oop.dtos.CurrentPmDTO;
 import com.oop.models.Database;
+import com.oop.services.CurrentPmServiceImpl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,13 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author orestis
- */
-public class CurrentPmService {
+public class CurrentPmDaoImpl implements ICurrentPmDao {
 
-    private static String query = "SELECT \n"
+    private String query = "SELECT \n"
             + "    pm_measurements.timestamp,\n"
             + "    pm_measurements.pm1,\n"
             + "    pm_measurements.pm25,\n"
@@ -34,14 +31,14 @@ public class CurrentPmService {
             + "WHERE\n"
             + "    pm_measurements.id = x.maxId\n"
             + "        AND sensors_locations.id = x.sensLocId;";
-    public static Database db = new Database();
+    public Database db = new Database();
 
-    public static List<CurrentPm> getCurrentPmforAllSensors() {
-        List<CurrentPm> currentPms = new ArrayList();
+    public List<CurrentPmDTO> getCurrentPmforAllSensors() {
+        List<CurrentPmDTO> currentPms = new ArrayList();
         try {
             ResultSet rs = db.getResults(query);
             while (rs.next()) {
-                CurrentPm currentPm = new CurrentPm();
+                CurrentPmDTO currentPm = new CurrentPmDTO();
                 currentPm.setTimestamp(rs.getString(1));
                 currentPm.setPm1(rs.getString(2));
                 currentPm.setPm25(rs.getString(3));
@@ -52,7 +49,7 @@ public class CurrentPmService {
                 System.out.println(currentPm);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CurrentPmService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurrentPmServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return currentPms;
     }

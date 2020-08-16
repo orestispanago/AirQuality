@@ -1,6 +1,7 @@
-package com.oop.mail;
+package com.oop.controllers;
 
 import com.oop.entities.SensorLocation;
+import com.oop.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

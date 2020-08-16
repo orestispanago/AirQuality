@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.dao;
 
 import com.oop.entities.SoldSensor;
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Walter
- */
 @Repository
-public interface ISoldSensorDao extends CrudRepository<SoldSensor, Long> {
+public interface ISoldSensorDao extends JpaRepository<SoldSensor, Long> {
     List<SoldSensor> findAllByUserId(long userId);
+    List<SoldSensor> findAllByUserIdAndRegisteredFalse(long userId);
 }

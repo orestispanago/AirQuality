@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -18,10 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Administrator
- */
 @Entity
 @Table(name = "product_types")
 public class ProductType implements Serializable {
@@ -38,8 +29,6 @@ public class ProductType implements Serializable {
 
     public ProductType() {
     }
-
-    ;
     
     public ProductType(String type) {
         this.type = type;

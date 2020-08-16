@@ -1,5 +1,8 @@
 package com.oop.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Set;
+
 public class UserDTO {
 
     private String username;
@@ -7,7 +10,9 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
-
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private Set<String> roles;
+    
     public String getUsername() {
         return username;
     }
@@ -48,9 +53,16 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "UserDTO{" + "username=" + username + ", password=" + password + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + '}';
+    public Set<String> getRoles() {
+        return roles;
     }
 
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" + "username=" + username + ", password=" + password + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + roles + '}';
+    }
 }

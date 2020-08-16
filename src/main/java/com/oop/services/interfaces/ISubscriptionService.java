@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oop.services;
+package com.oop.services.interfaces;
 
+import com.oop.dtos.SubscriptionDTO;
 import com.oop.entities.Subscription;
 
 /**
@@ -13,9 +14,10 @@ import com.oop.entities.Subscription;
  */
 public interface ISubscriptionService {
     Subscription getById(long subscriptionId);
-    Subscription update(Subscription subscription);;
-    Subscription save(Subscription subscription);
+    Subscription update(long subscriptionId, SubscriptionDTO subscriptionDTO);
+    Subscription save(SubscriptionDTO subscriptionDTO);
     Subscription getByUserId(long userId);
     boolean existsByUserId(long id);
     boolean existsById(long id);
+    Subscription getByUsername(String username);
 }

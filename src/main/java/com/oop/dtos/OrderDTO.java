@@ -1,17 +1,16 @@
-package com.oop.models;
+package com.oop.dtos;
 
 import com.oop.entities.Cart;
 
-
-public class OrderRequest {
-
+public class OrderDTO {
     private Cart cart;
     private String shippingAddress;
+    private String username;
 
-    public OrderRequest() {
+    public OrderDTO() {
     }
 
-    public OrderRequest(Cart cart, String shippingAddress) {
+    public OrderDTO(Cart cart, String shippingAddress) {
         this.cart = cart;
         this.shippingAddress = shippingAddress;
     }
@@ -32,10 +31,16 @@ public class OrderRequest {
         this.shippingAddress = shippingAddress;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
-        return "OrderRequest{" + "cart=" + cart + ", shippingAddress=" + shippingAddress + '}';
+        return "OrderDTO{" + "cart=" + cart + ", shippingAddress=" + shippingAddress + ", username=" + username + '}';
     }
-    
-    
 }

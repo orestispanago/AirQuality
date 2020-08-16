@@ -1,5 +1,6 @@
 package com.oop.services;
 
+import com.oop.services.interfaces.ICoMeasurementService;
 import com.oop.dao.ICoMeasurementDao;
 import com.oop.dao.ISensorLocationDao;
 import com.oop.dao.ISoldSensorDao;

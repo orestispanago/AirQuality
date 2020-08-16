@@ -1,7 +1,3 @@
-/*
-Many to One ---> ProductType
-Connection to CartItem needed <--
- */
 package com.oop.entities;
 
 import java.io.Serializable;
@@ -14,10 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 
-/**
- *
- * @author Administrator
- */
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -30,14 +22,18 @@ public class Product implements Serializable {
     
     @Length(max=2000)
     private String description;
+    
     @Length(max=2000)
     private String technicalDetails;
+    
     private double price;
+    
     private String imageUrl;
+    
     private String manualUrl;
     
     @ManyToOne
-    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_type_id")
     private ProductType productType;
     
     public Product() {};

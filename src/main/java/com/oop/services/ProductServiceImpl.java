@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.oop.services;
 
+import com.oop.services.interfaces.IProductService;
+import com.oop.services.interfaces.IProductTypeService;
 import com.oop.dao.IProductDao;
 import com.oop.entities.Product;
 import com.oop.entities.ProductType;
@@ -13,10 +10,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author petros_trak
- */
 @Service
 public class ProductServiceImpl implements IProductService {
 
@@ -40,17 +33,15 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product save(Product product) {
-        if (product == null) {
-            return null;
-        }
         ProductType productType = productTypeService.getById(product.getProductType().getId());
         product.setProductType(productType);
         return productDao.save(product);
     }
 
     @Override
-    public Product update(Product product) {
-        if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
+    public Product update(long productId, Product product) {
+        if(!productDao.existsById(productId))throw new ProductNotFoundException();
+        product.setId(productId);
         return productDao.save(product);
     }
 
@@ -59,6 +50,9 @@ public class ProductServiceImpl implements IProductService {
         if(!productDao.existsById(product.getId()))throw new ProductNotFoundException();
         productDao.deleteById(product.getId());
     }
-
-
+    
+    public void deleteById(long productId){
+        if(!productDao.existsById(productId)) throw new ProductNotFoundException();
+        productDao.deleteById(productId);
+    }
 }

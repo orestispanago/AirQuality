@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.oop.services;
+package com.oop.services.interfaces;
 
 import com.oop.entities.AppUser;
 
@@ -14,4 +14,5 @@ import com.oop.entities.AppUser;
 public interface IUserService {
     AppUser getById(long userId);
     String deleteById(long userId);
+    AppUser getByUsername(String username);
 }

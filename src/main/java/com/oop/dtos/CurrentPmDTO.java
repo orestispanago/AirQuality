@@ -1,11 +1,8 @@
-package com.oop.models;
+package com.oop.dtos;
 
-/**
- *
- * @author orestis
- */
-public class CurrentPm {
+public class CurrentPmDTO{
 
+    private long id;
     private String timestamp;
     private String pm1;
     private String pm25;
@@ -13,10 +10,10 @@ public class CurrentPm {
     private String lon;
     private String sensorId;
 
-    public CurrentPm() {
+    public CurrentPmDTO() {
     }
 
-    public CurrentPm(String timestamp, String pm1, String pm25, String lat, String lon, String sensorId) {
+    public CurrentPmDTO(String timestamp, String pm1, String pm25, String lat, String lon, String sensorId) {
         this.timestamp = timestamp;
         this.pm1 = pm1;
         this.pm25 = pm25;
@@ -24,8 +21,6 @@ public class CurrentPm {
         this.lon = lon;
         this.sensorId = sensorId;
     }
-
-
 
     public String getTimestamp() {
         return timestamp;
@@ -75,13 +70,9 @@ public class CurrentPm {
         this.sensorId = sensorId;
     }
 
-
-
     @Override
     public String toString() {
         return "CurrentPm{" + "timestamp=" + timestamp + ", pm1=" + pm1 + ", pm25=" + pm25 + ", lat=" + lat + ", lon=" + lon + ", sensorId=" + sensorId + '}';
     }
 
-
-    
 }

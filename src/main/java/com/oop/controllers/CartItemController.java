@@ -1,24 +1,23 @@
 package com.oop.controllers;
 
-import com.oop.dao.UserDao;
 import com.oop.entities.CartItem;
-import com.oop.exceptions.CartItemNotFoundException;
 import com.oop.exceptions.CartNotFoundException;
 import com.oop.exceptions.UserNotFoundException;
-import com.oop.services.ICartItemService;
-import com.oop.services.ICartService;
+import com.oop.services.interfaces.ICartItemService;
+import com.oop.services.interfaces.ICartService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.oop.dao.IUserDao;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- *
- * @author orestis
- */
 @RestController
 @RequestMapping("/carts/items")
 public class CartItemController {
@@ -30,7 +29,7 @@ public class CartItemController {
     ICartService cartService;
     
     @Autowired
-    UserDao userService;
+    IUserDao userService;
     
     @RequestMapping(value = "/{cardId}", method = RequestMethod.GET, produces = "application/json")
     public List<CartItem> readByCartId(@PathVariable long cardId){
@@ -38,7 +37,8 @@ public class CartItemController {
         return cartItemService.getByCartId(cardId);
     }
     
-    @RequestMapping(value = "/{cartId}/{productId}/{quantity}", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value = "/{cartId}/{productId}/{quantity}")
+    @ResponseStatus(CREATED)
     public CartItem createCartItem(@PathVariable long cartId, @PathVariable long productId, @PathVariable int quantity) {
         CartItem cartItem = new CartItem();
         if (cartService.existsById(cartId) == false) {
@@ -56,9 +56,9 @@ public class CartItemController {
 //        return updateCartItem;
 //    }
     
-    
-    @RequestMapping(value = "/{cartItemId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{cartItemId}")
+    @ResponseStatus(NO_CONTENT)
     public void deleteCartItemById(@PathVariable long cartItemId){
         cartItemService.deleteById(cartItemId);
     }
-}//create save update @requestbody cart cart
+}
