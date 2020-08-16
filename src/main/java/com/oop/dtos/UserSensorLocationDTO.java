@@ -5,6 +5,7 @@ public class UserSensorLocationDTO {
 
 
     private String userId;
+    private String sensorLocationId;
     private String registered;
     private String label;
     private String lat;
@@ -52,6 +53,14 @@ public class UserSensorLocationDTO {
 
     public void setLon(String lon) {
         this.lon = lon;
+    }
+
+    public String getSensorLocationId() {
+        return sensorLocationId;
+    }
+
+    public void setSensorLocationId(String sensorLocationId) {
+        this.sensorLocationId = sensorLocationId;
     }
 
     @Override

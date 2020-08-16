@@ -16,7 +16,7 @@ public class UserSensorLocationsDaoImpl implements IUserSensorLocationDao{
 
     public List<UserSensorLocationDTO> getUserSensorLocations(long userId) {
         String query = String.format("SELECT \n"
-                + "    registered, users_id,label, lat, lon\n"
+                + "    registered, users_id,label, lat, lon, sensors_locations.id\n"
                 + "FROM\n"
                 + "    sold_sensors_users,\n"
                 + "    sensors_locations\n"
@@ -33,6 +33,7 @@ public class UserSensorLocationsDaoImpl implements IUserSensorLocationDao{
                 userSensorLocation.setLabel(rs.getString(3));
                 userSensorLocation.setLat(rs.getString(4));
                 userSensorLocation.setLon(rs.getString(5));
+                userSensorLocation.setSensorLocationId(rs.getString(6));
                 userSensorLocations.add(userSensorLocation);
                 System.out.println(userSensorLocation);
             }
