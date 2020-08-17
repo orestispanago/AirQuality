@@ -6,7 +6,7 @@ from jsons import user, productType, product, soldsensoruser, sensorlocations
 
 class Request:
     def __init__(self, endpoint, dict):
-        self.endpoint="http://localhost:8080"+endpoint
+        self.endpoint="http://173.249.63.213:8080"+endpoint
         self.dict = dict
     def post(self):
         response = requests.post(self.endpoint, json=self.dict)
