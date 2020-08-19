@@ -39,12 +39,12 @@ public class CurrentPmDaoImpl implements ICurrentPmDao {
             ResultSet rs = db.getResults(query);
             while (rs.next()) {
                 CurrentPmDTO currentPm = new CurrentPmDTO();
-                currentPm.setTimestamp(rs.getString(1));
-                currentPm.setPm1(rs.getString(2));
-                currentPm.setPm25(rs.getString(3));
-                currentPm.setLat(rs.getString(4));
-                currentPm.setLon(rs.getString(5));
-                currentPm.setSensorId(rs.getString(6));
+                currentPm.setTimestamp(rs.getDate(1));
+                currentPm.setPm1(rs.getLong(2));
+                currentPm.setPm25(rs.getLong(3));
+                currentPm.setLat(rs.getLong(4));
+                currentPm.setLon(rs.getLong(5));
+                currentPm.setSensorId(rs.getLong(6));
                 currentPms.add(currentPm);
                 System.out.println(currentPm);
             }

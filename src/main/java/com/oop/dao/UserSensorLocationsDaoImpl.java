@@ -28,12 +28,12 @@ public class UserSensorLocationsDaoImpl implements IUserSensorLocationDao{
             ResultSet rs = Database.getResults(query);
             while (rs.next()) {
                 UserSensorLocationDTO userSensorLocation = new UserSensorLocationDTO();
-                userSensorLocation.setRegistered(rs.getString(1));
-                userSensorLocation.setUserId(rs.getString(2));
+                userSensorLocation.setRegistered(rs.getBoolean(1));
+                userSensorLocation.setUserId(rs.getLong(2));
                 userSensorLocation.setLabel(rs.getString(3));
-                userSensorLocation.setLat(rs.getString(4));
-                userSensorLocation.setLon(rs.getString(5));
-                userSensorLocation.setSensorLocationId(rs.getString(6));
+                userSensorLocation.setLat(rs.getFloat(4));
+                userSensorLocation.setLon(rs.getFloat(5));
+                userSensorLocation.setSensorLocationId(rs.getLong(6));
                 userSensorLocations.add(userSensorLocation);
                 System.out.println(userSensorLocation);
             }
