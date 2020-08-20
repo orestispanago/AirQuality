@@ -13,8 +13,6 @@ services:
     restart: always
     environment:
      - MYSQL_ROOT_PASSWORD=root
-    networks: 
-    - foodtrucks-net
 
   back:
       build:
@@ -24,8 +22,4 @@ services:
       - mysql-service
       ports:
       - "8080:8080"
-      networks: 
-      - foodtrucks-net
-networks:
-  foodtrucks-net:
-    driver: bridge
+
