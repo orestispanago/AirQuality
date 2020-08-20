@@ -1,0 +1,31 @@
+# Make sure to copy files before calling docker-compose to avoid permission issues
+
+version: "3"
+
+services:
+  mysql-service:
+    image: mysql:latest
+    user: "$UID:$GID"
+    volumes:
+     - ./volumes/mysql:/var/lib/mysql
+    ports: 
+    - "3306:3306"
+    restart: always
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+    networks: 
+    - foodtrucks-net
+
+  back:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      depends_on:
+      - mysql-service
+      ports:
+      - "8080:8080"
+      networks: 
+      - foodtrucks-net
+networks:
+  foodtrucks-net:
+    driver: bridge
