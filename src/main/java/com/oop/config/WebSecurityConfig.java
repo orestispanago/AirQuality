@@ -56,13 +56,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/products/**").hasAuthority("ROLE_ADMIN") // Testing
                 .antMatchers("/authenticate", "/register",
-                        "/", "/map", "/greeting", "/user/**",
+                        "/", "/user/**",
                         "/pm/**", "/co/**", "/sensorlocation/**","/orders/**",
                         "/productuser", "/product-types/**","/soldsensoruser/**",
                         "/current",
                         "/carts/**", "/userplan", "/users/**","/plans/**", "/subscriptions/**", 
                         "/paypal/**",
-                        "/sendmail", "/products/**","/static/**","/**").permitAll().
+                        "/sendmail", "/products/**","/static/**").permitAll().
                 // all other requests need to be authenticated
                 anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

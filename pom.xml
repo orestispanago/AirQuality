@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+    <basedir>.</basedir>
     </properties>
 <build>
   <plugins>
@@ -84,10 +85,10 @@
        <goal>copy-resources</goal>
       </goals>
       <configuration>
-       <outputDirectory>/home/orestis/Projects/AirQuality/target/classes/resources</outputDirectory>
+       <outputDirectory>${basedir}/target/classes/resources</outputDirectory>
        <resources>
         <resource>
-         <directory>/home/orestis/Projects/AirQuality/src/main/ui/build</directory>
+         <directory>${basedir}/src/main/ui/build</directory>
          <filtering>true</filtering>
         </resource>
        </resources>
