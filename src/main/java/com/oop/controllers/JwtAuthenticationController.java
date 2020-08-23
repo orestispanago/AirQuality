@@ -18,7 +18,7 @@ import org.springframework.security.core.Authentication;
 import com.oop.config.JwtTokenUtil;
 import com.oop.models.JwtRequest;
 import com.oop.models.JwtResponse;
-import com.oop.entities.UserDTO;
+import com.oop.dtos.UserDTO;
 import com.oop.exceptions.UsernameAlreadyExistsException;
 import java.util.List;
 import java.util.stream.Collectors;

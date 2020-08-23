@@ -1,4 +1,4 @@
-package com.oop.entities;
+package com.oop.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Set;

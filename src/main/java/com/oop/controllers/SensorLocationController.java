@@ -1,8 +1,9 @@
 package com.oop.controllers;
 
+import com.oop.dtos.SensorToRegisterDTO;
 import com.oop.entities.SensorLocation;
 import com.oop.dtos.UserSensorLocationDTO;
-import com.oop.services.SensorLocationServiceImpl;
+import com.oop.services.interfaces.ISensorLocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SensorLocationController {
 
     @Autowired
-    SensorLocationServiceImpl sensorLocationService;
+    ISensorLocationService sensorLocationService;
     
     @GetMapping("/{username}")
     public List<UserSensorLocationDTO> getRegisteredSensorLocationsByUsername(@PathVariable String username){ //TODO add userId argument
@@ -32,8 +33,8 @@ public class SensorLocationController {
     
     @PostMapping
     @ResponseStatus(CREATED)
-    public SensorLocation saveSensorLocation(@RequestBody SensorLocation sl) {
-        return sensorLocationService.save(sl);
+    public SensorLocation save(@RequestBody SensorToRegisterDTO sensorToRegister) {
+        return sensorLocationService.save(sensorToRegister);
     }
 
     @DeleteMapping
