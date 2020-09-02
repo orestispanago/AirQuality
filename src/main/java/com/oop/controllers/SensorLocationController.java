@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,10 +26,10 @@ public class SensorLocationController {
         return sensorLocationService.getUserSensorLocations(username);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{sensorLocationId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteSensor(@RequestBody UserSensorLocationDTO userSensorLocation) {
-        sensorLocationService.delete(userSensorLocation);
+    public void deleteBySensorLocationId(@PathVariable long sensorLocationId) {
+        sensorLocationService.deleteBySensorLocationId(sensorLocationId);
     }
     
 }

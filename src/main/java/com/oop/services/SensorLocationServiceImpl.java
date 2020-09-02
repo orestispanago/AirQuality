@@ -54,9 +54,8 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
     }
 
     @Override
-    public void delete(UserSensorLocationDTO userSensorLocation) {
-        long sensorLocationId = userSensorLocation.getSensorLocationId();
-        SensorLocation sensorLocation = sensorLocationDao.findById(sensorLocationId).orElseThrow(SensorLocationNotFoundException::new);;
+    public void deleteBySensorLocationId(long sensorLocationId) {
+        SensorLocation sensorLocation = sensorLocationDao.findById(sensorLocationId).orElseThrow(SensorLocationNotFoundException::new);
         sensorLocation.getSoldSensor().setRegistered(false);
         sensorLocationDao.delete(sensorLocation);
     }
