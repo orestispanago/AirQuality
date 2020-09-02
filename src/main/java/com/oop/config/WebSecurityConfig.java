@@ -62,7 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/current",
                         "/carts/**", "/userplan", "/users/**","/plans/**", "/subscriptions/**", 
                         "/paypal/**",
-                        "/sendmail", "/products/**","/static/**").permitAll().
+                        "/sendmail", "/products/**","/static/**",
+                        "/sensor-registration").permitAll().
                 // all other requests need to be authenticated
                 anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

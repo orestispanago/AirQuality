@@ -35,7 +35,6 @@ public class UserSensorLocationsDaoImpl implements IUserSensorLocationDao{
                 userSensorLocation.setLon(rs.getFloat(5));
                 userSensorLocation.setSensorLocationId(rs.getLong(6));
                 userSensorLocations.add(userSensorLocation);
-                System.out.println(userSensorLocation);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserSensorLocationsDaoImpl.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,6 +1,5 @@
 package com.oop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

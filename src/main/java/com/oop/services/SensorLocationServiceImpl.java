@@ -3,7 +3,6 @@ package com.oop.services;
 import com.oop.dao.UserSensorLocationsDaoImpl;
 import com.oop.services.interfaces.ISensorLocationService;
 import com.oop.dao.ISensorLocationDao;
-import com.oop.entities.AppUser;
 import com.oop.entities.SensorLocation;
 import com.oop.entities.SoldSensor;
 import com.oop.exceptions.SensorLocationNotFoundException;
@@ -34,11 +33,6 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
 
     IUserSensorLocationDao userSensorLocationDao = new UserSensorLocationsDaoImpl();
 
-    @Override
-    public SensorLocation getById(long sensorLocationId) {
-        return sensorLocationDao.findById(sensorLocationId).orElseThrow(SensorLocationNotFoundException::new);
-    }
-
 
     @Override
     public SensorLocation save(SensorToRegisterDTO sensorToRegister) {
@@ -54,17 +48,19 @@ public class SensorLocationServiceImpl implements ISensorLocationService {
     }
 
     @Override
-    public void delete(SensorLocation sensorLocation) {
-        if (!sensorLocationDao.existsById(sensorLocation.getId())) {
-            throw new SensorLocationNotFoundException();
-        }
-        sensorLocationDao.delete(sensorLocation);
-    }
-
-    @Override
     public List<UserSensorLocationDTO> getUserSensorLocations(String username) {
         long userId = userService.getByUsername(username).getId();
         return userSensorLocationDao.getUserSensorLocations(userId);
     }
+
+    @Override
+    public void delete(UserSensorLocationDTO userSensorLocation) {
+        long sensorLocationId = userSensorLocation.getSensorLocationId();
+        SensorLocation sensorLocation = sensorLocationDao.findById(sensorLocationId).orElseThrow(SensorLocationNotFoundException::new);;
+        sensorLocation.getSoldSensor().setRegistered(false);
+        sensorLocationDao.delete(sensorLocation);
+    }
+
+
 
 }
