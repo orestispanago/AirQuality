@@ -40,10 +40,10 @@ public class CurrentPmDaoImpl implements ICurrentPmDao {
             while (rs.next()) {
                 CurrentPmDTO currentPm = new CurrentPmDTO();
                 currentPm.setTimestamp(rs.getDate(1));
-                currentPm.setPm1(rs.getLong(2));
-                currentPm.setPm25(rs.getLong(3));
-                currentPm.setLat(rs.getLong(4));
-                currentPm.setLon(rs.getLong(5));
+                currentPm.setPm1(rs.getFloat(2));
+                currentPm.setPm25(rs.getFloat(3));
+                currentPm.setLat(rs.getFloat(4));
+                currentPm.setLon(rs.getFloat(5));
                 currentPm.setSensorId(rs.getLong(6));
                 currentPms.add(currentPm);
                 System.out.println(currentPm);
