@@ -1,19 +1,22 @@
 package com.oop.dtos;
 
+import java.util.Date;
+
 public class CurrentPmDTO{
 
     private long id;
-    private String timestamp;
-    private String pm1;
-    private String pm25;
-    private String lat;
-    private String lon;
-    private String sensorId;
+    private Date timestamp;
+    private float pm1;
+    private float pm25;
+    private float lat;
+    private float lon;
+    private long sensorId;
 
     public CurrentPmDTO() {
     }
 
-    public CurrentPmDTO(String timestamp, String pm1, String pm25, String lat, String lon, String sensorId) {
+    public CurrentPmDTO(long id, Date timestamp, float pm1, float pm25, float lat, float lon, long sensorId) {
+        this.id = id;
         this.timestamp = timestamp;
         this.pm1 = pm1;
         this.pm25 = pm25;
@@ -22,57 +25,66 @@ public class CurrentPmDTO{
         this.sensorId = sensorId;
     }
 
-    public String getTimestamp() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
-    public String getPm1() {
+    public float getPm1() {
         return pm1;
     }
 
-    public void setPm1(String pm1) {
+    public void setPm1(float pm1) {
         this.pm1 = pm1;
     }
 
-    public String getPm25() {
+    public float getPm25() {
         return pm25;
     }
 
-    public void setPm25(String pm25) {
+    public void setPm25(float pm25) {
         this.pm25 = pm25;
     }
 
-    public String getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 
-    public String getLon() {
+    public float getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(float lon) {
         this.lon = lon;
     }
 
-    public String getSensorId() {
+    public long getSensorId() {
         return sensorId;
     }
 
-    public void setSensorId(String sensorId) {
+    public void setSensorId(long sensorId) {
         this.sensorId = sensorId;
     }
 
     @Override
     public String toString() {
-        return "CurrentPm{" + "timestamp=" + timestamp + ", pm1=" + pm1 + ", pm25=" + pm25 + ", lat=" + lat + ", lon=" + lon + ", sensorId=" + sensorId + '}';
+        return "CurrentPmDTO{" + "id=" + id + ", timestamp=" + timestamp + ", pm1=" + pm1 + ", pm25=" + pm25 + ", lat=" + lat + ", lon=" + lon + ", sensorId=" + sensorId + '}';
     }
+
 
 }

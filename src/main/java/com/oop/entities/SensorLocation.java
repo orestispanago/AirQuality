@@ -23,7 +23,7 @@ public class SensorLocation implements Serializable {
     
     private String label;
     
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JsonProperty
     @JoinColumn(name = "sold_sensors_id", referencedColumnName = "id")
     private SoldSensor soldSensor;

@@ -51,18 +51,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
-        httpSecurity.csrf().disable()
+        httpSecurity.headers().frameOptions().sameOrigin().and().csrf().disable()
                 // dont authenticate this particular request
                 .authorizeRequests()
 //                .antMatchers("/products/**").hasAuthority("ROLE_ADMIN") // Testing
                 .antMatchers("/authenticate", "/register",
-                        "/", "/map", "/greeting", "/user/**",
+                        "/", "/user/**",
                         "/pm/**", "/co/**", "/sensorlocation/**","/orders/**",
                         "/productuser", "/product-types/**","/soldsensoruser/**",
                         "/current",
                         "/carts/**", "/userplan", "/users/**","/plans/**", "/subscriptions/**", 
                         "/paypal/**",
-                        "/sendmail", "/products/**").permitAll().
+                        "/sendmail", "/products/**","/static/**",
+                        "/sensor-registration").permitAll().
                 // all other requests need to be authenticated
                 anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

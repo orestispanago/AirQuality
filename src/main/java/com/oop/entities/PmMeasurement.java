@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "pm_measurements")
@@ -21,9 +23,10 @@ public class PmMeasurement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JsonProperty
-    @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id",updatable = false)
+    @JoinColumn(name = "sensors_locations_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE) // TODO set ddl-auto=create-drop
     private SensorLocation sensorLocation;
 //
 //    @Column(name="sensors_locations_id")

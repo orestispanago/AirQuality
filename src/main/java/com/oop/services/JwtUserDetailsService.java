@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.oop.entities.AppUser;
 import com.oop.entities.Role;
-import com.oop.entities.UserDTO;
+import com.oop.dtos.UserDTO;
 import com.oop.models.ERole;
 import java.util.HashSet;
 import java.util.Set;

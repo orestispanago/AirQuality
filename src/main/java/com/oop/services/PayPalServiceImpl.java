@@ -42,8 +42,8 @@ public class PayPalServiceImpl implements IPayPalService{
         payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:3000/cancel");
-        redirectUrls.setReturnUrl("http://localhost:3000/complete-payment");
+        redirectUrls.setCancelUrl("http://localhost:3001/cancel");
+        redirectUrls.setReturnUrl("http://localhost:3001/complete-payment");
         payment.setRedirectUrls(redirectUrls);
         Payment createdPayment;
         try {

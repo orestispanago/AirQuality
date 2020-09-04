@@ -6,7 +6,7 @@ user = {
 }
 
 productType = {
-    "type": "Product type 1"
+    "type": "CO2 sensor"
 }
 
 product = {

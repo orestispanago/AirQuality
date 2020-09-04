@@ -1,32 +1,40 @@
 package com.oop.dtos;
 
-
 public class UserSensorLocationDTO {
 
-
-    private String userId;
-    private String registered;
+    private long userId;
+    private long sensorLocationId;
+    private boolean registered;
     private String label;
-    private String lat;
-    private String lon;
-
+    private float lat;
+    private float lon;
+    private String productType;
+    private long soldSensorId;
 
     public UserSensorLocationDTO() {
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    public String getRegistered() {
+    public long getSensorLocationId() {
+        return sensorLocationId;
+    }
+
+    public void setSensorLocationId(long sensorLocationId) {
+        this.sensorLocationId = sensorLocationId;
+    }
+
+    public boolean isRegistered() {
         return registered;
     }
 
-    public void setRegistered(String registered) {
+    public void setRegistered(boolean registered) {
         this.registered = registered;
     }
 
@@ -38,26 +46,41 @@ public class UserSensorLocationDTO {
         this.label = label;
     }
 
-    public String getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 
-    public String getLon() {
+    public float getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(float lon) {
         this.lon = lon;
+    }
+
+    public long getSoldSensorId() {
+        return soldSensorId;
+    }
+
+    public void setSoldSensorId(long soldSensorId) {
+        this.soldSensorId = soldSensorId;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     @Override
     public String toString() {
-        return "UserSensorLocation{" + "userId=" + userId + ", registered=" + registered + ", label=" + label + ", lat=" + lat + ", lon=" + lon + '}';
+        return "UserSensorLocationDTO{" + "userId=" + userId + ", sensorLocationId=" + sensorLocationId + ", registered=" + registered + ", label=" + label + ", lat=" + lat + ", lon=" + lon + ", soldSensorId=" + soldSensorId + ", productType=" + productType + '}';
     }
 
-    
 }
