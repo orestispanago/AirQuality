@@ -10,7 +10,7 @@ class Request:
         self.dict = dict
     def post(self):
         response = requests.post(self.endpoint, json=self.dict)
-        print("Status code: ", response.status_code)
+        # print("Status code: ", response.status_code)
         # print("Printing Entire Post Request")
         # print(json.dumps(response.json(),indent=4, sort_keys=False))
 
@@ -37,16 +37,20 @@ def random_measurement(sensorLocationId):
         "pm1": sensorLocationId+12+random.uniform(2, 5),
         "pm25": sensorLocationId+3+random.uniform(2, 7)
     }
-    print(pm.get("sensorLocation").get("id"),pm.get("pm1"), pm.get("pm25"))
+    # print(pm.get("sensorLocation").get("id"),pm.get("pm1"), pm.get("pm25"))
     return pm
 
 
-try:
-    post_chain()
-    for i in range(1000):
-        for sensorLocationId in range(1, (len(sensorlocations)+1)):
-            Request("/pm",random_measurement(sensorLocationId)).post()
-        time.sleep(3)
-
-except KeyboardInterrupt:
-    print("\nExiting nicely...")
+# try:
+#     # post_chain()
+#     while True:
+#         for sensorLocationId in range(1, (len(sensorlocations)+1)):
+#             Request("/pm",random_measurement(sensorLocationId)).post()
+#         time.sleep(60)
+#
+# except KeyboardInterrupt:
+#     print("\nExiting nicely...")
+while True:
+    for sensorLocationId in range(1, (len(sensorlocations)+1)):
+        Request("/pm",random_measurement(sensorLocationId)).post()
+    time.sleep(60)
