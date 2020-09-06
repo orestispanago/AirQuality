@@ -50,7 +50,5 @@ def random_measurement(sensorLocationId):
 #
 # except KeyboardInterrupt:
 #     print("\nExiting nicely...")
-while True:
-    for sensorLocationId in range(1, (len(sensorlocations)+1)):
-        Request("/pm",random_measurement(sensorLocationId)).post()
-    time.sleep(60)
+for sensorLocationId in range(1, (len(sensorlocations)+1)):
+    Request("/pm",random_measurement(sensorLocationId)).post()
