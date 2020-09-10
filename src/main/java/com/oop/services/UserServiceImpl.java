@@ -20,14 +20,6 @@ public class UserServiceImpl implements IUserService {
         return userDao.findById(userId).orElseThrow(()-> new UserNotFoundException());
     }
 
-    @Override
-    @ResponseStatus(NO_CONTENT)
-    public String deleteById(long userId) {
-        AppUser user = getById(userId);        
-        userDao.delete(user);
-        return user.getUsername();
-    }
-    
     public AppUser getByUsername(String username){
         AppUser user = userDao.findByUsername(username);
         if (user == null) throw new UserNotFoundException();

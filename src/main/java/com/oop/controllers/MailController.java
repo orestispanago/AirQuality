@@ -1,9 +1,7 @@
 package com.oop.controllers;
 
-import com.oop.entities.SensorLocation;
 import com.oop.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +19,7 @@ public class MailController {
     @RequestMapping(value = "/sendmail", method = RequestMethod.GET)
     public String sendMail() {
 //        String from = "orestis.raspberry@gmail.com";
-        String subject = "Dickpics from your awesome springboot app";
+        String subject = "Duckpics from your awesome springboot app";
         String toAddresses = "orestispanago@gmail.com";
         String body = "<html> <body><h1>Rendered HTML, plain text is for boootsam </h1> </body></html>";
         emailService.sendMail(subject, toAddresses, body);
