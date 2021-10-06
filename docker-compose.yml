@@ -4,22 +4,63 @@ version: "3"
 
 services:
   mysql-service:
+    container_name: mysql-service
     image: mysql:latest
-    user: "$UID:$GID"
+    user: "1000:1000"
     volumes:
      - ./volumes/mysql:/var/lib/mysql
     ports: 
-    - "3306:3306"
+    - "3312:3306"
     restart: always
     environment:
      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      aq_network:
+        ipv4_address: 172.24.0.2
+
+  grafana:
+    container_name: aq_grafana_container
+    image: grafana/grafana:6.5.0
+    ports:
+      - 3000:3000
+    user: "1000:1000"
+    depends_on:
+    - mysql-service
+    volumes:
+      - ./volumes/grafana:/var/lib/grafana
+    networks:
+      aq_network:
+        ipv4_address: 172.24.0.3
 
   back:
-      build:
-        context: .
-        dockerfile: Dockerfile
-      depends_on:
-      - mysql-service
-      ports:
-      - "8080:8080"
+    container_name: aq_java_container
+    build: .
+    depends_on:
+    - mysql-service
+    ports:
+    - "8080:8080"
+    networks:
+      aq_network:
+        ipv4_address: 172.24.0.4
 
+  react:
+    container_name: aq_react_container
+    stdin_open: true
+    tty: true
+    build: ../AirQuality-Front-End/
+    depends_on:
+    - back
+    - grafana
+    environment:
+      - PORT=3001
+    ports:
+      - "3001:3001"
+    networks:
+      aq_network:
+        ipv4_address: 172.24.0.5
+
+networks:
+  aq_network:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/24

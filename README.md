@@ -21,3 +21,8 @@ Access to premium is granted either by paying a subscription of 1.99/mo or by bu
 1. Websockets chat
 1. Paypal
 1. SMTP Mail
+
+### Deployment
+* Use the ```docker-compose``` file. 
+
+* Builds [AirQuality-Front-End](https://github.com/OrestisTanis/AirQuality-Front-End) project as well. Must be next to the ```AirQuality``` folder 
