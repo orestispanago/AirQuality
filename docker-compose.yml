@@ -3,8 +3,8 @@
 version: "3"
 
 services:
-  mysql-service:
-    container_name: mysql-service
+  aq_mysql:
+    container_name: aq_mysql_container
     image: mysql:latest
     user: "1000:1000"
     volumes:
@@ -18,46 +18,56 @@ services:
       aq_network:
         ipv4_address: 172.24.0.2
 
-  grafana:
+  aq_grafana:
     container_name: aq_grafana_container
     image: grafana/grafana:6.5.0
     ports:
       - 3000:3000
     user: "1000:1000"
     depends_on:
-    - mysql-service
+    - aq_mysql
     volumes:
       - ./volumes/grafana:/var/lib/grafana
     networks:
       aq_network:
         ipv4_address: 172.24.0.3
 
-  back:
+  aq_java:
     container_name: aq_java_container
     build: .
     depends_on:
-    - mysql-service
+    - aq_mysql
     ports:
     - "8080:8080"
     networks:
       aq_network:
         ipv4_address: 172.24.0.4
 
-  react:
-    container_name: aq_react_container
-    stdin_open: true
-    tty: true
-    build: ../AirQuality-Front-End/
-    depends_on:
-    - back
-    - grafana
-    environment:
-      - PORT=3001
-    ports:
-      - "3001:3001"
-    networks:
+  # react:
+  #   container_name: aq_react_container
+  #   stdin_open: true
+  #   tty: true
+  #   build: ../AirQuality-Front-End/
+  #   depends_on:
+  #   - aq_java
+  #   - grafana
+  #   environment:
+  #     - PORT=3001
+  #   ports:
+  #     - "3001:3001"
+  #   networks:
+  #     aq_network:
+  #       ipv4_address: 172.24.0.5
+
+  aq_nginx:
+   container_name: aq_nginx_container
+   restart: always
+   build: ../AirQuality-Front-End/
+   ports:
+     - "88:88"
+   networks:
       aq_network:
-        ipv4_address: 172.24.0.5
+        ipv4_address: 172.24.0.6
 
 networks:
   aq_network:
